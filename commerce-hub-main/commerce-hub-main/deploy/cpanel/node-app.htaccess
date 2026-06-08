@@ -1,0 +1,11 @@
+# Passenger / cPanel "Setup Node.js App" — place in the Node application root if the wizard does not create one.
+# Replace YOUR_CPANEL_USER and paths with values from cPanel → Setup Node.js App.
+
+PassengerEnabled on
+PassengerAppRoot /home/YOUR_CPANEL_USER/biolinks-api
+PassengerAppType node
+PassengerStartupFile src/index.js
+PassengerNodejs /opt/alt/alt-nodejs20/root/usr/bin/node
+
+# If the API is mounted at https://yourdomain.com/api (subfolder):
+# PassengerBaseURI /api

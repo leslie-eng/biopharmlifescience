@@ -1,0 +1,14 @@
+{
+  "name": "commerce-hub-main-wrapper",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix commerce-hub-main run dev",
+    "build": "npm --prefix commerce-hub-main run build && node -e \"const fs=require('fs'); fs.rmSync('dist',{recursive:true,force:true}); fs.cpSync('commerce-hub-main/dist','dist',{recursive:true});\"",
+    "preview": "npm --prefix commerce-hub-main run preview",
+    "start": "npm --prefix commerce-hub-main run preview -- --host 0.0.0.0",
+    "postinstall": "npm --prefix commerce-hub-main install"
+  },
+  "dependencies": {
+    "vite": "^8.0.16"
+  }
+}

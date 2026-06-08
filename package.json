@@ -1,0 +1,9 @@
+{
+  "name": "biolinks-commerce-os",
+  "version": "1.0.0",
+  "description": "Biolinks ecommerce operations dashboard with Node.js backend and relational schema",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  }
+}

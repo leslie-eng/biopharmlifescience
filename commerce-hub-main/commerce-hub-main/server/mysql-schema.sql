@@ -1,0 +1,111 @@
+-- Biolinks Commerce — MySQL schema for cPanel (MariaDB compatible)
+-- Import via phpMyAdmin or: mysql -u USER -p DATABASE < mysql-schema.sql
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE TABLE IF NOT EXISTS users (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  email_confirmed_at DATETIME NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS profiles (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  full_name VARCHAR(255) NULL,
+  email VARCHAR(255) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_profiles_user FOREIGN KEY (id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS user_roles (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  user_id CHAR(36) NOT NULL,
+  role ENUM('admin', 'staff', 'customer') NOT NULL,
+  UNIQUE KEY uq_user_role (user_id, role),
+  CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS products (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  description TEXT NULL,
+  category VARCHAR(120) NULL,
+  price DECIMAL(12, 2) NOT NULL DEFAULT 0,
+  cost DECIMAL(12, 2) NOT NULL DEFAULT 0,
+  stock INT NOT NULL DEFAULT 0,
+  unit VARCHAR(40) NULL DEFAULT 'unit',
+  image_url TEXT NULL,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS clients (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  full_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NULL,
+  phone VARCHAR(50) NULL,
+  address TEXT NULL,
+  notes TEXT NULL,
+  notify_on_restock TINYINT(1) NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS orders (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  order_number VARCHAR(40) NOT NULL UNIQUE,
+  client_id CHAR(36) NULL,
+  customer_name VARCHAR(255) NULL,
+  customer_email VARCHAR(255) NULL,
+  customer_phone VARCHAR(50) NULL,
+  status ENUM('pending', 'paid', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded') NOT NULL DEFAULT 'pending',
+  payment_method ENUM('mpesa', 'cash', 'bank', 'other') NULL DEFAULT 'mpesa',
+  subtotal DECIMAL(12, 2) NOT NULL DEFAULT 0,
+  total DECIMAL(12, 2) NOT NULL DEFAULT 0,
+  mpesa_receipt VARCHAR(120) NULL,
+  notes TEXT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_orders_client FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  order_id CHAR(36) NOT NULL,
+  product_id CHAR(36) NULL,
+  product_name VARCHAR(255) NOT NULL,
+  unit_price DECIMAL(12, 2) NOT NULL,
+  quantity INT NOT NULL,
+  line_total DECIMAL(12, 2) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  CONSTRAINT fk_order_items_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS expenses (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  category VARCHAR(120) NOT NULL,
+  description TEXT NULL,
+  amount DECIMAL(12, 2) NOT NULL,
+  occurred_on DATE NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS stock_interest (
+  id CHAR(36) NOT NULL PRIMARY KEY,
+  product_id CHAR(36) NOT NULL,
+  client_id CHAR(36) NULL,
+  email VARCHAR(255) NOT NULL,
+  notified TINYINT(1) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_stock_interest (product_id, email),
+  CONSTRAINT fk_stock_interest_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+  CONSTRAINT fk_stock_interest_client FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biolinks Commerce OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/biolinks/styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="/biolinks logo.jpeg" alt="Biolinks Solutions EA logo" class="brand-logo" />
+        <div>
+          <p class="eyebrow">Biolinks Commerce OS</p>
+          <h1>Operations Hub</h1>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#overview" class="nav-link active">Overview</a>
+        <a href="#orders" class="nav-link">Orders</a>
+        <a href="#sales" class="nav-link">Sales</a>
+        <a href="#clients" class="nav-link">Clients</a>
+        <a href="#finance" class="nav-link">Finances</a>
+        <a href="#inventory" class="nav-link">Inventory</a>
+        <a href="#reports" class="nav-link">Reports</a>
+        <a href="#schema" class="nav-link">Schema</a>
+      </nav>
+
+      <section class="sidebar-card">
+        <p class="eyebrow">Business Pulse</p>
+        <h2>Advanced reporting built in</h2>
+        <p>Track margin, repeat orders, customer lifetime value, cash flow, and channel performance in one workflow.</p>
+      </section>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">East Africa Commerce Platform</p>
+          <h2>End-to-end ecommerce management for sales, orders, clients, and finance</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="ghost-btn" type="button">Export Snapshot</button>
+          <button class="primary-btn" type="button">Create Order</button>
+        </div>
+      </header>
+
+      <section id="overview" class="hero-panel">
+        <div class="hero-copy">
+          <span class="pill">Profile-inspired executive dashboard</span>
+          <h3>Designed around Biolinks brand language with a clean, credible, enterprise-ready operations experience.</h3>
+          <p>
+            This concept combines ecommerce execution with financial visibility: order orchestration, product performance,
+            customer intelligence, receivables, and management reporting in one web app.
+          </p>
+        </div>
+        <div class="hero-metrics" id="heroMetrics"></div>
+      </section>
+
+      <section class="metrics-grid" id="metricsGrid"></section>
+
+      <section class="panel-grid">
+        <article id="orders" class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Order Management</p>
+              <h3>Recent orders</h3>
+            </div>
+            <span class="badge">Live queue</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Client</th>
+                  <th>Status</th>
+                  <th>Channel</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTable"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article id="sales" class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Sales Analytics</p>
+              <h3>Monthly revenue</h3>
+            </div>
+          </div>
+          <div id="salesChart" class="bars"></div>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article id="clients" class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Client Intelligence</p>
+              <h3>Top customers</h3>
+            </div>
+          </div>
+          <div id="clientsList" class="stack-list"></div>
+        </article>
+
+        <article id="finance" class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Finance Desk</p>
+              <h3>Cash and receivables</h3>
+            </div>
+          </div>
+          <div id="financeCards" class="finance-grid"></div>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article id="inventory" class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Inventory Control</p>
+              <h3>Stock watchlist</h3>
+            </div>
+          </div>
+          <div id="inventoryList" class="stack-list"></div>
+        </article>
+
+        <article id="reports" class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Reporting & Analytics</p>
+              <h3>Executive insights</h3>
+            </div>
+          </div>
+          <div id="insightsList" class="insight-list"></div>
+        </article>
+      </section>
+
+      <section id="schema" class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Architecture</p>
+            <h3>Ecommerce schema coverage</h3>
+          </div>
+        </div>
+        <div class="schema-grid">
+          <div class="schema-card">
+            <h4>Commerce core</h4>
+            <p>Customers, addresses, products, categories, carts, orders, order items, shipments, returns, payments.</p>
+          </div>
+          <div class="schema-card">
+            <h4>Finance layer</h4>
+            <p>Invoices, payment allocations, expenses, ledger accounts, journal entries, tax rules, payouts.</p>
+          </div>
+          <div class="schema-card">
+            <h4>Analytics layer</h4>
+            <p>Channel attribution, daily KPI snapshots, product performance, customer cohorts, stock movement events.</p>
+          </div>
+          <div class="schema-card">
+            <h4>Operations layer</h4>
+            <p>Warehouses, inventory balances, purchase orders, suppliers, fulfillment events, user roles and audit logs.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/biolinks/app.js" defer></script>
+</body>
+</html>
