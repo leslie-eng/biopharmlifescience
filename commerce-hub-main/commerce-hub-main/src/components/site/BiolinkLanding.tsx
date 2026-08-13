@@ -101,7 +101,7 @@ export const BiolinkLanding = () => {
               </Link>
             </div>
 
-            <div className="order-1 lg:order-2 flex flex-col gap-4 lg:relative">
+            <div className="order-1 lg:order-2 flex flex-col items-center gap-4 lg:items-end lg:relative">
               <HeroImageCarousel />
               <div className="glass-panel-teal homepage-stat rounded-2xl px-5 py-4 max-w-full sm:max-w-[220px] lg:absolute lg:-bottom-4 lg:left-4 lg:max-w-[220px]">
                 <p className="homepage-stat-value text-2xl font-serif leading-none">97%</p>

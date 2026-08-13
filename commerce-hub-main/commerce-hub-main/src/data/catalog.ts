@@ -689,8 +689,127 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
   ),
 ];
 
+export type ProductVariant = {
+  slug: string;
+  label: string;
+  brand?: string;
+  measurement?: string;
+  notes?: string[];
+};
+
+export type CatalogProductGroup = {
+  slug: string;
+  name: string;
+  categoryId: string;
+  description: string;
+  imageKey: CatalogImageKey;
+  variants: ProductVariant[];
+};
+
+const IMAGE_KEY_GROUP_NAMES: Record<CatalogImageKey, string> = {
+  default: "Medical equipment",
+  "syringe-2cc": "2cc Syringes",
+  "syringe-5cc": "5cc Syringes",
+  "syringe-10cc": "10cc Syringes",
+  "syringe-20cc": "20cc Syringes",
+  needle: "Hypodermic Needles",
+  "iv-cannula": "IV Cannulas",
+  "iv-giving-set": "IV Giving Sets",
+  "dialysis-dialyzer": "Haemodialysis Dialyzers",
+  "dialysis-catheter": "Dialysis & Vascular Catheters",
+  "dialysis-concentrate": "Dialysis Concentrates & Water Treatment",
+  "gloves-latex": "Latex Examination Gloves",
+  "gloves-nitrile": "Nitrile Gloves",
+  "gloves-surgical": "Sterile Surgical Gloves",
+  "mask-surgical": "Surgical Face Masks",
+  "mask-oxygen": "Oxygen Delivery Masks",
+  linen: "Clinical Linen & Towels",
+  dressing: "Adhesive Dressings & Procedure Kits",
+  "cotton-wool": "Cotton Wool",
+  gauze: "Gauze Rolls",
+  "surgical-blade": "Surgical Blades",
+  "kidney-dish": "Kidney Dishes",
+  gallipot: "Gallipots",
+  spirit: "Surgical Spirit 70%",
+  iodine: "Iodine Solution",
+  disinfectant: "Sodium Hypochlorite Disinfectant",
+  "biohazard-liner": "Biohazard Bin Liners",
+  sharps: "Sharps Disposal Containers",
+  sanitary: "Sanitary Rolls",
+  "test-glucose": "Glucose & HB Test Strips",
+  "test-urinalysis": "Urinalysis Strips",
+  "test-pregnancy": "Pregnancy Tests",
+  "test-rapid": "Rapid Diagnostic Tests",
+  "lab-slides": "Microscope Slides",
+  "lab-vacutainer": "Vacutainer Tubes",
+  "lab-lancet": "Blood Lancets",
+  "lab-specimen": "Specimen Containers",
+  "bp-digital": "Digital Blood Pressure Monitors",
+  "bp-analogue": "Analogue BP Monitors",
+  thermometer: "Clinical Thermometers",
+  "oxygen-regulator": "Oxygen Regulators",
+  autoclave: "Autoclave Machines",
+  "hero-clinic": "Clinical environment",
+};
+
 const productBySlug = new Map(CATALOG_PRODUCTS.map((p) => [p.slug, p]));
 const categoryById = new Map(CATALOG_CATEGORIES.map((c) => [c.id, c]));
+
+function groupSlug(categoryId: string, imageKey: CatalogImageKey): string {
+  return `${categoryId}--${imageKey}`;
+}
+
+function parseVariant(product: CatalogProduct): ProductVariant {
+  const dash = product.name.indexOf(" — ");
+  const brand = dash >= 0 ? product.name.slice(dash + 3).trim() : undefined;
+  const measurement =
+    product.highlights?.find((h) => /(\d|×|gauge|size|m²|ml|cc|cm|g\b|l\b|french|fr\b)/i.test(h)) ??
+    (dash >= 0 ? product.name.slice(0, dash).trim() : undefined);
+
+  return {
+    slug: product.slug,
+    label: product.name,
+    brand,
+    measurement: brand ? measurement : product.name,
+    notes: product.highlights,
+  };
+}
+
+function buildGroupDescription(products: CatalogProduct[], name: string): string {
+  if (products.length === 1) return products[0].description;
+  const lead = products[0].description.replace(/\s*(from|by)\s+[\w\s]+$/i, "").trim();
+  return `${lead} See available brands, measurements, and specifications below.`;
+}
+
+function buildProductGroup(categoryId: string, imageKey: CatalogImageKey, products: CatalogProduct[]): CatalogProductGroup {
+  return {
+    slug: groupSlug(categoryId, imageKey),
+    name: IMAGE_KEY_GROUP_NAMES[imageKey] ?? products[0].name,
+    categoryId,
+    description: buildGroupDescription(products, IMAGE_KEY_GROUP_NAMES[imageKey]),
+    imageKey,
+    variants: products.map(parseVariant),
+  };
+}
+
+const catalogGroups: CatalogProductGroup[] = (() => {
+  const buckets = new Map<string, CatalogProduct[]>();
+  for (const product of CATALOG_PRODUCTS) {
+    const key = `${product.categoryId}::${product.imageKey}`;
+    const list = buckets.get(key) ?? [];
+    list.push(product);
+    buckets.set(key, list);
+  }
+  return [...buckets.entries()].map(([key, products]) => {
+    const [categoryId, imageKey] = key.split("::") as [string, CatalogImageKey];
+    return buildProductGroup(categoryId, imageKey, products);
+  });
+})();
+
+const groupBySlug = new Map(catalogGroups.map((g) => [g.slug, g]));
+const groupByProductSlug = new Map(
+  CATALOG_PRODUCTS.map((p) => [p.slug, groupBySlug.get(groupSlug(p.categoryId, p.imageKey))!]),
+);
 
 export function getCatalogProduct(slug: string): CatalogProduct | undefined {
   return productBySlug.get(slug);
@@ -704,6 +823,25 @@ export function getProductsByCategory(categoryId: string): CatalogProduct[] {
   return CATALOG_PRODUCTS.filter((p) => p.categoryId === categoryId);
 }
 
+export function getProductGroupsByCategory(categoryId: string): CatalogProductGroup[] {
+  return catalogGroups.filter((g) => g.categoryId === categoryId);
+}
+
+export function getCatalogProductGroup(slug: string): CatalogProductGroup | undefined {
+  return groupBySlug.get(slug) ?? groupByProductSlug.get(slug);
+}
+
+export function getGroupForProduct(product: CatalogProduct): CatalogProductGroup {
+  return groupBySlug.get(groupSlug(product.categoryId, product.imageKey))!;
+}
+
+export function getRelatedGroups(group: CatalogProductGroup, limit = 4): CatalogProductGroup[] {
+  return catalogGroups
+    .filter((g) => g.categoryId === group.categoryId && g.slug !== group.slug)
+    .slice(0, limit);
+}
+
+/** @deprecated Use getRelatedGroups — kept for any legacy callers. */
 export function getRelatedProducts(product: CatalogProduct, limit = 4): CatalogProduct[] {
   return CATALOG_PRODUCTS.filter((p) => p.categoryId === product.categoryId && p.slug !== product.slug).slice(
     0,

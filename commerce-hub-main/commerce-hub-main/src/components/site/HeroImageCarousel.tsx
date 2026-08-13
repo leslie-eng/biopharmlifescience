@@ -12,24 +12,12 @@ import { cn } from "@/lib/utils";
 
 const HERO_SLIDES = [
   {
-    src: getCatalogImage("hero-clinic"),
-    alt: "Clean hospital ward prepared for clinical care",
-  },
-  {
-    src: getCatalogImage("syringe-2cc"),
-    alt: "Single-use syringe for precise low-volume clinical injections",
-  },
-  {
     src: getCatalogImage("gloves-nitrile"),
     alt: "Nitrile examination gloves for infection control",
   },
   {
     src: getCatalogImage("mask-surgical"),
     alt: "Surgical face masks for droplet protection in clinics",
-  },
-  {
-    src: getCatalogImage("disinfectant"),
-    alt: "Hospital-grade disinfectant for surface hygiene",
   },
   {
     src: getCatalogImage("biohazard-liner"),
@@ -68,34 +56,36 @@ export const HeroImageCarousel = () => {
   }, [api]);
 
   return (
-    <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:min-h-[420px] rounded-3xl overflow-hidden shadow-elegant bg-muted">
+    <div className="relative mx-auto w-full max-w-[72%] h-[362px] rounded-2xl overflow-hidden shadow-elegant bg-muted">
       <Carousel
         setApi={setApi}
         opts={{ loop: true, align: "start" }}
         className="h-full w-full"
         aria-label="Featured clinic and supply imagery"
       >
-        <CarouselContent className="-ml-0 h-full">
+        <CarouselContent className="-ml-0 h-full [&>div]:h-full">
           {HERO_SLIDES.map((slide, index) => (
-            <CarouselItem key={slide.alt} className="pl-0 basis-full">
-              <img
-                src={slide.src}
-                alt={slide.alt}
-                className="aspect-[4/3] lg:aspect-auto lg:min-h-[420px] w-full object-cover"
-                fetchPriority={index === 0 ? "high" : undefined}
-                loading={index === 0 ? "eager" : "lazy"}
-              />
+            <CarouselItem key={slide.alt} className="pl-0 basis-full h-full">
+              <div className="flex h-full w-full items-center justify-center overflow-hidden bg-muted/50">
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  className="max-h-full max-w-full object-contain scale-[1.2]"
+                  fetchPriority={index === 0 ? "high" : undefined}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
 
         <CarouselPrevious
           variant="secondary"
-          className="left-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 border-0 bg-background/80 backdrop-blur-sm shadow-soft hover:bg-background disabled:opacity-40"
+          className="left-2 top-1/2 -translate-y-1/2 z-10 h-6 w-6 border-0 bg-background/80 backdrop-blur-sm shadow-soft hover:bg-background disabled:opacity-40"
         />
         <CarouselNext
           variant="secondary"
-          className="right-3 top-1/2 -translate-y-1/2 z-10 h-10 w-10 border-0 bg-background/80 backdrop-blur-sm shadow-soft hover:bg-background disabled:opacity-40"
+          className="right-2 top-1/2 -translate-y-1/2 z-10 h-6 w-6 border-0 bg-background/80 backdrop-blur-sm shadow-soft hover:bg-background disabled:opacity-40"
         />
 
         <div className="absolute bottom-3 left-0 right-0 z-10 flex justify-center gap-2 px-4">

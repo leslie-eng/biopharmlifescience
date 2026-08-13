@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outDir = path.join(__dirname, "..", "public", "images", "catalog");
 
-/** filename on Commons → local output name */
+/** Local filename → Wikimedia Commons filename */
 const IMAGES = {
   "syringe-2cc.jpg": "BD_3ml_syringe.jpg",
   "syringe-5cc.jpg": "Syringe_Needle_IV.jpg",
@@ -17,43 +17,47 @@ const IMAGES = {
   "syringe-20cc.jpg": "Syringe_Needle_IV.jpg",
   "needle.jpg": "Syringe_Needle_IV.jpg",
   "iv-cannula.jpg": "IV_Catheters_(9).JPG",
-  "iv-giving-set.jpg": "Intravenous_therapy_bag.jpg",
+  "iv-giving-set.jpg": "Intravenous_catheter.jpg",
   "dialysis-dialyzer.jpg": "Dialog-dialysis-machine-b-braun.jpg",
   "dialysis-catheter.jpg": "Dialysis_-_arm_-_01.jpg",
   "dialysis-concentrate.jpg": "Sodium_bicarbonate.jpg",
-  "gloves-latex.jpg": "Latex_gloves.jpg",
   "gloves-nitrile.png": "Disposable_nitrile_glove_with_transparent_background.png",
-  "gloves-surgical.jpg": "Surgeons_wearing_surgical_gloves.jpg",
-  "mask-surgical.jpg": "Surgical_mask_stacked.jpg",
-  "mask-oxygen.jpg": "Nonrebreather_mask.jpg",
+  "mask-surgical.jpg": "Surgical_face_mask.jpg",
   "dressing.jpg": "Adhesive_bandage.jpg",
   "cotton-wool.jpg": "Cotton_wool.jpg",
   "gauze.jpg": "Gauze.jpg",
-  "surgical-blade.jpg": "Scalpel_blade_10.jpg",
-  "kidney-dish.jpg": "Kidney_dish.jpg",
+  "surgical-blade.jpg": "Surgical_blade.jpg",
   "spirit.jpg": "Isopropyl_alcohol.jpg",
-  "iodine.jpg": "Povidone-iodine.jpg",
-  "disinfectant.jpg": "Sodium_hypochlorite.jpg",
+  "iodine.jpg": "Iodine_solution.jpg",
+  "disinfectant.jpg": "Bleach.jpg",
   "biohazard-liner.jpg": "Biohazard_bag.jpg",
   "sharps.jpg": "Wall-mounted_sharps_container.JPG",
-  "test-glucose.jpg": "Blood_glucose_monitoring.jpg",
-  "test-urinalysis.jpg": "Urinalysis_test_strip.jpg",
+  "test-glucose.jpg": "Glucometer.jpg",
   "test-pregnancy.jpg": "Pregnancy_test.jpg",
-  "test-rapid.jpg": "Rapid_diagnostic_test.jpg",
-  "lab-slides.jpg": "Microscope_slides.jpg",
-  "lab-vacutainer.jpg": "Vacutainer.jpg",
-  "lab-lancet.jpg": "Lancet_(medicine).jpg",
-  "lab-specimen.jpg": "Urine_sample_cup.jpg",
+  "test-rapid.jpg": "Rapid_test.jpg",
+  "lab-slides.jpg": "Microscopy_slide.jpg",
+  "lab-vacutainer.jpg": "Vacutainer_tubes.jpg",
+  "lab-lancet.jpg": "Blood_lancet.jpg",
   "bp-digital.jpg": "Sphygmomanometer.jpg",
-  "bp-analogue.jpg": "Aneroid_sphygmomanometer.jpg",
-  "thermometer.jpg": "Clinical_thermometer.jpg",
-  "oxygen-regulator.jpg": "Oxygen_tank_regulator.jpg",
+  "bp-analogue.jpg": "Blood_pressure_monitor.jpg",
+  "thermometer.jpg": "Digital_thermometer.jpg",
+  "oxygen-regulator.jpg": "Oxygen_cylinder.jpg",
   "autoclave.jpg": "Autoclave.jpg",
-  "hero-clinic.jpg": "Hospital_room.jpg",
-  "linen.jpg": "Hospital_bed_with_linens.jpg",
-  "sanitary.jpg": "Paper_towel_roll.jpg",
-  "gallipot.jpg": "Medicine_cup.jpg",
-  "equipment-default.jpg": "Medical_equipment.jpg",
+  "hero-clinic.jpg": "Hospital_ward.jpg",
+  "linen.jpg": "Hospital_bed.jpg",
+  "sanitary.jpg": "Toilet_paper_roll.jpg",
+  "gallipot.jpg": "Measuring_cup.jpg",
+  "equipment-default.jpg": "Hospital_equipment.jpg",
+};
+
+/** Category fallbacks when no exact Commons match exists */
+const FALLBACKS = {
+  "gloves-latex.png": "gloves-nitrile.png",
+  "gloves-surgical.png": "gloves-nitrile.png",
+  "mask-oxygen.jpg": "mask-surgical.jpg",
+  "kidney-dish.jpg": "gallipot.jpg",
+  "test-urinalysis.jpg": "test-glucose.jpg",
+  "lab-specimen.jpg": "lab-vacutainer.jpg",
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -88,4 +92,14 @@ for (const [local, commons] of Object.entries(IMAGES)) {
   await sleep(2500);
 }
 
-console.log(`\nDone: ${ok} ok, ${fail} failed → ${outDir}`);
+for (const [local, source] of Object.entries(FALLBACKS)) {
+  const src = path.join(outDir, source);
+  const dest = path.join(outDir, local);
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dest);
+    console.log(`COPY ${local} <- ${source}`);
+    ok++;
+  }
+}
+
+console.log(`\nDone: ${ok} files ready, ${fail} download failures → ${outDir}`);

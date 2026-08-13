@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { CatalogProductCard } from "@/components/site/CatalogProductCard";
-import { CATALOG_CATEGORIES, getProductsByCategory } from "@/data/catalog";
+import { CATALOG_CATEGORIES, getProductGroupsByCategory } from "@/data/catalog";
 
 const CatalogPage = () => {
   const { hash } = useLocation();
@@ -21,7 +21,7 @@ const CatalogPage = () => {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary mb-3">Product catalog</p>
           <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-4">Medical consumables &amp; equipment</h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
-            Browse certified supplies by category. Select any product for full description, imagery, and enquiry options.
+            Browse certified supplies by category. Each product line shares one image — open any item for brands, measurements, and specifications.
           </p>
           <nav className="mt-8 flex flex-wrap gap-2" aria-label="Product categories">
             {CATALOG_CATEGORIES.map((cat) => (
@@ -39,7 +39,7 @@ const CatalogPage = () => {
 
       <div className="site-wrap py-12 md:py-16 space-y-20">
         {CATALOG_CATEGORIES.map((category) => {
-          const items = getProductsByCategory(category.id);
+          const groups = getProductGroupsByCategory(category.id);
           return (
             <section key={category.id} id={category.id} className="scroll-mt-24">
               <div className="mb-8 max-w-3xl">
@@ -47,8 +47,8 @@ const CatalogPage = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{category.summary}</p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {items.map((product) => (
-                  <CatalogProductCard key={product.slug} product={product} />
+                {groups.map((group) => (
+                  <CatalogProductCard key={group.slug} group={group} />
                 ))}
               </div>
             </section>
