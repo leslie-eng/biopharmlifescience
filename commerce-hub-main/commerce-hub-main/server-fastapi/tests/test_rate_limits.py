@@ -37,3 +37,12 @@ def test_chatbot_allows_twenty_messages_a_minute_per_visitor(client):
 
     assert client.post("/api/chat", headers=via_proxy("203.0.113.5"), json=ask).status_code == 429
     assert client.post("/api/chat", headers=via_proxy("198.51.100.7"), json=ask).status_code == 200
+
+
+def test_cloudflare_connecting_ip_wins_over_a_faked_forwarded_header(client):
+    create_user("ops@biolinks.test")
+    for n in range(5):
+        fail_login(client, {"CF-Connecting-IP": "203.0.113.5", "X-Forwarded-For": f"10.0.0.{n}, 172.16.0.{n}"})
+
+    assert fail_login(client, {"CF-Connecting-IP": "203.0.113.5", "X-Forwarded-For": "10.9.9.9"}) == 429
+    assert fail_login(client, {"CF-Connecting-IP": "198.51.100.7", "X-Forwarded-For": "10.0.0.1"}) == 401

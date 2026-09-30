@@ -32,18 +32,24 @@ from app.main import app  # noqa: E402
 from app.ratelimit import chat_limiter, login_limiter  # noqa: E402
 
 
+def alembic(*args: str) -> None:
+    from alembic.config import main as alembic_main
+
+    alembic_main(argv=["-c", str(SERVER_DIR / "alembic.ini"), *args])
+
+
 @pytest.fixture(scope="session", autouse=True)
 def schema():
     with engine.begin() as conn:
         conn.execute(text("DROP SCHEMA public CASCADE; CREATE SCHEMA public;"))
-        conn.exec_driver_sql((SERVER_DIR / "schema.postgres.sql").read_text(encoding="utf-8"))
+    alembic("upgrade", "head")
 
 
 @pytest.fixture(autouse=True)
 def clean_state(schema):
     with engine.begin() as conn:
         tables = conn.execute(
-            text("SELECT tablename FROM pg_tables WHERE schemaname = 'public'")
+            text("SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename <> 'alembic_version'")
         ).scalars().all()
         conn.execute(text(f"TRUNCATE {', '.join(tables)} RESTART IDENTITY CASCADE"))
     login_limiter.reset()

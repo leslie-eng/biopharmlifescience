@@ -26,7 +26,7 @@ export const SiteChatbot = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([WELCOME]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLLIElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {

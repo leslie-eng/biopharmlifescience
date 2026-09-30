@@ -14,7 +14,24 @@ from .routers import auth, chat, clients, dashboard, expenses, orders, products,
 
 logger = logging.getLogger("biolinks_api")
 
-app = FastAPI(title="Biolinks Commerce API", version="1.0.0")
+if settings.SENTRY_DSN:
+    import sentry_sdk
+
+    # send_default_pii=False: no request bodies, cookies, headers or IPs (Kenya DPA; docs/release-scope.md).
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        environment=settings.SENTRY_ENVIRONMENT,
+        send_default_pii=False,
+        traces_sample_rate=0.0,
+    )
+
+app = FastAPI(
+    title="Biolinks Commerce API",
+    version="1.0.0",
+    docs_url="/docs" if settings.EXPOSE_API_DOCS else None,
+    redoc_url=None,
+    openapi_url="/openapi.json" if settings.EXPOSE_API_DOCS else None,
+)
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",

@@ -26,3 +26,8 @@ def test_served_uploads_carry_hardening_headers(client, staff_headers):
 
     assert res.headers["X-Content-Type-Options"] == "nosniff"
     assert res.headers["Content-Type"] == "image/png"
+
+
+def test_interactive_api_docs_are_not_published_by_default(client):
+    assert client.get("/docs").status_code == 404
+    assert client.get("/openapi.json").status_code == 404

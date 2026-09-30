@@ -1,18 +1,33 @@
--- REFERENCE ONLY. The live schema is created and changed by Alembic (migrations/versions/).
--- This file mirrors the baseline migration 0001 and is not applied by any deploy step.
--- Column types were ported from the retired MySQL schema:
---   CHAR(36)              -> UUID (stored/returned as text, same as before)
---   TINYINT(1)            -> BOOLEAN
---   DATETIME              -> TIMESTAMP
---   ENUM(...)             -> TEXT + CHECK (...)   [Postgres ENUMs are painful to alter later —
---                                                   a CHECK constraint is easy to widen with a migration]
---   ON UPDATE CURRENT_TIMESTAMP -> handled by the ORM layer (see app/models.py, onupdate=func.now())
---
--- Apply with: psql "$DATABASE_URL" -f schema.postgres.sql
+"""Baseline: the launch schema (users, roles, products, clients, orders, expenses, restock requests).
 
-CREATE EXTENSION IF NOT EXISTS pgcrypto; -- for gen_random_uuid(), not required since the app generates ids
+Revision ID: 0001
+Revises:
+"""
 
-CREATE TABLE IF NOT EXISTS users (
+from alembic import op
+
+revision = "0001"
+down_revision = None
+branch_labels = None
+depends_on = None
+
+TABLES_CHILDREN_FIRST = [
+    "stock_interest",
+    "expenses",
+    "order_items",
+    "orders",
+    "clients",
+    "products",
+    "user_roles",
+    "profiles",
+    "users",
+]
+
+
+def upgrade() -> None:
+    op.execute(
+        """
+CREATE TABLE users (
   id UUID PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
@@ -20,21 +35,21 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS profiles (
+CREATE TABLE profiles (
   id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
   full_name VARCHAR(255) NULL,
   email VARCHAR(255) NULL,
   created_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS user_roles (
+CREATE TABLE user_roles (
   id UUID PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   role TEXT NOT NULL CHECK (role IN ('admin', 'staff', 'customer')),
   UNIQUE (user_id, role)
 );
 
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
   id UUID PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   slug VARCHAR(255) NOT NULL UNIQUE,
@@ -50,7 +65,7 @@ CREATE TABLE IF NOT EXISTS products (
   updated_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS clients (
+CREATE TABLE clients (
   id UUID PRIMARY KEY,
   full_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NULL,
@@ -62,7 +77,7 @@ CREATE TABLE IF NOT EXISTS clients (
   updated_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
   id UUID PRIMARY KEY,
   order_number VARCHAR(40) NOT NULL UNIQUE,
   client_id UUID NULL REFERENCES clients(id) ON DELETE SET NULL,
@@ -81,7 +96,7 @@ CREATE TABLE IF NOT EXISTS orders (
   updated_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE order_items (
   id UUID PRIMARY KEY,
   order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
   product_id UUID NULL REFERENCES products(id) ON DELETE SET NULL,
@@ -92,7 +107,7 @@ CREATE TABLE IF NOT EXISTS order_items (
   created_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS expenses (
+CREATE TABLE expenses (
   id UUID PRIMARY KEY,
   category VARCHAR(120) NOT NULL,
   description TEXT NULL,
@@ -101,7 +116,7 @@ CREATE TABLE IF NOT EXISTS expenses (
   created_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS stock_interest (
+CREATE TABLE stock_interest (
   id UUID PRIMARY KEY,
   product_id UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   client_id UUID NULL REFERENCES clients(id) ON DELETE CASCADE,
@@ -111,6 +126,13 @@ CREATE TABLE IF NOT EXISTS stock_interest (
   UNIQUE (product_id, email)
 );
 
-CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders (created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items (order_id);
-CREATE INDEX IF NOT EXISTS idx_products_is_active ON products (is_active);
+CREATE INDEX idx_orders_created_at ON orders (created_at DESC);
+CREATE INDEX idx_order_items_order_id ON order_items (order_id);
+CREATE INDEX idx_products_is_active ON products (is_active);
+"""
+    )
+
+
+def downgrade() -> None:
+    for table in TABLES_CHILDREN_FIRST:
+        op.execute(f"DROP TABLE {table}")

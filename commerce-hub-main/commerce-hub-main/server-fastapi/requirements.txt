@@ -1,13 +1,15 @@
-fastapi==0.115.6
-starlette==0.41.3
+fastapi==0.142.2
+starlette==1.7.0
 pydantic==2.10.4
 sqlalchemy==2.0.36
 psycopg2-binary==2.9.10
-PyJWT==2.10.1
+PyJWT==2.15.1
 bcrypt==4.2.1
-python-multipart==0.0.20
+python-multipart==0.0.32
 httpx==0.28.1
-python-dotenv==1.0.1
+python-dotenv==1.2.3
+alembic==1.20.0
+sentry-sdk[fastapi]==2.71.0
 
 # ASGI server (production start command: see render.yaml)
 uvicorn[standard]==0.34.0

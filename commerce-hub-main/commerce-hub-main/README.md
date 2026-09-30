@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Biolinks app
 
-TODO: Document your project here
+See the repository README (`../../README.md`) and `docs/deploy.md`.

@@ -7,11 +7,13 @@ from sqlalchemy import (
     Date,
     DateTime,
     ForeignKey,
+    Index,
     Numeric,
     String,
     Text,
     UniqueConstraint,
     func,
+    text,
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -50,19 +52,20 @@ class Profile(Base):
 class UserRole(Base):
     __tablename__ = "user_roles"
     __table_args__ = (
-        UniqueConstraint("user_id", "role", name="uq_user_role"),
+        UniqueConstraint("user_id", "role", name="user_roles_user_id_role_key"),
         CheckConstraint("role IN ('admin', 'staff', 'customer')", name="ck_user_roles_role"),
     )
 
     id: Mapped[str] = _uuid_col()
     user_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    role: Mapped[str] = mapped_column(String(20), nullable=False)
+    role: Mapped[str] = mapped_column(Text, nullable=False)
 
     user: Mapped["User"] = relationship(back_populates="roles")
 
 
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = (Index("idx_products_is_active", "is_active"),)
 
     id: Mapped[str] = _uuid_col()
     name: Mapped[str] = mapped_column(String(255), nullable=False)
@@ -104,6 +107,7 @@ class Order(Base):
             "payment_method IS NULL OR payment_method IN ('mpesa','cash','bank','other')",
             name="ck_orders_payment_method",
         ),
+        Index("idx_orders_created_at", text("created_at DESC")),
     )
 
     id: Mapped[str] = _uuid_col()
@@ -114,8 +118,8 @@ class Order(Base):
     customer_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     customer_email: Mapped[str | None] = mapped_column(String(255), nullable=True)
     customer_phone: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    status: Mapped[str] = mapped_column(String(20), nullable=False, default="pending")
-    payment_method: Mapped[str | None] = mapped_column(String(20), nullable=True, default="mpesa")
+    status: Mapped[str] = mapped_column(Text, nullable=False, default="pending")
+    payment_method: Mapped[str | None] = mapped_column(Text, nullable=True, default="mpesa")
     subtotal: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     total: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     mpesa_receipt: Mapped[str | None] = mapped_column(String(120), nullable=True)
@@ -126,6 +130,7 @@ class Order(Base):
 
 class OrderItem(Base):
     __tablename__ = "order_items"
+    __table_args__ = (Index("idx_order_items_order_id", "order_id"),)
 
     id: Mapped[str] = _uuid_col()
     order_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
@@ -152,7 +157,7 @@ class Expense(Base):
 
 class StockInterest(Base):
     __tablename__ = "stock_interest"
-    __table_args__ = (UniqueConstraint("product_id", "email", name="uq_stock_interest"),)
+    __table_args__ = (UniqueConstraint("product_id", "email", name="stock_interest_product_id_email_key"),)
 
     id: Mapped[str] = _uuid_col()
     product_id: Mapped[str] = mapped_column(

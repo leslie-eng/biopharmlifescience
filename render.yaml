@@ -1,0 +1,97 @@
+# Render Blueprint: API + PostgreSQL, staging and production (docs/adr/0002, docs/deploy.md).
+# The frontend is deployed separately on Vercel. Plans and region: confirm cost in the Render
+# dashboard before applying; backups/point-in-time recovery require a paid database plan.
+
+databases:
+  - name: biolinks-db-staging
+    plan: 0.1c-256mb
+    region: frankfurt
+    postgresMajorVersion: "17"
+    databaseName: biolinks
+    user: biolinks
+
+  - name: biolinks-db
+    plan: 0.5c-1g
+    region: frankfurt
+    postgresMajorVersion: "17"
+    databaseName: biolinks
+    user: biolinks
+
+services:
+  - type: web
+    name: biolinks-api-staging
+    runtime: python
+    plan: 0.5c-512mb
+    region: frankfurt
+    branch: staging
+    autoDeployTrigger: commit
+    rootDir: commerce-hub-main/commerce-hub-main/server-fastapi
+    buildCommand: pip install -r requirements.txt
+    # Runs before each deploy goes live; a failed migration keeps the previous deploy serving.
+    preDeployCommand: alembic upgrade head
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    disk:
+      name: uploads
+      mountPath: /var/data/uploads
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.7"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: biolinks-db-staging
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true # 256-bit base64, 44 characters
+      - key: TRUST_PROXY
+        value: "true"
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: CORS_ORIGIN
+        sync: false # the staging frontend origin(s), comma-separated
+      - key: PUBLIC_URL
+        value: https://api-staging.biopharmlifescience.com
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENTRY_ENVIRONMENT
+        value: staging
+
+  - type: web
+    name: biolinks-api
+    runtime: python
+    plan: 0.5c-512mb
+    region: frankfurt
+    branch: main
+    autoDeployTrigger: "off" # production deploys are manual (docs/deploy.md)
+    rootDir: commerce-hub-main/commerce-hub-main/server-fastapi
+    buildCommand: pip install -r requirements.txt
+    # Runs before each deploy goes live; a failed migration keeps the previous deploy serving.
+    preDeployCommand: alembic upgrade head
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    disk:
+      name: uploads
+      mountPath: /var/data/uploads
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.7"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: biolinks-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true # 256-bit base64, 44 characters
+      - key: TRUST_PROXY
+        value: "true"
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: CORS_ORIGIN
+        value: https://biopharmlifescience.com,https://www.biopharmlifescience.com
+      - key: PUBLIC_URL
+        value: https://api.biopharmlifescience.com
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENTRY_ENVIRONMENT
+        value: production

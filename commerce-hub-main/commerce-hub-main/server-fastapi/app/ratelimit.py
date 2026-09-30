@@ -15,9 +15,17 @@ from .config import settings
 
 
 def client_ip(request: Request) -> str:
-    """The caller's IP. Behind a trusted proxy, the last X-Forwarded-For entry is the one the
-    proxy itself appended; earlier entries are caller-supplied and can't be trusted."""
+    """The caller's IP, as seen by our edge.
+
+    Render sits behind Cloudflare, which overwrites CF-Connecting-IP with the address that
+    connected to it, so that header can't be forged by the caller. Failing that, the last
+    X-Forwarded-For entry is the one our proxy appended; earlier entries are caller-supplied.
+    Verify on staging before launch (docs/deploy.md).
+    """
     if settings.TRUST_PROXY:
+        connecting = request.headers.get("cf-connecting-ip", "").strip()
+        if connecting:
+            return connecting
         forwarded = request.headers.get("x-forwarded-for", "")
         hops = [h.strip() for h in forwarded.split(",") if h.strip()]
         if hops:

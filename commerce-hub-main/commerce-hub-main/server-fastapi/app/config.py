@@ -51,6 +51,13 @@ class Settings:
     # --- Server ---
     PORT: int = int(os.getenv("PORT", "3001"))
 
+    # --- Error monitoring (optional; unset = disabled) ---
+    SENTRY_DSN: str | None = os.getenv("SENTRY_DSN") or None
+    SENTRY_ENVIRONMENT: str = os.getenv("SENTRY_ENVIRONMENT", "development")
+
+    # --- API docs (/docs, /openapi.json): off unless explicitly enabled, e.g. locally ---
+    EXPOSE_API_DOCS: bool = os.getenv("EXPOSE_API_DOCS", "false").lower() == "true"
+
     # --- Proxy ---
     # true when every request arrives through a reverse proxy that appends the caller's
     # IP to X-Forwarded-For (Render does). Rate limits then key on that last hop.

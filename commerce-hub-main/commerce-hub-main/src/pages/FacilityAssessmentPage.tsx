@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { submitFacilityAssessmentToWhatsApp } from "@/lib/facilityAssessment";
+import { type FacilityAssessmentForm, submitFacilityAssessmentToWhatsApp } from "@/lib/facilityAssessment";
 import { toast } from "sonner";
 
 const schema = z.object({
@@ -65,7 +65,8 @@ const FacilityAssessmentPage = () => {
 
     setSubmitting(true);
     try {
-      submitFacilityAssessmentToWhatsApp(parsed.data);
+      // strict is off in tsconfig, so zod infers every field optional; the parse above guarantees them.
+      submitFacilityAssessmentToWhatsApp(parsed.data as FacilityAssessmentForm);
       toast.success("Opening WhatsApp", {
         description: "Send the pre-filled message to confirm your booking request.",
       });
