@@ -10,11 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "api": "npm run dev --prefix server",
-    "api:start": "npm run start --prefix server",
-    "build:cpanel": "vite build && node scripts/copy-dist-to-server.mjs",
-    "import:csv": "npm run import:csv --prefix server"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
