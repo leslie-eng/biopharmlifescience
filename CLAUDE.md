@@ -9,7 +9,7 @@ The app lives in `commerce-hub-main/commerce-hub-main/`:
 
 ### Issue tracker
 
-Issues live in GitHub Issues for `leslie-eng/biolinks`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+Issues live in GitHub Issues for `leslie-eng/biopharmlifescience` (the `origin` remote), via the `gh` CLI. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
