@@ -1,10 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { authApi, AuthUser, getToken, Role, Session, setToken } from "@/lib/api";
 
-export type SignUpOptions = {
-  emailRedirectPath?: string;
-};
-
 interface AuthCtx {
   user: AuthUser | null;
   session: Session | null;
@@ -13,12 +9,6 @@ interface AuthCtx {
   loading: boolean;
   isStaff: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
-  signUp: (
-    email: string,
-    password: string,
-    fullName: string,
-    options?: SignUpOptions
-  ) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -88,23 +78,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const signUp = async (email: string, password: string, fullName: string, _options?: SignUpOptions) => {
-    try {
-      const { token, user: u, roles: r } = await authApi.register({ email, password, fullName });
-      applyAuth(token, u, r);
-      return { error: null };
-    } catch (e: unknown) {
-      return { error: e instanceof Error ? e.message : "Sign up failed" };
-    }
-  };
-
   const signOut = async () => {
     clearAuth();
   };
 
-  const staffFromRoles = roles.includes("admin") || roles.includes("staff");
-  const emergencyBypass = import.meta.env.VITE_ALLOW_DASHBOARD_WITHOUT_ROLE === "true";
-  const isStaff = staffFromRoles || (!!user && emergencyBypass);
+  const isStaff = roles.includes("admin") || roles.includes("staff");
 
   return (
     <AuthContext.Provider
@@ -116,7 +94,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         loading,
         isStaff,
         signIn,
-        signUp,
         signOut,
       }}
     >

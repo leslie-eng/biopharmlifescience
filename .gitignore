@@ -58,3 +58,9 @@ biolink_landing_page_mockup.html
 biolink_par_calculator_v2.html
 biolink-about.html
 Biolink Solutions EA Profile.pdf
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+.coverage

@@ -13,8 +13,6 @@ import FacilityAssessmentPage from "./pages/FacilityAssessmentPage.tsx";
 import AkibaCalculatorPage from "./pages/AkibaCalculatorPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
-import Auth from "./pages/Auth.tsx";
-import CustomerAuth from "./pages/CustomerAuth.tsx";
 import StaffAuth from "./pages/StaffAuth.tsx";
 import { DashboardLayout } from "./components/dashboard/DashboardLayout";
 import Overview from "./pages/dashboard/Overview";
@@ -43,10 +41,8 @@ const App = () => (
               <Route path="/about" element={<AboutPage />} />
               <Route path="/products" element={<CatalogPage />} />
               <Route path="/products/:slug" element={<CatalogProductPage />} />
-              <Route path="/account" element={<CustomerAuth />} />
               <Route path="/admin" element={<StaffAuth />} />
               <Route path="/staff" element={<StaffAuth />} />
-              <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<DashboardLayout />}>
                 <Route index element={<Navigate to="/dashboard/overview" replace />} />
                 <Route path="overview" element={<Overview />} />

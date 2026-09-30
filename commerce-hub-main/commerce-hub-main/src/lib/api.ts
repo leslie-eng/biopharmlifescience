@@ -53,11 +53,6 @@ export async function uploadProductImage(file: File): Promise<{ url: string }> {
 }
 
 export const authApi = {
-  register: (body: { email: string; password: string; fullName: string }) =>
-    api<{ token: string; user: AuthUser; roles: Role[] }>("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify(body),
-    }),
   login: (body: { email: string; password: string }) =>
     api<{ token: string; user: AuthUser; roles: Role[] }>("/api/auth/login", {
       method: "POST",

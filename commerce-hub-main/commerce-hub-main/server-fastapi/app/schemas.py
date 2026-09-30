@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, field_serializer
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 
 def _iso_z(value: datetime | None) -> str | None:
@@ -191,11 +191,12 @@ class OrderStatusUpdate(BaseModel):
 
 
 class OrderLineIn(BaseModel):
-    product_id: str | None = None
-    product_name: str
-    unit_price: float
-    quantity: float
-    line_total: float
+    product_id: str
+    quantity: int = Field(gt=0)
+    # Sent by the POS but ignored: name and prices are always read from the product.
+    product_name: str | None = None
+    unit_price: float | None = None
+    line_total: float | None = None
 
 
 class OrderIn(BaseModel):

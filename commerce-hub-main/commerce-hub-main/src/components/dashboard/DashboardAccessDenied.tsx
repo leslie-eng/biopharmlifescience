@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { ShieldAlert } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
-/** Shown when signed in but dashboard access is denied (strict production without staff role). */
+/** Shown when signed in but dashboard access is denied (account has no staff or admin role). */
 export const DashboardAccessDenied = () => {
-  const { user, roles, rolesFetchFailed } = useAuth();
+  const { user, rolesFetchFailed } = useAuth();
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center p-6 bg-muted/30">
@@ -23,26 +23,9 @@ export const DashboardAccessDenied = () => {
         </CardHeader>
         <CardContent className="space-y-4 text-sm text-muted-foreground">
           {rolesFetchFailed ? (
-            <p>
-              We could not load roles from the API (check <code className="rounded bg-muted px-1 text-xs">VITE_API_URL</code> and the{" "}
-              <code className="rounded bg-muted px-1 text-xs">user_roles</code> table). For local preview/builds you can set{" "}
-              <code className="rounded bg-muted px-1 text-xs">VITE_ALLOW_DASHBOARD_WITHOUT_ROLE=true</code> in{" "}
-              <code className="rounded bg-muted px-1 text-xs">.env</code>.
-            </p>
-          ) : roles.length > 0 ? (
-            <p>
-              Current roles:{" "}
-              <span className="font-mono text-foreground">{roles.join(", ")}</span>. Ask an admin to add{" "}
-              <strong>admin</strong> or <strong>staff</strong> in the MySQL <code className="text-xs">user_roles</code> table,
-              or temporarily set{" "}
-              <code className="rounded bg-muted px-1 text-xs">VITE_ALLOW_DASHBOARD_WITHOUT_ROLE=true</code>.
-            </p>
+            <p>We couldn't check your access right now. Please try again in a moment.</p>
           ) : (
-            <p>
-              No roles returned for this user. Ensure a row exists in{" "}
-              <code className="rounded bg-muted px-1 text-xs">user_roles</code>, or enable the env flag above for
-              development.
-            </p>
+            <p>Ask an administrator to give your account staff access.</p>
           )}
           <div className="flex flex-wrap gap-2 pt-2">
             <Button asChild variant="default">
