@@ -53,7 +53,16 @@ class Settings:
     # --- Server ---
     PORT: int = int(os.getenv("PORT", "3001"))
 
+    # --- Proxy ---
+    # true when every request arrives through a reverse proxy that appends the caller's
+    # IP to X-Forwarded-For (Render does). Rate limits then key on that last hop.
+    TRUST_PROXY: bool = os.getenv("TRUST_PROXY", "false").lower() == "true"
+
+
+MIN_JWT_SECRET_LENGTH = 32
 
 settings = Settings()
+if len(settings.JWT_SECRET) < MIN_JWT_SECRET_LENGTH:
+    raise SystemExit(f"JWT_SECRET must be at least {MIN_JWT_SECRET_LENGTH} characters")
 settings.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 (settings.UPLOAD_DIR / "catalog").mkdir(parents=True, exist_ok=True)

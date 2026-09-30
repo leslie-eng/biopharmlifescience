@@ -64,14 +64,15 @@ class MeResponse(BaseModel):
 # ---------- Products ----------
 
 
-class ProductOut(OutBase):
+class PublicProductOut(OutBase):
+    """What visitors see: everything except what the product cost us."""
+
     id: str
     name: str
     slug: str
     description: str | None
     category: str | None
     price: float
-    cost: float
     stock: int
     unit: str | None
     image_url: str | None
@@ -82,6 +83,12 @@ class ProductOut(OutBase):
     @field_serializer("created_at", "updated_at")
     def _ser_dt(self, v: datetime) -> str:
         return _iso_z(v)
+
+
+class ProductOut(PublicProductOut):
+    """What Staff see."""
+
+    cost: float
 
 
 class ProductCreate(BaseModel):
@@ -214,7 +221,6 @@ class OrderIn(BaseModel):
 class OrderCreateBody(BaseModel):
     order: OrderIn
     items: list[OrderLineIn]
-    decrement_stock: bool = False
 
 
 # ---------- Expenses ----------

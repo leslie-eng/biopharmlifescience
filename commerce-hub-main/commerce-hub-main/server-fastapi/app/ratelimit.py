@@ -9,6 +9,21 @@ import threading
 import time
 from collections import defaultdict, deque
 
+from fastapi import Request
+
+from .config import settings
+
+
+def client_ip(request: Request) -> str:
+    """The caller's IP. Behind a trusted proxy, the last X-Forwarded-For entry is the one the
+    proxy itself appended; earlier entries are caller-supplied and can't be trusted."""
+    if settings.TRUST_PROXY:
+        forwarded = request.headers.get("x-forwarded-for", "")
+        hops = [h.strip() for h in forwarded.split(",") if h.strip()]
+        if hops:
+            return hops[-1]
+    return request.client.host if request.client else "unknown"
+
 
 class SlidingWindowLimiter:
     def __init__(self, max_events: int, window_seconds: float):
@@ -25,8 +40,13 @@ class SlidingWindowLimiter:
         """Seconds until `key` may try again, or None if it isn't currently blocked."""
         now = time.monotonic()
         with self._lock:
-            events = self._events[key]
+            events = self._events.get(key)
+            if events is None:
+                return None
             self._prune(events, now)
+            if not events:
+                del self._events[key]  # keep the map from growing with every IP ever seen
+                return None
             if len(events) < self.max_events:
                 return None
             return max(1, int(self.window_seconds - (now - events[0])) + 1)
@@ -45,3 +65,6 @@ class SlidingWindowLimiter:
 
 # Failed login attempts per client IP.
 login_limiter = SlidingWindowLimiter(max_events=5, window_seconds=15 * 60)
+
+# Chatbot messages per client IP.
+chat_limiter = SlidingWindowLimiter(max_events=20, window_seconds=60)

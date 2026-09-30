@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..deps import load_user_roles, require_auth
 from ..models import Profile, User
-from ..ratelimit import login_limiter
+from ..ratelimit import client_ip, login_limiter
 from ..schemas import AuthResponse, AuthUserOut, LoginBody, MeResponse, UserMetadata
 from ..security import compare_password, sign_token
 
@@ -24,8 +24,8 @@ def _fetch_user_profile(db: Session, user_id: str) -> AuthUserOut | None:
 
 @router.post("/login", response_model=AuthResponse)
 def login(body: LoginBody, request: Request, db: Session = Depends(get_db)):
-    client_ip = request.client.host if request.client else "unknown"
-    wait = login_limiter.retry_after(client_ip)
+    ip = client_ip(request)
+    wait = login_limiter.retry_after(ip)
     if wait is not None:
         raise HTTPException(
             status_code=429,
@@ -40,7 +40,7 @@ def login(body: LoginBody, request: Request, db: Session = Depends(get_db)):
         select(User.id, User.password_hash).where(User.email == body.email.strip().lower())
     ).first()
     if not row or not compare_password(body.password, row.password_hash):
-        login_limiter.record(client_ip)
+        login_limiter.record(ip)
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
     user_id = row.id

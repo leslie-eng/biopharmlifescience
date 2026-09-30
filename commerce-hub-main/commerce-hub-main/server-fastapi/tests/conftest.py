@@ -20,6 +20,7 @@ os.environ["DATABASE_URL"] = os.environ.get(
 os.environ["JWT_SECRET"] = "test-secret-" + "x" * 40
 os.environ["UPLOAD_DIR"] = tempfile.mkdtemp(prefix="biolinks-uploads-")
 os.environ["PUBLIC_URL"] = "http://api.test"
+os.environ["TRUST_PROXY"] = "true"
 os.environ.pop("OPENAI_API_KEY", None)
 
 from fastapi.testclient import TestClient  # noqa: E402
@@ -28,7 +29,7 @@ from sqlalchemy import text  # noqa: E402
 from app import cli  # noqa: E402
 from app.database import engine  # noqa: E402
 from app.main import app  # noqa: E402
-from app.ratelimit import login_limiter  # noqa: E402
+from app.ratelimit import chat_limiter, login_limiter  # noqa: E402
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -46,6 +47,7 @@ def clean_state(schema):
         ).scalars().all()
         conn.execute(text(f"TRUNCATE {', '.join(tables)} RESTART IDENTITY CASCADE"))
     login_limiter.reset()
+    chat_limiter.reset()
 
 
 @pytest.fixture

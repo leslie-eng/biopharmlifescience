@@ -75,6 +75,8 @@ def create_order(body: OrderCreateBody, staff=Depends(require_staff), db: Sessio
             ).scalar_one_or_none()
             if not product:
                 raise HTTPException(status_code=400, detail="Product not found")
+            if not product.is_active:
+                raise HTTPException(status_code=400, detail=f"{product.name} is no longer for sale")
 
             quantity = line.quantity
             line_total = product.price * quantity
@@ -91,11 +93,10 @@ def create_order(body: OrderCreateBody, staff=Depends(require_staff), db: Sessio
                 )
             )
 
-            if body.decrement_stock:
-                new_stock = product.stock - quantity
-                if new_stock < 0:
-                    raise HTTPException(status_code=400, detail=f"Insufficient stock for {product.name}")
-                product.stock = new_stock
+            new_stock = product.stock - quantity
+            if new_stock < 0:
+                raise HTTPException(status_code=400, detail=f"Insufficient stock for {product.name}")
+            product.stock = new_stock
 
         order.subtotal = subtotal
         order.total = subtotal

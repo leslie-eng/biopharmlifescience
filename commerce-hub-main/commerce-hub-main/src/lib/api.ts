@@ -103,7 +103,6 @@ export const ordersApi = {
   create: (body: {
     order: Partial<Order>;
     items: Partial<OrderItem>[];
-    decrement_stock?: boolean;
   }) => api<Order>("/api/orders", { method: "POST", body: JSON.stringify(body) }),
 };
 

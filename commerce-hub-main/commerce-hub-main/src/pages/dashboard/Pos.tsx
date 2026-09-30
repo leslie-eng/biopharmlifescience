@@ -147,7 +147,6 @@ const Pos = () => {
           quantity: l.quantity,
           line_total: Number(l.product.price) * l.quantity,
         })),
-        decrement_stock: true,
       });
 
       toast.success(`Sale complete — ${order.order_number}`);

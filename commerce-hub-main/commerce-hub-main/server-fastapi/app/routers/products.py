@@ -5,37 +5,51 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..deps import get_optional_user_id, load_user_roles, require_staff
 from ..models import Product
-from ..schemas import ProductCreate, ProductOut, ProductUpdate
+from ..schemas import ProductCreate, ProductOut, ProductUpdate, PublicProductOut
 from ..utils import new_id, slugify
 
 router = APIRouter(prefix="/api/products", tags=["products"])
 
 
-@router.get("", response_model=list[ProductOut])
+def _is_staff(db: Session, user_id: str | None) -> bool:
+    roles = load_user_roles(db, user_id) if user_id else []
+    return "admin" in roles or "staff" in roles
+
+
+def _for_caller(product: Product, is_staff: bool) -> ProductOut | PublicProductOut:
+    return ProductOut.model_validate(product) if is_staff else PublicProductOut.model_validate(product)
+
+
+# response_model=None: the shape depends on the caller (Staff see cost, visitors don't).
+@router.get("", response_model=None)
 def list_products(
     staff: bool = Query(False),
     active: bool = Query(False),
     user_id: str | None = Depends(get_optional_user_id),
     db: Session = Depends(get_db),
-):
-    if staff:
-        roles = load_user_roles(db, user_id) if user_id else []
-        if "admin" not in roles and "staff" not in roles:
-            raise HTTPException(status_code=403, detail="Staff access required")
+) -> list[ProductOut] | list[PublicProductOut]:
+    is_staff = _is_staff(db, user_id)
+    if staff and not is_staff:
+        raise HTTPException(status_code=403, detail="Staff access required")
 
     active_only = active or not staff
     stmt = select(Product).order_by(Product.created_at.desc())
     if active_only:
         stmt = stmt.where(Product.is_active.is_(True))
-    return db.execute(stmt).scalars().all()
+    return [_for_caller(p, is_staff) for p in db.execute(stmt).scalars().all()]
 
 
-@router.get("/{product_id}", response_model=ProductOut)
-def get_product(product_id: str, db: Session = Depends(get_db)):
+@router.get("/{product_id}", response_model=None)
+def get_product(
+    product_id: str,
+    user_id: str | None = Depends(get_optional_user_id),
+    db: Session = Depends(get_db),
+) -> ProductOut | PublicProductOut:
+    is_staff = _is_staff(db, user_id)
     product = db.get(Product, product_id)
-    if not product:
+    if not product or (not product.is_active and not is_staff):
         raise HTTPException(status_code=404, detail="Product not found")
-    return product
+    return _for_caller(product, is_staff)
 
 
 @router.post("", status_code=201, response_model=ProductOut)
