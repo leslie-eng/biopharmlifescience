@@ -1,11 +1,11 @@
-/** Biolink Solutions EA — public contact details (landing page). */
+/** Biopharmlifescience EA — public contact details (landing page). */
 
 export const PHONE_DISPLAY = "+254 714 647 972";
 export const PHONE_E164 = "254714647972";
-export const EMAIL = "biolinksolutions7@gmail.com";
+export const EMAIL = "biopharmlifescience@gmail.com";
 
 const facilityAssessmentMessage =
-  "Hello Biolink Solutions EA, I would like to book a free facility assessment for our clinic.";
+  "Hello Biopharmlifescience EA, I would like to book a free facility assessment for our clinic.";
 
 export const WHATSAPP_URL = `https://wa.me/${PHONE_E164}`;
 

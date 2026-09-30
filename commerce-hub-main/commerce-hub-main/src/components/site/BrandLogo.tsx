@@ -28,7 +28,7 @@ export const BrandLogo = ({ className, emblemClassName, onClick }: BrandLogoProp
       />
     </span>
     <span className="truncate">
-      Biolink <span className="text-primary">Solutions EA</span>
+      Biopharm<span className="text-primary">lifescience</span>
     </span>
   </Link>
 );

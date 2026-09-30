@@ -71,7 +71,7 @@ export const BiolinkLanding = () => {
 
   return (
     <div className="bg-background text-foreground overflow-x-hidden">
-      <h1 className="sr-only">Biolink Solutions EA — Premium medical consumables and managed supply for clinics</h1>
+      <h1 className="sr-only">Biopharmlifescience EA — Premium medical consumables and managed supply for clinics</h1>
 
       <section className="relative bg-gradient-hero overflow-hidden">
         <div
@@ -93,7 +93,7 @@ export const BiolinkLanding = () => {
                 Never Run Out of Essential Supplies Again
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl mb-10">
-                Biolink proactively manages your essential consumables, monitoring usage, preventing stockouts
+                Biopharmlifescience proactively manages your essential consumables, monitoring usage, preventing stockouts
                 and delivering before your shelves go empty.
               </p>
               <Link to={FACILITY_ASSESSMENT_BOOK_PATH} className={ctaClass}>
@@ -216,7 +216,7 @@ export const BiolinkLanding = () => {
               WhatsApp
             </a>
           </div>
-          <p className="text-xs text-muted-foreground sm:text-right">© 2025 Biolink Solutions East Africa Ltd</p>
+          <p className="text-xs text-muted-foreground sm:text-right">© 2025 Biopharmlifescience East Africa Ltd</p>
         </div>
       </footer>
     </div>

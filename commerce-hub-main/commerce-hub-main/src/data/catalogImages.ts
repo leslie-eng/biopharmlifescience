@@ -7,27 +7,46 @@ export type CatalogImageKey =
   | "needle"
   | "iv-cannula"
   | "iv-giving-set"
+  | "infusion-set-burette"
+  | "infusion-set-standard"
   | "dialysis-dialyzer"
   | "dialysis-catheter"
   | "dialysis-concentrate"
+  | "catheter-central-venous"
+  | "fistula-needles-av"
+  | "catheter-hd-long-term"
+  | "catheter-hd-acute"
+  | "powder-hd-bicarbonate"
+  | "regeneration-salt-new"
   | "gloves-latex"
   | "gloves-nitrile"
   | "gloves-surgical"
+  | "gloves-gynaecological"
+  | "gloves-orthopaedic"
   | "mask-surgical"
   | "mask-oxygen"
+  | "face-shield"
+  | "apron-nylon"
+  | "shoe-cover"
+  | "head-cap"
+  | "gown-disposable"
   | "linen"
   | "dressing"
   | "cotton-wool"
   | "gauze"
+  | "gauze-xray"
+  | "gauze-plain"
   | "surgical-blade"
   | "kidney-dish"
   | "gallipot"
   | "spirit"
   | "iodine"
   | "disinfectant"
+  | "citric-acid-21"
   | "biohazard-liner"
   | "sharps"
   | "sanitary"
+  | "towel-hd-green"
   | "test-glucose"
   | "test-urinalysis"
   | "test-pregnancy"
@@ -38,12 +57,40 @@ export type CatalogImageKey =
   | "lab-specimen"
   | "bp-digital"
   | "bp-analogue"
+  | "bp-omron"
+  | "bp-citizen"
+  | "bp-citizen-wrist"
+  | "bp-moratech"
+  | "bp-fabia"
+  | "bp-cuffs-omron"
+  | "glucostrips-oncall"
+  | "glucostrips-sinocare"
+  | "glucometer-oncall-plus"
+  | "glucometer-sinocare"
   | "thermometer"
   | "oxygen-regulator"
   | "autoclave"
+  | "forceps-dunhill-artery"
+  | "forceps-dressing"
+  | "forceps-allis"
+  | "forceps-mosquito-curved"
+  | "forceps-mosquito-straight"
+  | "blade-holder"
+  | "sims-uterine-sound"
+  | "scissor-curved"
+  | "scissor-suture"
+  | "scissor-metzenbaum"
+  | "scissor-umbilical-cord"
+  | "speculum-vaginal"
+  | "needle-holder"
   | "hero-clinic";
 
-/** Local catalog photos — sourced from Wikimedia Commons (CC0 / Public Domain). */
+/**
+ * Local catalog photos.
+ * Most entries are the client's own product photography (see
+ * public/images/catalog/ATTRIBUTIONS.md for the small number of remaining
+ * generic Wikimedia Commons placeholders still in use).
+ */
 export const catalogImages: Record<CatalogImageKey, string> = {
   default: "/images/catalog/equipment-default.jpg",
   "syringe-2cc": "/images/catalog/syringe-2cc.jpg",
@@ -53,27 +100,46 @@ export const catalogImages: Record<CatalogImageKey, string> = {
   needle: "/images/catalog/needle.jpg",
   "iv-cannula": "/images/catalog/iv-cannula.jpg",
   "iv-giving-set": "/images/catalog/iv-giving-set.jpg",
+  "infusion-set-burette": "/images/catalog/infusion-set-burette.jpg",
+  "infusion-set-standard": "/images/catalog/infusion-set-standard.jpg",
   "dialysis-dialyzer": "/images/catalog/dialysis-dialyzer.jpg",
   "dialysis-catheter": "/images/catalog/dialysis-catheter.jpg",
   "dialysis-concentrate": "/images/catalog/dialysis-concentrate.jpg",
-  "gloves-latex": "/images/catalog/gloves-latex.png",
-  "gloves-nitrile": "/images/catalog/gloves-nitrile.png",
-  "gloves-surgical": "/images/catalog/gloves-surgical.png",
+  "catheter-central-venous": "/images/catalog/catheter-central-venous.jpg",
+  "fistula-needles-av": "/images/catalog/fistula-needles-av.jpg",
+  "catheter-hd-long-term": "/images/catalog/catheter-hd-long-term.jpg",
+  "catheter-hd-acute": "/images/catalog/catheter-hd-acute.jpg",
+  "powder-hd-bicarbonate": "/images/catalog/powder-hd-bicarbonate.jpg",
+  "regeneration-salt-new": "/images/catalog/regeneration-salt-new.jpg",
+  "gloves-latex": "/images/catalog/gloves-latex.jpg",
+  "gloves-nitrile": "/images/catalog/gloves-nitrile.jpg",
+  "gloves-surgical": "/images/catalog/gloves-surgical.jpg",
+  "gloves-gynaecological": "/images/catalog/gloves-gynaecological.jpg",
+  "gloves-orthopaedic": "/images/catalog/gloves-orthopaedic.jpg",
   "mask-surgical": "/images/catalog/mask-surgical.jpg",
   "mask-oxygen": "/images/catalog/mask-oxygen.jpg",
+  "face-shield": "/images/catalog/face-shield.jpg",
+  "apron-nylon": "/images/catalog/apron-nylon.jpg",
+  "shoe-cover": "/images/catalog/shoe-cover.jpg",
+  "head-cap": "/images/catalog/head-cap.jpg",
+  "gown-disposable": "/images/catalog/gown-disposable.jpg",
   linen: "/images/catalog/linen.jpg",
   dressing: "/images/catalog/dressing.jpg",
   "cotton-wool": "/images/catalog/cotton-wool.jpg",
   gauze: "/images/catalog/gauze.jpg",
+  "gauze-xray": "/images/catalog/gauze-xray.jpg",
+  "gauze-plain": "/images/catalog/gauze-plain.jpg",
   "surgical-blade": "/images/catalog/surgical-blade.jpg",
   "kidney-dish": "/images/catalog/kidney-dish.jpg",
   gallipot: "/images/catalog/gallipot.jpg",
   spirit: "/images/catalog/spirit.jpg",
   iodine: "/images/catalog/iodine.jpg",
   disinfectant: "/images/catalog/disinfectant.jpg",
+  "citric-acid-21": "/images/catalog/citric-acid-21.jpg",
   "biohazard-liner": "/images/catalog/biohazard-liner.jpg",
   sharps: "/images/catalog/sharps.jpg",
   sanitary: "/images/catalog/sanitary.jpg",
+  "towel-hd-green": "/images/catalog/towel-hd-green.jpg",
   "test-glucose": "/images/catalog/test-glucose.jpg",
   "test-urinalysis": "/images/catalog/test-urinalysis.jpg",
   "test-pregnancy": "/images/catalog/test-pregnancy.jpg",
@@ -84,9 +150,32 @@ export const catalogImages: Record<CatalogImageKey, string> = {
   "lab-specimen": "/images/catalog/lab-specimen.jpg",
   "bp-digital": "/images/catalog/bp-digital.jpg",
   "bp-analogue": "/images/catalog/bp-analogue.jpg",
+  "bp-omron": "/images/catalog/bp-omron.jpg",
+  "bp-citizen": "/images/catalog/bp-citizen.jpg",
+  "bp-citizen-wrist": "/images/catalog/bp-citizen-wrist.jpg",
+  "bp-moratech": "/images/catalog/bp-moratech.jpg",
+  "bp-fabia": "/images/catalog/bp-fabia.jpg",
+  "bp-cuffs-omron": "/images/catalog/bp-cuffs-omron.jpg",
+  "glucostrips-oncall": "/images/catalog/glucostrips-oncall.jpg",
+  "glucostrips-sinocare": "/images/catalog/glucostrips-sinocare.jpg",
+  "glucometer-oncall-plus": "/images/catalog/glucometer-oncall-plus.jpg",
+  "glucometer-sinocare": "/images/catalog/glucometer-sinocare.jpg",
   thermometer: "/images/catalog/thermometer.jpg",
   "oxygen-regulator": "/images/catalog/oxygen-regulator.jpg",
   autoclave: "/images/catalog/autoclave.jpg",
+  "forceps-dunhill-artery": "/images/catalog/forceps-dunhill-artery.jpg",
+  "forceps-dressing": "/images/catalog/forceps-dressing.jpg",
+  "forceps-allis": "/images/catalog/forceps-allis.jpg",
+  "forceps-mosquito-curved": "/images/catalog/forceps-mosquito-curved.jpg",
+  "forceps-mosquito-straight": "/images/catalog/forceps-mosquito-straight.jpg",
+  "blade-holder": "/images/catalog/blade-holder.jpg",
+  "sims-uterine-sound": "/images/catalog/sims-uterine-sound.jpg",
+  "scissor-curved": "/images/catalog/scissor-curved.jpg",
+  "scissor-suture": "/images/catalog/scissor-suture.jpg",
+  "scissor-metzenbaum": "/images/catalog/scissor-metzenbaum.jpg",
+  "scissor-umbilical-cord": "/images/catalog/scissor-umbilical-cord.jpg",
+  "speculum-vaginal": "/images/catalog/speculum-vaginal.jpg",
+  "needle-holder": "/images/catalog/needle-holder.jpg",
   "hero-clinic": "/images/catalog/hero-clinic.jpg",
 };
 

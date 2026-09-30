@@ -36,7 +36,7 @@ export const AboutHeroIntro = ({ variant = "page", pageTitle = false, className 
         aria-hidden="true"
       />
       <p className="relative z-10 text-xs font-semibold uppercase tracking-[0.18em] text-secondary mb-5">
-        About Biolink Solutions EA
+        About Biopharmlifescience EA
       </p>
       <Headline className="relative z-10 font-serif text-2xl sm:text-3xl lg:text-[2.5rem] leading-[1.15] mb-5">
         Built by a nurse.
@@ -57,7 +57,7 @@ export const AboutHeroIntro = ({ variant = "page", pageTitle = false, className 
         Founded June 2025 · Nairobi, Kenya
       </span>
       <p className="text-base text-foreground/85 leading-relaxed mb-4">
-        Biolink Solutions EA was born from a simple but urgent observation: small and mid-sized private
+        Biopharmlifescience EA was born from a simple but urgent observation: small and mid-sized private
         clinics in Kenya are underserved by their suppliers. The owner firefights daily. Supplies run out.
         Patient care suffers.
       </p>

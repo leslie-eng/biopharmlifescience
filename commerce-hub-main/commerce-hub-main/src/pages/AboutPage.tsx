@@ -15,7 +15,7 @@ const TIMELINE = [
   { year: "10+ yrs", desc: "Clinical nursing, specializing in renal & dialysis care" },
   { year: "Early", desc: "Started Nina Medical Supplies — first close contact with clinic owners" },
   { year: "Turning point", desc: "Pain point confirmed: small clinics abandoned by suppliers" },
-  { year: "June 2025", desc: "Biolink Solutions EA officially founded in Nairobi" },
+  { year: "June 2025", desc: "Biopharmlifescience EA officially founded in Nairobi" },
 ] as const;
 
 const CHAPTERS = [
@@ -53,16 +53,16 @@ const CHAPTERS = [
     quote:
       "The deeper I got into the medical supplies space, the clearer the gap became to me. And with that, the solution became undeniable.",
     paragraphsAfter: [
-      "That clarity is what drove me to build Biolink Solutions EA. I wanted to create a managed supply model intentionally designed for underserved private clinics. We aren't a traditional distributor that drops stock off and disappears. We are a team that tracks, restocks, and keeps our clinics ahead of their needs.",
+      "That clarity is what drove me to build Biopharmlifescience EA. I wanted to create a managed supply model intentionally designed for underserved private clinics. We aren't a traditional distributor that drops stock off and disappears. We are a team that tracks, restocks, and keeps our clinics ahead of their needs.",
     ],
   },
   {
     num: "Chapter 04",
     title: "Why It Matters Beyond Business",
     paragraphs: [
-      "For me, Biolink isn't just a commercial project. It is a direct, practical response to a healthcare gap that actively disrupts patient care every single day across Nairobi.",
+      "For me, Biopharmlifescience isn't just a commercial project. It is a direct, practical response to a healthcare gap that actively disrupts patient care every single day across Nairobi.",
       "When a clinic is perfectly stocked with gloves, syringes, masks, and diagnostics, healthcare delivery runs smoothly without interruption. That is the bottom line I care about. Beyond balancing supply chain analytics, my focus is on the very end of that chain: ensuring a patient safely receives the care they came for.",
-      "That is what my years in nursing taught me, and it is exactly what Biolink is built to protect.",
+      "That is what my years in nursing taught me, and it is exactly what Biopharmlifescience is built to protect.",
     ],
   },
 ] as const;
@@ -71,7 +71,7 @@ const AboutPage = () => (
   <SiteLayout>
     <section className="pt-[3.2rem] md:pt-[4.48rem] pb-20 md:pb-28 bg-card">
       <div className="site-wrap">
-        <h1 className="sr-only">About Biolink Solutions EA</h1>
+        <h1 className="sr-only">About Biopharmlifescience EA</h1>
         <AnimateIn>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary mb-3">What drives us</p>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-foreground mb-10">Vision &amp; Mission</h2>
@@ -154,7 +154,7 @@ const AboutPage = () => (
             <div className="rounded-2xl bg-primary text-primary-foreground p-8 mb-6">
               <p className="font-serif text-xl leading-snug mb-2">Nickko Kimanthi</p>
               <p className="text-sm text-primary-foreground/65 leading-relaxed">
-                Founder, Biolink Solutions EA
+                Founder, Biopharmlifescience EA
                 <br />
                 Registered Nurse · Dialysis Specialist
               </p>

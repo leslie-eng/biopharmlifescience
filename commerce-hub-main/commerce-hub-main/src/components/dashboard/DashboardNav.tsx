@@ -40,7 +40,7 @@ export const DashboardNav = ({ preview = false }: DashboardNavProps) => {
             <ShieldCheck className="h-4 w-4 text-white" />
           </div>
           <div className="hidden sm:block leading-tight">
-            <p className="font-display font-bold text-primary text-sm">Biolink EA</p>
+            <p className="font-display font-bold text-primary text-sm">Biopharmlifescience EA</p>
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Admin</p>
           </div>
         </Link>

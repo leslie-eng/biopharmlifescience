@@ -89,7 +89,7 @@ export const AkibaCalculator = () => {
     <div className="max-w-4xl">
       <div className="mb-8">
         <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-primary">
-          Biolink Solutions EA
+          Biopharmlifescience EA
         </span>
         <h2 className="mb-2 font-serif text-3xl font-bold tracking-tight text-foreground">
           Akiba Calculator
@@ -304,7 +304,7 @@ export const AkibaCalculator = () => {
 
           <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
             Calculations are metric projections based on algorithmic lead tracking patterns. Official clinical stock
-            limits will be validated and signed off by a Biolink medical operations consultant during your physical
+            limits will be validated and signed off by a Biopharmlifescience medical operations consultant during your physical
             facility review.
           </p>
         </div>

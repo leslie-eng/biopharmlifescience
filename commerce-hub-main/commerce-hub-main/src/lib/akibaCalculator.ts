@@ -61,7 +61,7 @@ export function buildVerdict(
 
   return {
     type: "bad",
-    text: `${freqLabel} delivery risks sudden stockouts based on your high consumption. Biolink recommends a more frequent restock framework.`,
+    text: `${freqLabel} delivery risks sudden stockouts based on your high consumption. Biopharmlifescience recommends a more frequent restock framework.`,
   };
 }
 
@@ -117,5 +117,5 @@ export function formatKes(amount: number): string {
 }
 
 export function akibaCalculatorWhatsAppMessage(annualSavings: number): string {
-  return `Hi Biolink, I just ran our facility metrics on the Akiba Calculator and would love to schedule our free site procurement audit. Our estimated cost efficiency dividend is KSh ${formatKes(annualSavings)} per year.`;
+  return `Hi Biopharmlifescience, I just ran our facility metrics on the Akiba Calculator and would love to schedule our free site procurement audit. Our estimated cost efficiency dividend is KSh ${formatKes(annualSavings)} per year.`;
 }

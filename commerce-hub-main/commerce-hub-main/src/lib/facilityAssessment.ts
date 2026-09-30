@@ -24,7 +24,7 @@ export function buildFacilityAssessmentWhatsAppUrl(data: FacilityAssessmentForm)
   const visitDateFormatted = format(data.visitDate, "EEEE, d MMMM yyyy");
   const visitTimeFormatted = formatVisitTime(data.visitTime);
   const message = [
-    "Hello Biolink Solutions EA, I would like to book a facility assessment. Details:",
+    "Hello Biopharmlifescience EA, I would like to book a facility assessment. Details:",
     "",
     `Name: ${data.personName}`,
     `Facility: ${data.facilityName}`,

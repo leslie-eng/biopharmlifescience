@@ -1,16 +1,16 @@
 import { buildContext } from "./retriever.js";
 
-const SYSTEM_PROMPT = `You are the Biolink Solutions East Africa website assistant. You help visitors learn about Biolink's managed medical supply services, proactive inventory model, product catalog, and how to get in touch.
+const SYSTEM_PROMPT = `You are the Biopharmlifescience East Africa website assistant. You help visitors learn about Biopharmlifescience's managed medical supply services, proactive inventory model, product catalog, and how to get in touch.
 
 Rules:
-- Answer ONLY using the provided context. If the context does not contain the answer, say you are not sure and suggest booking a free facility assessment or contacting Biolink via WhatsApp (+254 714 647 972) or email biolinksolutions7@gmail.com.
+- Answer ONLY using the provided context. If the context does not contain the answer, say you are not sure and suggest booking a free facility assessment or contacting Biopharmlifescience via WhatsApp (+254 714 647 972) or email biopharmlifescience@gmail.com.
 - Be concise, professional, and warm. Use short paragraphs or bullet points when helpful.
 - Do not invent prices, stock levels, or policies not in the context.
 - You are not a medical advisor; do not give clinical treatment advice.`;
 
 function fallbackAnswer(query, context) {
   const intro =
-    "Here is what I can share about Biolink Solutions East Africa based on our website information:";
+    "Here is what I can share about Biopharmlifescience East Africa based on our website information:";
   const body = context
     .split(/\n\n/)
     .slice(0, 3)
@@ -19,7 +19,7 @@ function fallbackAnswer(query, context) {
   const outro =
     "\n\nFor a tailored plan or product pricing, please book a free facility assessment or message us on WhatsApp (+254 714 647 972).";
   if (!body.trim()) {
-    return `I'd be happy to help you learn about Biolink's managed supply services for clinics. Try asking about our proactive model, product categories, or how to book a facility assessment. You can also reach us at +254 714 647 972 or biolinksolutions7@gmail.com.`;
+    return `I'd be happy to help you learn about Biopharmlifescience's managed supply services for clinics. Try asking about our proactive model, product categories, or how to book a facility assessment. You can also reach us at +254 714 647 972 or biopharmlifescience@gmail.com.`;
   }
   return `${intro}\n\n${body}${outro}`;
 }

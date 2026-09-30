@@ -70,5 +70,5 @@ if (staticDir && fs.existsSync(staticDir)) {
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Biolinks API listening on http://localhost:${port}`);
+  console.log(`Biopharmlifescience API listening on http://localhost:${port}`);
 });

@@ -10,14 +10,14 @@ import { sendChatMessage, type ChatMessage } from "@/lib/chat";
 const WELCOME: ChatMessage = {
   role: "assistant",
   content:
-    "Hello! I'm the Biolink assistant. Ask me about our managed supply model, product categories, how we work with clinics, or how to get in touch.",
+    "Hello! I'm the Biopharmlifescience assistant. Ask me about our managed supply model, product categories, how we work with clinics, or how to get in touch.",
 };
 
 const SUGGESTIONS = [
   "What is Dhibiti model?",
   "What products do you supply?",
   "How do I book a facility assessment?",
-  "How can I contact Biolink?",
+  "How can I contact Biopharmlifescience?",
 ];
 
 export const SiteChatbot = () => {
@@ -75,7 +75,7 @@ export const SiteChatbot = () => {
           type="button"
           onClick={() => setOpen(true)}
           className="fixed bottom-5 right-5 z-50 h-14 w-14 rounded-full shadow-elegant hover:shadow-glow p-0 safe-bottom"
-          aria-label="Open Biolink assistant chat"
+          aria-label="Open Biopharmlifescience assistant chat"
         >
           <MessageCircle className="h-6 w-6" />
         </Button>
@@ -84,7 +84,7 @@ export const SiteChatbot = () => {
       {open && (
         <div
           role="dialog"
-          aria-label="Biolink assistant"
+          aria-label="Biopharmlifescience assistant"
           className={cn(
             "fixed z-50 flex flex-col bg-background border border-border shadow-elegant",
             "inset-x-3 bottom-3 top-auto h-[min(520px,calc(100dvh-5rem))] rounded-2xl",
@@ -93,7 +93,7 @@ export const SiteChatbot = () => {
         >
           <header className="flex items-center justify-between gap-2 border-b border-border px-4 py-3 shrink-0 rounded-t-2xl bg-gradient-hero">
             <div className="min-w-0">
-              <p className="font-semibold text-sm text-foreground truncate">Biolink Assistant</p>
+              <p className="font-semibold text-sm text-foreground truncate">Biopharmlifescience Assistant</p>
               <p className="text-xs text-muted-foreground truncate">Learn about our services</p>
             </div>
             <Button
@@ -166,7 +166,7 @@ export const SiteChatbot = () => {
                     void submit(input);
                   }
                 }}
-                placeholder="Ask about Biolink…"
+                placeholder="Ask about Biopharmlifescience…"
                 rows={2}
                 className="flex-1 resize-none rounded-xl border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-h-[44px] max-h-28"
                 disabled={loading}
@@ -183,7 +183,7 @@ export const SiteChatbot = () => {
               </Button>
             </div>
             <p className="text-[10px] text-muted-foreground text-center leading-snug">
-              Answers use Biolink website information.{" "}
+              Answers use Biopharmlifescience website information.{" "}
               <Link to={FACILITY_ASSESSMENT_BOOK_PATH} className="text-primary hover:underline">
                 Book an assessment
               </Link>{" "}

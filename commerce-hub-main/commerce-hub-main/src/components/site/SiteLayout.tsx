@@ -18,7 +18,7 @@ export const SiteLayout = ({ children }: { children: React.ReactNode }) => (
           <a href={EMAIL_HREF} className="hover:text-primary transition-colors break-all min-h-[44px] inline-flex items-center">{EMAIL}</a>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors min-h-[44px] inline-flex items-center">WhatsApp</a>
         </div>
-        <p className="text-xs">© 2025 Biolink Solutions East Africa Ltd</p>
+        <p className="text-xs">© 2025 Biopharmlifescience East Africa Ltd</p>
       </div>
     </footer>
     <SiteChatbot />

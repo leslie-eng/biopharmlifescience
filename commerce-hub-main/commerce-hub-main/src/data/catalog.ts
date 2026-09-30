@@ -98,203 +98,155 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     "syringe-2cc"
   ),
   product(
-    "syringe-5cc-finoject",
-    "5cc Syringe — Finoject",
+    "syringe-5cc-with-needle",
+    "5cc Syringe with Needle",
     "syringes-needles",
-    "Finoject 5cc syringe for moderate-volume draws and IM/SC injections.",
+    "A single-use 5ml syringe fitted with a fixed hypodermic needle, built for accurate low-to-mid volume injections. Clear barrel markings support precise dosing, while the smooth plunger action reduces medication wastage during administration. Individually sterile-packed for safe, ready-to-use clinical handling.",
     "syringe-5cc"
   ),
   product(
-    "syringe-5cc-kings",
-    "5cc Syringe — Kings",
+    "syringe-10cc-with-needle",
+    "10cc Syringe with Needle",
     "syringes-needles",
-    "Kings 5cc syringe — reliable for ward medication administration.",
-    "syringe-5cc"
-  ),
-  product(
-    "syringe-10cc-akshar",
-    "10cc Syringe — Akshar",
-    "syringes-needles",
-    "Akshar 10cc syringe for larger-volume medication administration and irrigation.",
+    "A 10ml single-use syringe with an attached needle, designed for medium-volume injections and medication delivery. The graduated barrel allows precise dose measurement, and the sterile packaging ensures it's ready for immediate clinical use without added prep time.",
     "syringe-10cc"
   ),
   product(
-    "syringe-10cc-kings",
-    "10cc Syringe — Kings",
+    "syringe-20cc-without-needle",
+    "20cc Syringe without Needle",
     "syringes-needles",
-    "Kings 10cc syringe with smooth plunger action for clinical use.",
-    "syringe-10cc"
-  ),
-  product(
-    "syringe-20cc-finoject",
-    "20cc Syringe — Finoject",
-    "syringes-needles",
-    "Finoject 20cc syringe for high-volume draws, wound irrigation, and procedure support.",
+    "A 20ml syringe supplied without a needle, ideal for larger volume tasks such as flushing, aspiration, or connecting to existing lines and cannulas. Its wide barrel and clear graduations make it easy to draw and administer accurately in high-volume procedures.",
     "syringe-20cc"
   ),
   product(
-    "needle-akshar-g21",
-    "Akshar Needle — G21",
+    "infusion-cannula",
+    "Infusion Cannula",
     "syringes-needles",
-    "Sterile hypodermic needle, gauge 21, for IM injections and compatible syringe hubs.",
-    "needle",
-    ["Gauge 21"]
+    "A sterile IV cannula designed for reliable peripheral vascular access. Its sharp, precision-ground needle allows smooth, low-trauma insertion, while the flexible catheter minimizes vein irritation during extended infusion therapy. A dependable choice for routine fluid and medication administration.",
+    "iv-cannula"
   ),
   product(
-    "needle-akshar-g23",
-    "Akshar Needle — G23",
+    "burette-infusion-set",
+    "Burette Infusion Set",
     "syringes-needles",
-    "Sterile hypodermic needle, gauge 23, for finer injections including subcutaneous routes.",
-    "needle",
-    ["Gauge 23"]
+    "A calibrated burette infusion set built for controlled, measured fluid or medication delivery — particularly useful in pediatric and precision-dosing cases. The graduated chamber allows accurate volume monitoring, giving clinicians tighter control over infusion rates and total dosage.",
+    "infusion-set-burette"
   ),
   product(
-    "iv-cannula-g24",
-    "IV Cannula — G24",
+    "infusion-set",
+    "Infusion Set",
     "syringes-needles",
-    "Peripheral IV cannula, gauge 24, for venous access in adult and paediatric patients where appropriate.",
-    "iv-cannula",
-    ["Gauge 24", "IV access"]
+    "A standard sterile infusion set for delivering IV fluids and medications at a controlled rate. Features a drip chamber for flow monitoring, a roller clamp for rate adjustment, and a puncture-ready spike for quick, secure connection to fluid bags.",
+    "infusion-set-standard"
   ),
   product(
-    "iv-giving-set-akshar",
-    "Akshar IV Giving Set",
+    "hypodermic-needles",
+    "Hypodermic Needles",
     "syringes-needles",
-    "Complete IV administration set for gravity infusion with drip chamber and sterile fluid pathway.",
-    "iv-giving-set"
+    "Sterile, single-use hypodermic needles designed for smooth penetration and minimal patient discomfort. Available for use with standard syringes across injection, aspiration, and medication draw-up procedures — a reliable everyday essential for any clinical setting.",
+    "needle"
   ),
 
   // 2. Renal and Dialysis
   product(
-    "dialyzer-able-1-8",
-    "Able Dialyzer — 1.8",
+    "catheter-central-venous",
+    "Central Venous Catheter",
     "renal-dialysis",
-    "Able haemodialysis dialyzer, surface area 1.8 m², for prescribed HD treatment protocols.",
+    "A sterile catheter inserted into a large central vein to provide vascular access for haemodialysis, medication administration, or fluid management. Designed for secure placement and reliable flow, supporting patients who need urgent or short-term access.",
+    "catheter-central-venous"
+  ),
+  product(
+    "fistula-needles-av",
+    "Arteriovenous Fistula Needles",
+    "renal-dialysis",
+    "Specialised needles designed for cannulating an AV fistula during haemodialysis sessions. Sharp, precision-ground tips support smooth, low-trauma insertion, helping preserve fistula integrity over repeated use.",
+    "fistula-needles-av"
+  ),
+  product(
+    "catheter-hd-long-term",
+    "Long-Term Haemodialysis Catheter",
+    "renal-dialysis",
+    "A tunnelled, cuffed catheter designed for extended vascular access in patients requiring ongoing dialysis over weeks to months. The cuff anchors the catheter under the skin, reducing infection risk and supporting stable long-term use.",
+    "catheter-hd-long-term"
+  ),
+  product(
+    "catheter-hd-acute",
+    "Acute Haemodialysis Catheter",
+    "renal-dialysis",
+    "A non-tunnelled catheter designed for immediate, short-term vascular access in patients requiring urgent dialysis. Quick to insert and reliable for temporary use while long-term access is established.",
+    "catheter-hd-acute"
+  ),
+  product(
+    "hd-solution-acid-concentrate",
+    "Haemodialysis Solution — Acid Concentrate",
+    "renal-dialysis",
+    "A concentrated acid solution used in the preparation of dialysate for haemodialysis treatment. Formulated for consistent, accurate dilution ratios to support safe and effective dialysis sessions.",
+    "dialysis-concentrate"
+  ),
+  product(
+    "hd-powder-sodium-bicarbonate",
+    "Haemodialysis Powder — Sodium Bicarbonate",
+    "renal-dialysis",
+    "A sodium bicarbonate powder used to prepare bicarbonate concentrate for haemodialysis, helping correct metabolic acidosis in patients. Formulated for reliable dissolution and consistent dialysate composition.",
+    "powder-hd-bicarbonate"
+  ),
+  product(
+    "hd-filters-dialyzer",
+    "Haemodialysis Filters (Dialyzer)",
+    "renal-dialysis",
+    "A hollow-fibre dialyzer used to filter waste products and excess fluid from the blood during haemodialysis. Designed for efficient clearance and biocompatibility across a range of patient needs.",
     "dialysis-dialyzer",
-    ["Surface area 1.8 m²"]
+    ["Sizes 14H, 17H, 18H, 19, 20H, 21H"]
   ),
   product(
-    "dialyzer-able-2-0",
-    "Able Dialyzer — 2.0",
-    "renal-dialysis",
-    "Able haemodialysis dialyzer, surface area 2.0 m², for patients requiring higher clearance capacity.",
-    "dialysis-dialyzer",
-    ["Surface area 2.0 m²"]
-  ),
-  product(
-    "dialyzer-oci-2-0",
-    "Oci Dialyzer — 2.0",
-    "renal-dialysis",
-    "Oci dialyzer 2.0 m² for routine haemodialysis sessions in renal units.",
-    "dialysis-dialyzer"
-  ),
-  product(
-    "dialyzer-oci-2-1",
-    "Oci Dialyzer — 2.1",
-    "renal-dialysis",
-    "Oci dialyzer 2.1 m² offering expanded membrane area for HD prescriptions.",
-    "dialysis-dialyzer"
-  ),
-  product(
-    "dialyzer-hemocure-1-4",
-    "Hemocure Dialyzer — 1.4",
-    "renal-dialysis",
-    "Hemocure dialyzer 1.4 m² for patients on lower-surface-area dialysis prescriptions.",
-    "dialysis-dialyzer"
-  ),
-  product(
-    "catheter-amecath-temporary-hd",
-    "Amecath Temporary HD Catheter",
-    "renal-dialysis",
-    "Temporary haemodialysis catheter for acute vascular access until permanent access matures.",
-    "dialysis-catheter"
-  ),
-  product(
-    "catheter-amecath-permanent-hd",
-    "Amecath Permanent HD Catheter",
-    "renal-dialysis",
-    "Long-term tunneled catheter option for patients requiring durable HD vascular access.",
-    "dialysis-catheter"
-  ),
-  product(
-    "catheter-medicomp",
-    "Medicomp Catheter",
-    "renal-dialysis",
-    "Medicomp vascular access catheter for dialysis and critical-care infusion pathways.",
-    "dialysis-catheter"
-  ),
-  product(
-    "catheter-harsoria-adult-cvc",
-    "Harsoria Adult CVC",
-    "renal-dialysis",
-    "Central venous catheter for adult patients — supports dialysis and high-flow infusion needs.",
-    "dialysis-catheter"
-  ),
-  product(
-    "catheter-able-cvc",
-    "Able CVC — Multiple Sizes",
-    "renal-dialysis",
-    "Able central venous catheters available in multiple French sizes for tailored vascular access.",
-    "dialysis-catheter",
-    ["Multiple sizes available"]
-  ),
-  product(
-    "catheter-arrow-hd-tempcath",
-    "Arrow HD Tempcath",
-    "renal-dialysis",
-    "Arrow temporary haemodialysis catheter for short-term renal replacement therapy access.",
-    "dialysis-catheter"
-  ),
-  product(
-    "concentrate-hemocure-sodium-bicarbonate",
-    "Hemocure Sodium Bicarbonate Concentrate",
-    "renal-dialysis",
-    "Bicarbonate concentrate component for haemodialysis fluid preparation and acid-base balance in HD.",
-    "dialysis-concentrate"
-  ),
-  product(
-    "concentrate-puro-acid",
-    "Puro Acid Concentrate",
-    "renal-dialysis",
-    "Acid concentrate for dialysis machine mixing — supports prescribed dialysate composition.",
-    "dialysis-concentrate"
-  ),
-  product(
-    "concentrate-aea-acid",
-    "AEA Acid Concentrate",
-    "renal-dialysis",
-    "AEA-brand acid concentrate used in haemodialysis water and dialysate systems.",
-    "dialysis-concentrate"
-  ),
-  product(
-    "concentrate-citrosafe-21-5l",
-    "Citrosafe 21 Citric Acid — 5L",
-    "renal-dialysis",
-    "5-litre citric acid solution (Citrosafe 21) for catheter lock and line maintenance protocols.",
-    "dialysis-concentrate",
-    ["5L container"]
-  ),
-  product(
-    "regeneration-salt",
+    "regeneration-salt-water-treatment",
     "Regeneration Salt (Water Treatment)",
     "renal-dialysis",
-    "Regeneration salt for dialysis water-treatment systems — maintains resin bed performance in RO units.",
-    "dialysis-concentrate"
+    "A purified sodium chloride salt used to regenerate water softening resin in dialysis water treatment systems. Supports consistent water quality, which is critical to safe dialysate preparation.",
+    "regeneration-salt-new"
   ),
 
   // 3. PPE
   product(
-    "gloves-latex-powdered-biobase",
-    "Latex Powdered Gloves — Biobase",
+    "face-shield",
+    "Face Shield",
     "ppe-apparel",
-    "Biobase latex examination gloves with powder for general clinical and procedural use.",
-    "gloves-latex"
+    "A protective shield worn over the face to guard against splashes, sprays, and droplets during clinical procedures. Lightweight, adjustable headband ensures a secure, comfortable fit for extended wear.",
+    "face-shield"
+  ),
+  product(
+    "facemask",
+    "Facemask",
+    "ppe-apparel",
+    "A disposable medical facemask providing a barrier against droplets and airborne particles. Soft, breathable material with an adjustable nose clip for a secure, comfortable fit throughout the shift.",
+    "mask-surgical"
+  ),
+  product(
+    "gloves-gynaecological",
+    "Gynaecological Gloves",
+    "ppe-apparel",
+    "Extra-long sterile gloves designed for gynaecological and obstetric examinations, offering extended forearm coverage. Textured fingertips ensure a secure grip during procedures.",
+    "gloves-gynaecological"
+  ),
+  product(
+    "gloves-orthopaedic",
+    "Orthopaedic Gloves",
+    "ppe-apparel",
+    "Heavy-duty sterile gloves designed for orthopaedic procedures, offering enhanced puncture resistance against sharp instruments and bone fragments. Reinforced material supports confident handling during high-risk procedures.",
+    "gloves-orthopaedic"
+  ),
+  product(
+    "gloves-sterile-surgical",
+    "Sterile Surgical Gloves",
+    "ppe-apparel",
+    "Sterile, powder-free gloves designed for surgical procedures requiring a high level of dexterity and tactile sensitivity. Anatomically shaped for a snug, comfortable fit throughout long procedures.",
+    "gloves-surgical"
   ),
   product(
     "gloves-nitrile",
     "Nitrile Gloves",
     "ppe-apparel",
-    "Powder-free nitrile gloves offering chemical resistance and latex-free protection for staff.",
+    "Latex-free examination gloves offering strong puncture and chemical resistance for general clinical use. A reliable choice for staff with latex sensitivities, without compromising on grip or durability.",
     "gloves-nitrile"
   ),
   product(
@@ -305,19 +257,39 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     "gloves-nitrile"
   ),
   product(
-    "gloves-sterile-surgical-proto-7-5",
-    "Sterile Surgical Gloves — Proto 7.5",
+    "gloves-latex",
+    "Latex Gloves",
     "ppe-apparel",
-    "Proto sterile surgical gloves, size 7.5, for aseptic procedures and operating theatre use.",
-    "gloves-surgical",
-    ["Size 7.5", "Sterile"]
+    "Flexible, form-fitting examination gloves offering excellent tactile sensitivity and a comfortable stretch fit. A cost-effective, everyday choice for routine clinical procedures.",
+    "gloves-latex"
   ),
   product(
-    "mask-medimax-face",
-    "Medimax Face Masks",
+    "apron-nylon",
+    "Nylon Apron",
     "ppe-apparel",
-    "Medimax surgical face masks for droplet protection in clinical and waiting-area settings.",
-    "mask-surgical"
+    "A durable, fluid-resistant apron worn to protect clothing during procedures, cleaning, or patient care tasks. Lightweight and easy to wipe down between uses.",
+    "apron-nylon"
+  ),
+  product(
+    "shoe-cover",
+    "Shoe Cover",
+    "ppe-apparel",
+    "Disposable protective covers worn over footwear to maintain hygiene standards in sterile or controlled clinical areas. Elasticated opening ensures a secure, snug fit.",
+    "shoe-cover"
+  ),
+  product(
+    "head-cap",
+    "Head Cap",
+    "ppe-apparel",
+    "A lightweight, disposable head cap used to contain hair and maintain hygiene during procedures. Breathable material with an elasticated edge for a comfortable, secure fit.",
+    "head-cap"
+  ),
+  product(
+    "gown-disposable",
+    "Disposable Gown",
+    "ppe-apparel",
+    "A single-use protective gown worn to shield clothing and skin from fluids and contamination during procedures or patient care. Lightweight, breathable material with secure back-tie fastening.",
+    "gown-disposable"
   ),
   product(
     "mask-webo-oxygen-nrm",
@@ -336,108 +308,210 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     ["Multiple sizes available"]
   ),
 
-  // 4. Wound Care
+  // 4. Wound Care and Surgical Consumables — Surgical Instruments
   product(
-    "dressing-medex-gripoderm-10x25",
-    "Medex/Gripoderm Waterproof Dressing — 10×25 cm",
+    "forceps-dunhill-artery",
+    "Dunhill Artery Forceps",
     "wound-care",
-    "Waterproof adhesive dressing 10×25 cm for post-procedure sites and moisture-resistant wound coverage.",
-    "dressing"
+    "A haemostatic forceps used to clamp blood vessels and control bleeding during surgical procedures. Serrated jaws provide a firm, secure grip, and a ratchet lock holds tension without constant hand pressure.",
+    "forceps-dunhill-artery",
+    ["Available in different sizes"]
   ),
   product(
-    "dressing-15x8",
-    "Adhesive Dressing — 15×8 cm",
+    "blade-holder",
+    "Blade Holder",
     "wound-care",
-    "Sterile adhesive wound dressing 15×8 cm for medium surgical and traumatic wounds.",
-    "dressing"
+    "A surgical handle designed to securely hold disposable scalpel blades for precise cutting during procedures. Built for a stable, comfortable grip and easy blade attachment/removal.",
+    "blade-holder",
+    ["Available in different sizes"]
   ),
   product(
-    "dressing-7x5",
-    "Adhesive Dressing — 7×5 cm",
+    "sims-uterine-sound",
+    "Sims Uterine Sound",
     "wound-care",
-    "Compact sterile dressing 7×5 cm for small incisions, cannulation sites, and abrasions.",
-    "dressing"
+    "A slender, curved instrument used to examine and measure the depth and direction of the uterine cavity. Smooth, rounded tip minimizes trauma during gynaecological examination.",
+    "sims-uterine-sound",
+    ["Available in different sizes"]
   ),
   product(
-    "cotton-wool-mediwool-400g",
-    "Cotton Wool — Mediwool 400g",
+    "scissor-curved",
+    "Curved Scissor",
     "wound-care",
-    "Mediwool absorbent cotton wool 400g roll for wound packing, cleansing, and padding.",
-    "cotton-wool",
-    ["400g"]
+    "A general-purpose surgical scissor with a curved blade for precise cutting of tissue or suture material in confined areas. Sharp, well-aligned blades ensure clean cuts with minimal tissue trauma.",
+    "scissor-curved",
+    ["Available in different sizes"]
   ),
   product(
-    "cotton-wool-mediwool-100g",
-    "Cotton Wool — Mediwool 100g",
+    "forceps-dressing",
+    "Dressing Forceps",
     "wound-care",
-    "Mediwool cotton wool 100g for outpatient dressing changes and minor procedures.",
-    "cotton-wool",
-    ["100g"]
+    "A non-locking forceps used to handle dressings, swabs, and tissue during wound care and minor procedures. Serrated tips grip securely without slipping.",
+    "forceps-dressing",
+    ["Available in different sizes"]
   ),
   product(
-    "cotton-wool-mediwool-50g",
-    "Cotton Wool — Mediwool 50g",
+    "scissor-suture",
+    "Suture Scissor",
     "wound-care",
-    "Mediwool cotton wool 50g pack for clinic trays and low-volume wound care.",
-    "cotton-wool",
-    ["50g"]
+    "A precision scissor designed for cutting sutures cleanly and accurately during and after procedures. Fine, sharp tips allow controlled, close-to-knot cutting.",
+    "scissor-suture",
+    ["Available in different sizes"]
   ),
   product(
-    "gauze-roll-plain",
-    "Gauze Roll — Plain",
+    "scissor-metzenbaum",
+    "Metzenbaum Tissue Scissor",
     "wound-care",
-    "Plain woven gauze roll for wound dressing, bandaging, and absorbent layering.",
-    "gauze"
+    "A fine-tipped scissor designed for delicate dissection and cutting of soft tissue with minimal trauma. Long, slender blades allow precise control in deeper surgical fields.",
+    "scissor-metzenbaum",
+    ["Available in different sizes"]
   ),
   product(
-    "gauze-roll-xray-detectable",
-    "Gauze Roll — X-Ray Detectable",
+    "forceps-allis",
+    "Allis Forceps",
     "wound-care",
-    "X-ray detectable gauze roll for surgical packing — traceable on imaging if retained.",
-    "gauze",
-    ["X-ray detectable"]
+    "A grasping forceps with interlocking teeth used to hold and manipulate tissue securely during surgery, without excessive crushing. Reliable ratchet lock maintains a firm grip throughout the procedure.",
+    "forceps-allis",
+    ["Available in different sizes"]
   ),
   product(
-    "surgical-blades-100s",
-    "Surgical Blades (Box of 100)",
+    "forceps-mosquito-curved",
+    "Curved Mosquito Forceps",
     "wound-care",
-    "Sterile surgical blades supplied in boxes of 100 for minor surgery and suturing kits.",
+    "A small, delicate haemostatic forceps with curved tips, used for clamping fine blood vessels and tissue in precision procedures. Fine jaws allow careful, controlled handling.",
+    "forceps-mosquito-curved",
+    ["Available in different sizes"]
+  ),
+  product(
+    "forceps-mosquito-straight",
+    "Straight Mosquito Forceps",
+    "wound-care",
+    "A small, delicate haemostatic forceps with straight tips, ideal for clamping fine vessels and tissue where a direct approach is needed. Precise jaw alignment ensures a secure, controlled grip.",
+    "forceps-mosquito-straight",
+    ["Available in different sizes"]
+  ),
+  product(
+    "speculum-vaginal",
+    "Vaginal Speculum",
+    "wound-care",
+    "An instrument used to gently dilate the vaginal walls for clear visualization during gynaecological examination and procedures. Smooth edges and a secure locking mechanism support both comfort and stability during use.",
+    "speculum-vaginal",
+    ["Available in different sizes"]
+  ),
+  product(
+    "kidney-dish",
+    "Kidney Dish",
+    "wound-care",
+    "A curved, kidney-shaped stainless steel tray used to hold instruments, swabs, or collect fluids during procedures. Durable, corrosion-resistant construction withstands repeated sterilization cycles.",
+    "kidney-dish",
+    ["Available in different sizes"]
+  ),
+  product(
+    "gallipot",
+    "Gallipot",
+    "wound-care",
+    "A small stainless steel bowl used to hold antiseptic solutions, swabs, or fluids during minor procedures and dressing changes. Sturdy, easy-to-clean construction supports repeated sterilization.",
+    "gallipot",
+    ["Available in different sizes"]
+  ),
+  product(
+    "needle-holder",
+    "Needle Holder",
+    "wound-care",
+    "A locking surgical instrument used to grip and control suture needles during wound closure. Textured jaws prevent needle slippage, while the ratchet lock secures a stable hold throughout suturing.",
+    "needle-holder",
+    ["Available in different sizes"]
+  ),
+  product(
+    "scissor-umbilical-cord",
+    "Umbilical Cord Scissor",
+    "wound-care",
+    "A specialised scissor designed for the safe, clean cutting of the umbilical cord after delivery. Blunt-tipped blades minimise risk to mother and newborn during the procedure.",
+    "scissor-umbilical-cord",
+    ["Available in different sizes"]
+  ),
+
+  // 4. Wound Care and Surgical Consumables — Surgical Consumables
+  product(
+    "surgical-blades",
+    "Surgical Blades",
+    "wound-care",
+    "Sterile, single-use scalpel blades designed for precise, clean incisions during surgical procedures. Individually wrapped to maintain sterility, with a sharp cutting edge for reliable performance from first use.",
     "surgical-blade"
   ),
   product(
-    "kidney-dish-big",
-    "Kidney Dish — Big",
+    "safety-box",
+    "Safety Box",
     "wound-care",
-    "Large stainless-style kidney dish for instruments, swabs, and procedure waste at bedside.",
-    "kidney-dish"
+    "A puncture-resistant sharps disposal container used to safely collect and dispose of used needles, blades, and other sharp instruments. Supports safe waste handling and reduces the risk of needle-stick injuries in clinic.",
+    "sharps"
   ),
   product(
-    "kidney-dish-medium",
-    "Kidney Dish — Medium",
+    "sanitary-medispread-hanaan-2ply-wc",
+    "Medispread Hanaan 2-Ply Rolls",
     "wound-care",
-    "Medium kidney dish for outpatient procedures and dressing trays.",
-    "kidney-dish"
+    "Soft, absorbent 2-ply couch/bed rolls used to line examination beds and procedure surfaces for hygiene between patients. Easy-tear perforations allow quick, mess-free changeovers.",
+    "sanitary"
   ),
   product(
-    "gallipot-small",
-    "Gallipot — Small",
+    "gauze-roll-xray-detectable",
+    "X-Ray Gauze Rolls",
     "wound-care",
-    "Small gallipot for antiseptic, lotion, and small-volume procedure solutions.",
-    "gallipot"
+    "X-ray detectable gauze rolls used for wound packing and dressing where retained material must be identifiable on imaging. Highly absorbent and safe for internal or deep wound use.",
+    "gauze-xray",
+    ["Available in different sizes"]
   ),
   product(
-    "gallipot-medium",
-    "Gallipot — Medium",
+    "gauze-roll-plain",
+    "Plain Gauze Rolls",
     "wound-care",
-    "Medium gallipot for ward dressing procedures and solution holding.",
-    "gallipot"
+    "Absorbent, non-woven gauze rolls used for general wound dressing, cleaning, and padding. Soft and gentle on skin while providing reliable absorbency for everyday clinical use.",
+    "gauze-plain",
+    ["Available in different sizes"]
   ),
   product(
-    "gallipot-big",
-    "Gallipot — Big",
+    "cotton-wool",
+    "Cotton Wool",
     "wound-care",
-    "Large gallipot for higher-volume antiseptic or irrigation fluid during procedures.",
-    "gallipot"
+    "Soft, absorbent cotton wool used for cleaning wounds, applying antiseptics, and general patient care. Highly absorbent and gentle on skin, suited for a wide range of clinical tasks.",
+    "cotton-wool",
+    ["Available in different sizes"]
+  ),
+  product(
+    "towel-hd-green",
+    "HD Green Towel",
+    "wound-care",
+    "A durable, heavy-duty green surgical towel used to create a sterile field and drape work areas during procedures. Highly absorbent and built to withstand repeated use and sterilization.",
+    "towel-hd-green"
+  ),
+  product(
+    "bin-liner-wc",
+    "Bin Liner",
+    "wound-care",
+    "Durable waste bags used for the safe collection and disposal of clinical and general waste. Puncture-resistant material supports safe handling and hygienic disposal practices.",
+    "biohazard-liner",
+    ["Available in different sizes"]
+  ),
+  product(
+    "dressing",
+    "Dressing",
+    "wound-care",
+    "Sterile wound dressings used to cover, protect, and support healing of wounds and post-procedure sites. Designed for secure adhesion and reliable absorbency, keeping wounds clean and protected.",
+    "dressing"
+  ),
+  product(
+    "blood-lancets",
+    "Blood Lancets",
+    "wound-care",
+    "Sterile, single-use lancets designed for quick, low-pain skin puncture during capillary blood sampling, such as glucose testing. Precision-engineered tip ensures a clean puncture with minimal discomfort.",
+    "lab-lancet"
+  ),
+  product(
+    "mask-oxygen-nonrebreather",
+    "Non-Rebreather Oxygen Masks",
+    "wound-care",
+    "A high-concentration oxygen delivery mask fitted with a reservoir bag and one-way valves to minimize rebreathing of exhaled air. Designed for patients requiring high-flow oxygen therapy in emergency or critical care settings.",
+    "mask-oxygen",
+    ["Available in different sizes"]
   ),
   product(
     "mva-kit-set",
@@ -447,37 +521,38 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
     "dressing"
   ),
 
-  // 5. Antiseptics
+  // 5. Antiseptics, Disinfectants, and Hygiene
   product(
-    "spirit-surgical-diarim",
-    "Surgical Spirit 70% — Diarim",
+    "citric-acid-21",
+    "Citric Acid 21%",
     "antiseptics-hygiene",
-    "Diarim surgical spirit 70% for skin antisepsis before injection and minor procedures. Available from 50ml to 5L.",
+    "A concentrated descaling and disinfecting solution used mainly for cleaning and decalcifying dialysis machines and other medical equipment. Effective at breaking down mineral deposits while supporting routine equipment hygiene protocols.",
+    "citric-acid-21",
+    ["5-litre containers"]
+  ),
+  product(
+    "iodine-10",
+    "Iodine 10%",
+    "antiseptics-hygiene",
+    "A broad-spectrum antiseptic solution used for skin disinfection prior to injections, procedures, and wound care. Effective against a wide range of bacteria, fungi, and viruses, making it a clinic essential for infection control.",
+    "iodine",
+    ["500ml, 1L, and 5L sizes"]
+  ),
+  product(
+    "spirit-surgical-70",
+    "Surgical Spirit 70%",
+    "antiseptics-hygiene",
+    "A fast-acting antiseptic solution used for skin cleansing before injections and minor procedures, as well as general surface disinfection. Evaporates quickly, leaving a clean, sanitized surface without residue.",
     "spirit",
-    ["70% formulation", "50ml – 5L sizes"]
+    ["500ml, 1L, and 5L sizes"]
   ),
   product(
-    "spirit-surgical-faholo",
-    "Surgical Spirit 70% — Faholo",
+    "sodium-hypochlorite",
+    "Sodium Hypochlorite",
     "antiseptics-hygiene",
-    "Faholo surgical spirit 70% for facility-wide skin preparation and instrument cleaning support.",
-    "spirit",
-    ["70% formulation", "50ml – 5L sizes"]
-  ),
-  product(
-    "iodine-diarim-10",
-    "Diarim Iodine 10%",
-    "antiseptics-hygiene",
-    "Diarim 10% iodine solution for antiseptic skin preparation in clinical settings.",
-    "iodine"
-  ),
-  product(
-    "sodium-hypochlorite-faholo-5l",
-    "Faholo Sodium Hypochlorite — 5L",
-    "antiseptics-hygiene",
-    "5-litre sodium hypochlorite for surface disinfection and facility hygiene protocols.",
+    "A powerful chlorine-based disinfectant used for surface decontamination, instrument soaking, and general infection control across clinical areas. Effective against a broad range of pathogens, supporting strict hygiene and biosafety standards.",
     "disinfectant",
-    ["5L container"]
+    ["5-litre containers"]
   ),
   product(
     "bin-liner-biohazard-24x36",
@@ -624,47 +699,84 @@ export const CATALOG_PRODUCTS: CatalogProduct[] = [
 
   // 7. Equipment
   product(
-    "bp-machine-omron-m1",
-    "BP Machine — Omron M1",
+    "bp-cuffs-omron",
+    "Omron Blood Pressure Cuffs",
     "medical-equipment",
-    "Omron M1 automatic upper-arm blood pressure monitor for accurate clinic vitals.",
-    "bp-digital"
-  ),
-  product(
-    "bp-machine-citizen",
-    "BP Machine — Citizen",
-    "medical-equipment",
-    "Citizen digital blood pressure monitor for ward and outpatient vital-sign stations.",
-    "bp-digital"
-  ),
-  product(
-    "bp-machine-moratech",
-    "BP Machine — Moratech",
-    "medical-equipment",
-    "Moratech BP device for routine hypertension screening in primary care.",
-    "bp-digital"
-  ),
-  product(
-    "bp-machine-fabia",
-    "BP Machine — Fabia",
-    "medical-equipment",
-    "Fabia automatic blood pressure monitor for clinical and community health use.",
-    "bp-digital"
+    "A replacement/spare cuff compatible with Omron BP monitors, designed for a snug, accurate fit. Available in neonate, paediatric, and adult sizes, covering the full range of patients from newborns to grown adults. Built with a reliable inflation bladder for consistent readings and a durable fabric that holds up to daily clinical use.",
+    "bp-cuffs-omron",
+    ["Neonate, paediatric, and adult sizes"]
   ),
   product(
     "bp-machine-analogue",
-    "BP Machine — Analogue (Aneroid)",
+    "Analogue Blood Pressure Machine",
     "medical-equipment",
-    "Classic aneroid sphygmomanometer with cuff for manual blood pressure measurement.",
+    "A manual aneroid sphygmomanometer for hands-on blood pressure measurement, paired with a stethoscope. Favoured for its durability, no dependency on batteries or calibration drift, and long-standing reliability in busy outpatient and ward settings.",
     "bp-analogue"
   ),
   product(
-    "bp-cuffs",
-    "Blood Pressure Cuffs",
+    "bp-machine-omron",
+    "Omron Blood Pressure Machine",
     "medical-equipment",
-    "Replacement and assorted-size BP cuffs compatible with facility monitors and aneroid sets.",
-    "bp-digital",
-    ["Multiple sizes available"]
+    "A fully automatic digital BP monitor from Omron, delivering fast, accurate systolic/diastolic and pulse readings at the touch of a button. Ideal for routine vitals checks where speed and consistency matter, with minimal training needed for staff.",
+    "bp-omron"
+  ),
+  product(
+    "bp-machine-citizen-wrist",
+    "Wrist Citizen Blood Pressure Machine",
+    "medical-equipment",
+    "A compact wrist-worn digital BP monitor from Citizen, suited for quick spot-checks and patients for whom an upper-arm cuff is impractical. Lightweight and portable, making it convenient for home-care visits or space-limited clinic setups.",
+    "bp-citizen-wrist"
+  ),
+  product(
+    "bp-machine-moratech-11",
+    "Moratech Blood Pressure Monitor (Model 11)",
+    "medical-equipment",
+    "An automatic digital blood pressure monitor built for consistent, easy-to-read vitals checks. Features Type-C charging, dual memory storage of up to 90 readings, a date and time indicator, and a large, easy-to-read display. A practical, budget-friendly option for clinics needing dependable daily BP monitoring without added complexity.",
+    "bp-moratech",
+    ["Type-C charging", "Dual memory, up to 90 readings"]
+  ),
+  product(
+    "bp-machine-fabia-upper-arm",
+    "Fabia Upper Arm Blood Pressure Monitor",
+    "medical-equipment",
+    "An upper-arm automatic BP monitor offering accurate one-touch readings and a comfortable adjustable cuff. Features USB charging, dual memory storage of up to 120 readings, a large display, and intelligent voice broadcast of results. A solid choice for general outpatient vitals monitoring where consistent, repeatable results are needed.",
+    "bp-fabia",
+    ["USB charging", "Dual memory, up to 120 readings", "Voice broadcast"]
+  ),
+  product(
+    "bp-machine-citizen",
+    "Citizen Blood Pressure Machine",
+    "medical-equipment",
+    "An automatic upper-arm digital BP monitor from Citizen, delivering quick and accurate systolic/diastolic readings. Sturdy build and simple interface make it well suited for high-frequency use in clinic settings.",
+    "bp-citizen"
+  ),
+  product(
+    "glucostrips-oncall",
+    "OnCall Glucostrips",
+    "medical-equipment",
+    "Compatible test strips for OnCall glucometers, designed for accurate blood glucose readings with a small sample size. Individually sealed for hygiene and shelf stability, supporting routine diabetic monitoring and screening in clinic.",
+    "glucostrips-oncall"
+  ),
+  product(
+    "glucometer-oncall-plus",
+    "OnCall Plus Machine",
+    "medical-equipment",
+    "A reliable glucometer for quick, accurate blood glucose testing at the point of care. Simple one-step operation with fast results, making it well suited for both clinic screening and patient self-monitoring support.",
+    "glucometer-oncall-plus"
+  ),
+  product(
+    "glucometer-sinocare",
+    "Sinocare Machine",
+    "medical-equipment",
+    "A digital blood glucose monitor offering fast, accurate readings with minimal blood sample volume. Straightforward to operate, making it a dependable option for routine diabetic monitoring in clinics and small hospitals.",
+    "glucometer-sinocare"
+  ),
+  product(
+    "glucostrips-sinocare",
+    "Sinocare Glucostrips",
+    "medical-equipment",
+    "Compatible test strips for Sinocare glucometers, formulated for precise glucose readings with minimal sample waste. Individually foil-sealed to protect against moisture, ensuring reliable results test after test.",
+    "glucostrips-sinocare"
   ),
   product(
     "thermometers",
@@ -715,27 +827,59 @@ const IMAGE_KEY_GROUP_NAMES: Record<CatalogImageKey, string> = {
   needle: "Hypodermic Needles",
   "iv-cannula": "IV Cannulas",
   "iv-giving-set": "IV Giving Sets",
+  "infusion-set-burette": "Burette Infusion Sets",
+  "infusion-set-standard": "Infusion Sets",
   "dialysis-dialyzer": "Haemodialysis Dialyzers",
   "dialysis-catheter": "Dialysis & Vascular Catheters",
   "dialysis-concentrate": "Dialysis Concentrates & Water Treatment",
+  "catheter-central-venous": "Central Venous Catheters",
+  "fistula-needles-av": "Arteriovenous Fistula Needles",
+  "catheter-hd-long-term": "Long-Term Haemodialysis Catheters",
+  "catheter-hd-acute": "Acute Haemodialysis Catheters",
+  "powder-hd-bicarbonate": "Haemodialysis Bicarbonate Powder",
+  "regeneration-salt-new": "Regeneration Salt (Water Treatment)",
   "gloves-latex": "Latex Examination Gloves",
   "gloves-nitrile": "Nitrile Gloves",
   "gloves-surgical": "Sterile Surgical Gloves",
+  "gloves-gynaecological": "Gynaecological Gloves",
+  "gloves-orthopaedic": "Orthopaedic Gloves",
   "mask-surgical": "Surgical Face Masks",
   "mask-oxygen": "Oxygen Delivery Masks",
+  "face-shield": "Face Shields",
+  "apron-nylon": "Nylon Aprons",
+  "shoe-cover": "Shoe Covers",
+  "head-cap": "Head Caps",
+  "gown-disposable": "Disposable Gowns",
   linen: "Clinical Linen & Towels",
   dressing: "Adhesive Dressings & Procedure Kits",
   "cotton-wool": "Cotton Wool",
   gauze: "Gauze Rolls",
+  "gauze-xray": "X-Ray Detectable Gauze Rolls",
+  "gauze-plain": "Plain Gauze Rolls",
   "surgical-blade": "Surgical Blades",
   "kidney-dish": "Kidney Dishes",
   gallipot: "Gallipots",
   spirit: "Surgical Spirit 70%",
   iodine: "Iodine Solution",
   disinfectant: "Sodium Hypochlorite Disinfectant",
+  "citric-acid-21": "Citric Acid 21%",
   "biohazard-liner": "Biohazard Bin Liners",
   sharps: "Sharps Disposal Containers",
   sanitary: "Sanitary Rolls",
+  "towel-hd-green": "HD Green Towels",
+  "forceps-dunhill-artery": "Dunhill Artery Forceps",
+  "forceps-dressing": "Dressing Forceps",
+  "forceps-allis": "Allis Forceps",
+  "forceps-mosquito-curved": "Curved Mosquito Forceps",
+  "forceps-mosquito-straight": "Straight Mosquito Forceps",
+  "blade-holder": "Blade Holders",
+  "sims-uterine-sound": "Sims Uterine Sounds",
+  "scissor-curved": "Curved Scissors",
+  "scissor-suture": "Suture Scissors",
+  "scissor-metzenbaum": "Metzenbaum Tissue Scissors",
+  "scissor-umbilical-cord": "Umbilical Cord Scissors",
+  "speculum-vaginal": "Vaginal Specula",
+  "needle-holder": "Needle Holders",
   "test-glucose": "Glucose & HB Test Strips",
   "test-urinalysis": "Urinalysis Strips",
   "test-pregnancy": "Pregnancy Tests",
@@ -746,6 +890,16 @@ const IMAGE_KEY_GROUP_NAMES: Record<CatalogImageKey, string> = {
   "lab-specimen": "Specimen Containers",
   "bp-digital": "Digital Blood Pressure Monitors",
   "bp-analogue": "Analogue BP Monitors",
+  "bp-omron": "Omron Blood Pressure Machines",
+  "bp-citizen": "Citizen Blood Pressure Machines",
+  "bp-citizen-wrist": "Wrist Citizen Blood Pressure Machines",
+  "bp-moratech": "Moratech Blood Pressure Monitors",
+  "bp-fabia": "Fabia Blood Pressure Monitors",
+  "bp-cuffs-omron": "Omron Blood Pressure Cuffs",
+  "glucostrips-oncall": "OnCall Glucostrips",
+  "glucostrips-sinocare": "Sinocare Glucostrips",
+  "glucometer-oncall-plus": "OnCall Plus Machines",
+  "glucometer-sinocare": "Sinocare Machines",
   thermometer: "Clinical Thermometers",
   "oxygen-regulator": "Oxygen Regulators",
   autoclave: "Autoclave Machines",

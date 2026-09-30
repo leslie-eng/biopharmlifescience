@@ -8,7 +8,7 @@ export const SiteFooter = () => (
           <div className="h-8 w-8 rounded-md bg-gradient-brand flex items-center justify-center">
             <ShieldCheck className="h-4 w-4 text-white" />
           </div>
-          <p className="font-display font-bold text-primary">Biolink Solutions EA</p>
+          <p className="font-display font-bold text-primary">Biopharmlifescience EA</p>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
           Certified medical consumables and infection control supplies for healthcare facilities across East Africa.
@@ -35,13 +35,13 @@ export const SiteFooter = () => (
         <h4 className="font-semibold text-sm mb-3 text-foreground">Get in touch</h4>
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li className="flex items-center gap-2"><Phone className="h-4 w-4" /> +254 714 647 972</li>
-          <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> biolinksolutions7@gmail.com</li>
+          <li className="flex items-center gap-2"><Mail className="h-4 w-4" /> biopharmlifescience@gmail.com</li>
           <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /> Eastern Bypass, Nairobi</li>
         </ul>
       </div>
     </div>
     <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-      © {new Date().getFullYear()} Biolink Solutions EA. All rights reserved.
+      © {new Date().getFullYear()} Biopharmlifescience EA. All rights reserved.
     </div>
   </footer>
 );

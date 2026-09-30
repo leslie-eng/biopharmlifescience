@@ -115,7 +115,7 @@ const CustomerAuth = () => {
           <CardHeader>
             <CardTitle>Customer sign in</CardTitle>
             <CardDescription>
-              Biolink storefront — medical consumables for facilities.{" "}
+              Biopharmlifescience storefront — medical consumables for facilities.{" "}
               <Link to="/staff" className="underline font-medium text-primary">
                 Staff / admin sign in
               </Link>

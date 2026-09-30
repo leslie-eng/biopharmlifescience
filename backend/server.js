@@ -80,5 +80,5 @@ const server = http.createServer((request, response) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Biolinks Commerce OS running at http://localhost:${PORT}`);
+  console.log(`Biopharmlifescience Commerce OS running at http://localhost:${PORT}`);
 });
