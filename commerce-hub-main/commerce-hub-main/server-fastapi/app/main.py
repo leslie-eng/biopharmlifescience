@@ -10,11 +10,26 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .config import settings
 from .database import engine
-from .routers import auth, chat, clients, dashboard, expenses, orders, products, stock_interest, uploads
+from .routers import auth, chat, clients, dashboard, expenses, orders, products, uploads
 
 logger = logging.getLogger("biolinks_api")
 
 app = FastAPI(title="Biolinks Commerce API", version="1.0.0")
+
+SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+}
+
+
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    response = await call_next(request)
+    for header, value in SECURITY_HEADERS.items():
+        response.headers.setdefault(header, value)
+    return response
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -78,34 +93,6 @@ app.include_router(products.router)
 app.include_router(clients.router)
 app.include_router(orders.router)
 app.include_router(expenses.router)
-app.include_router(stock_interest.router)
 app.include_router(uploads.router)
 app.include_router(dashboard.router)
 app.include_router(chat.router)
-
-
-# --- Optional: serve the built React frontend, mirroring STATIC_DIR in the old server ---
-# In practice, cPanel typically serves the built frontend directly via Apache (a
-# separate static vhost) while this Python app only answers /api and /uploads — so
-# STATIC_DIR is usually left unset in production. It's kept for parity with the old
-# server and for local single-process testing.
-if settings.STATIC_DIR:
-    from pathlib import Path
-
-    from fastapi.responses import FileResponse
-
-    static_dir = Path(settings.STATIC_DIR).resolve()
-    index_file = static_dir / "index.html"
-    if static_dir.is_dir():
-        app.mount("/assets", StaticFiles(directory=str(static_dir / "assets")), name="frontend-assets")
-
-        @app.get("/{full_path:path}")
-        def spa_fallback(full_path: str):
-            # Mirrors the Express catch-all: any non-/api, non-/uploads path serves
-            # index.html so client-side routing (react-router) can take over.
-            candidate = static_dir / full_path
-            if full_path and candidate.is_file():
-                return FileResponse(candidate)
-            return FileResponse(index_file)
-
-        logger.info("Serving frontend from %s", static_dir)

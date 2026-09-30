@@ -17,19 +17,6 @@ def test_visitors_see_only_active_products_without_signing_in(client, staff_head
     assert [p["name"] for p in res.json()] == ["Face shield"]
 
 
-def test_visitor_can_request_a_restock_notification_once(client, staff_headers):
-    product = client.post(
-        "/api/products", headers=staff_headers, json={"name": "Dialyzer", "price": 4200, "stock": 0}
-    ).json()
-    request = {"product_id": product["id"], "email": "Nurse@Clinic.test"}
-
-    first = client.post("/api/stock-interest", json=request)
-    again = client.post("/api/stock-interest", json=request)
-
-    assert first.status_code == 201
-    assert first.json()["email"] == "nurse@clinic.test"
-    assert again.status_code == 409
-
 
 def test_visitors_never_see_what_a_product_cost_us(client, staff_headers):
     product = client.post(

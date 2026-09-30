@@ -113,11 +113,6 @@ export const expensesApi = {
   delete: (id: string) => api<{ ok: boolean }>(`/api/expenses/${id}`, { method: "DELETE" }),
 };
 
-export const stockInterestApi = {
-  create: (body: { product_id: string; email: string }) =>
-    api("/api/stock-interest", { method: "POST", body: JSON.stringify(body) }),
-};
-
 export const dashboardApi = {
   overview: () =>
     api<{

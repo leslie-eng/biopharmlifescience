@@ -29,10 +29,6 @@ class OutBase(BaseModel):
 # ---------- Auth ----------
 
 
-class RegisterBody(BaseModel):
-    email: str
-    password: str
-    fullName: str | None = None
 
 
 class LoginBody(BaseModel):
@@ -213,6 +209,7 @@ class OrderIn(BaseModel):
     customer_phone: str | None = None
     status: str | None = None
     payment_method: str | None = "mpesa"
+    # Sent by the POS but ignored: totals are computed from catalog prices.
     subtotal: float | None = None
     total: float | None = None
     notes: str | None = None
@@ -249,23 +246,8 @@ class ExpenseCreate(BaseModel):
 # ---------- Stock interest ----------
 
 
-class StockInterestOut(OutBase):
-    id: str
-    product_id: str
-    client_id: str | None
-    email: str
-    notified: bool
-    created_at: datetime
-
-    @field_serializer("created_at")
-    def _ser_dt(self, v: datetime) -> str:
-        return _iso_z(v)
 
 
-class StockInterestCreate(BaseModel):
-    product_id: str
-    email: str
-    client_id: str | None = None
 
 
 # ---------- Dashboard ----------
@@ -320,6 +302,3 @@ class UploadResponse(BaseModel):
     url: str
     path: str
 
-
-class OkResponse(BaseModel):
-    ok: bool = True

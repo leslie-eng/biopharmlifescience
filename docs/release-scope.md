@@ -4,13 +4,13 @@ Decisions from the pre-deploy grilling session (2026-09-30). Architecture choice
 
 ## What ships
 
-- **Public site**: home, the-model, about, Akiba calculator, book-assessment, product catalog (reads API), restock requests (writes API), chatbot in retrieval-only mode (no `OPENAI_API_KEY`).
+- **Public site**: home, the-model, about, Akiba calculator, book-assessment, product catalog as a static brochure (curated in the frontend; does not read the API), chatbot in retrieval-only mode (no `OPENAI_API_KEY`).
 - **Staff back-office**: `/dashboard` (overview, products, POS, orders, clients, finances, reports).
-- **Not shipping**: customer sign-up (`/account` hidden), online payments (none exist; POS records offline sales only), `VITE_ALLOW_DASHBOARD_WITHOUT_ROLE` bypass (code removed), home dashboard preview (`VITE_SHOW_HOME_DASHBOARD` off).
+- **Not shipping**: Restock requests and an API-backed public catalog (issue #1), customer sign-up (`/account` hidden), online payments (none exist; POS records offline sales only), `VITE_ALLOW_DASHBOARD_WITHOUT_ROLE` bypass (code removed), home dashboard preview (`VITE_SHOW_HOME_DASHBOARD` off).
 
 ## "Broken" means
 
-- Public: catalog doesn't load, restock request fails, site down.
+- Public: catalog doesn't load, site down.
 - Staff: can't log in, POS can't record a sale, stock doesn't decrement, dashboard numbers wrong.
 
 ## Context
@@ -57,3 +57,8 @@ See `docs/adr/0002-vercel-frontend-render-api.md`.
 - C2: first registrant becomes admin -> seed first admin via CLI; public registration disabled.
 - C3: POS order prices trusted from client -> recompute from `products.price` server-side.
 - H1: no rate limit on `/api/auth/login` and `/api/auth/register`.
+- Public product responses expose `cost`; inactive products visible to visitors (audit M5).
+- POS stock decrement depends on a client flag; deactivated products can be sold.
+- Rate limits must key on the real client IP behind Render's proxy (`TRUST_PROXY=true`).
+- `JWT_SECRET` shorter than 32 characters must refuse to start.
+- Security headers on the API and on Vercel (audit M3).

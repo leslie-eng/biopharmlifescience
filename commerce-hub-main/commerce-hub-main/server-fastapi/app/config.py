@@ -43,8 +43,6 @@ class Settings:
     PUBLIC_URL: str = os.getenv("PUBLIC_URL", "").rstrip("/")
     MAX_UPLOAD_BYTES: int = 5 * 1024 * 1024
 
-    # --- Static frontend (optional, mirrors STATIC_DIR in the old server) ---
-    STATIC_DIR: str | None = os.getenv("STATIC_DIR")
 
     # --- Chat / RAG ---
     OPENAI_API_KEY: str | None = os.getenv("OPENAI_API_KEY")
