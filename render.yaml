@@ -25,7 +25,7 @@ services:
     region: frankfurt
     branch: staging
     autoDeployTrigger: commit
-    rootDir: commerce-hub-main/commerce-hub-main/server-fastapi
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     # Runs before each deploy goes live; a failed migration keeps the previous deploy serving.
     preDeployCommand: alembic upgrade head
@@ -51,7 +51,7 @@ services:
       - key: CORS_ORIGIN
         sync: false # the staging frontend origin(s), comma-separated
       - key: PUBLIC_URL
-        value: https://api-staging.biopharmlifescience.com
+        value: https://api-staging.biopharmlifescience.co.ke
       - key: SENTRY_DSN
         sync: false
       - key: SENTRY_ENVIRONMENT
@@ -64,7 +64,7 @@ services:
     region: frankfurt
     branch: main
     autoDeployTrigger: "off" # production deploys are manual (docs/deploy.md)
-    rootDir: commerce-hub-main/commerce-hub-main/server-fastapi
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     # Runs before each deploy goes live; a failed migration keeps the previous deploy serving.
     preDeployCommand: alembic upgrade head
@@ -88,9 +88,9 @@ services:
       - key: UPLOAD_DIR
         value: /var/data/uploads
       - key: CORS_ORIGIN
-        value: https://biopharmlifescience.com,https://www.biopharmlifescience.com
+        value: https://biopharmlifescience.co.ke,https://www.biopharmlifescience.co.ke
       - key: PUBLIC_URL
-        value: https://api.biopharmlifescience.com
+        value: https://api.biopharmlifescience.co.ke
       - key: SENTRY_DSN
         sync: false
       - key: SENTRY_ENVIRONMENT

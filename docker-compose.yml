@@ -1,0 +1,33 @@
+# Local databases only. The frontend and backend run natively (see README.md), the same
+# way Vercel and Render run them. Credentials here are for local throwaway databases.
+#
+#   docker compose up -d db        # development database, used by backend/.env
+#   docker compose up -d db-test   # wiped by every pytest run (backend/tests/conftest.py)
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: biolinks
+    ports:
+      - "55433:5432"   # not 5432/5433, so it never collides with a locally installed Postgres
+    volumes:
+      - biolinks-dev-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d biolinks"]
+      interval: 5s
+      retries: 10
+
+  db-test:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: biolinks_test
+    ports:
+      - "55432:5432"
+
+volumes:
+  biolinks-dev-data:

@@ -23,8 +23,8 @@ Decisions from the pre-deploy grilling session (2026-09-30). Architecture choice
 
 See `docs/adr/0002-vercel-frontend-render-api.md`.
 
-- Frontend: Vercel. Production `biopharmlifescience.com`; preview deploys are the staging frontend.
-- API + Postgres: Render. Production `api.biopharmlifescience.com`, staging `api-staging.biopharmlifescience.com` with its own database. Promote to production after staging passes.
+- Frontend: Vercel. Production `biopharmlifescience.co.ke`; preview deploys are the staging frontend.
+- API + Postgres: Render. Production `api.biopharmlifescience.co.ke`, staging `api-staging.biopharmlifescience.co.ke` with its own database. Promote to production after staging passes.
 - `CORS_ORIGIN` = exactly the frontend origin per environment; `VITE_API_URL` and `PUBLIC_URL` = the API origin.
 
 ## Accounts

@@ -5,4 +5,4 @@ The React build is hosted on Vercel and the FastAPI API plus PostgreSQL on Rende
 ## Consequences
 
 - Product image uploads live on a Render persistent disk mounted at `UPLOAD_DIR`. A service with a disk runs as one instance and has a few seconds of downtime per deploy; acceptable at launch scale. Moving uploads to an S3-compatible bucket is the way out if we need more instances.
-- Domains: frontend `biopharmlifescience.com`, API `api.biopharmlifescience.com`; staging uses Vercel previews plus `api-staging.biopharmlifescience.com`.
+- Domains (moved from `.com` to the purchased `.co.ke` domain on 2026-10-03): frontend `biopharmlifescience.co.ke`, API `api.biopharmlifescience.co.ke`; staging uses Vercel previews plus `api-staging.biopharmlifescience.co.ke`.

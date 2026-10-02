@@ -1,9 +1,7 @@
 # Biolinks
 
-The app lives in `commerce-hub-main/commerce-hub-main/`:
-
-- `src/`: React 18 + TypeScript + Vite frontend, deployed to Vercel. Talks to the API via `src/lib/api.ts` (`VITE_API_URL`).
-- `server-fastapi/`: FastAPI + SQLAlchemy + PostgreSQL API. The only backend (see `docs/adr/0001-fastapi-postgres-sole-backend.md`).
+- `frontend/`: React 18 + TypeScript + Vite, deployed to Vercel. Talks to the API only through `src/services/` (`VITE_API_URL`). See `frontend/README.md`.
+- `backend/`: FastAPI + SQLAlchemy + PostgreSQL API, deployed to Render. The only backend (see `docs/adr/0001-fastapi-postgres-sole-backend.md`). Routes in `app/api/routes/`, business logic in `app/services/`. See `backend/README.md`.
 
 ## Agent skills
 

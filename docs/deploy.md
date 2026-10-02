@@ -2,7 +2,7 @@
 
 How to ship Biolinks: the frontend goes to Vercel, and the API plus PostgreSQL go to Render. The decisions behind this are in `docs/adr/0002-vercel-frontend-render-api.md` and `docs/release-scope.md`.
 
-Paths below are relative to the repo root. The app lives in `commerce-hub-main/commerce-hub-main/` (called `APP/` below).
+Paths below are relative to the repo root: the frontend lives in `frontend/` and the API in `backend/`.
 
 ## One-time setup
 
@@ -16,8 +16,8 @@ Paths below are relative to the repo root. The app lives in `commerce-hub-main/c
    - `CORS_ORIGIN` (staging only): the staging frontend origin(s). For example, the Vercel preview domain.
    - `SENTRY_DSN`: the Sentry DSN for the API project. Leave it empty to disable Sentry.
 3. Custom domains:
-   - `api-staging.biopharmlifescience.com` goes to `biolinks-api-staging`.
-   - `api.biopharmlifescience.com` goes to `biolinks-api`.
+   - `api-staging.biopharmlifescience.co.ke` goes to `biolinks-api-staging`.
+   - `api.biopharmlifescience.co.ke` goes to `biolinks-api`.
 4. Check the database plans:
    - Confirm that production's plan includes backups and point-in-time recovery.
    - Plan names and region in `render.yaml` are assumptions. Confirm the cost before applying.
@@ -26,7 +26,7 @@ Paths below are relative to the repo root. The app lives in `commerce-hub-main/c
 ### Vercel (frontend)
 
 1. Import the repo into Vercel with these settings:
-   - Root directory: `APP/`
+   - Root directory: `frontend/`
    - Framework: Vite
    - Install command: `npm ci`
    - Build command: `npm run build`
@@ -36,16 +36,32 @@ Paths below are relative to the repo root. The app lives in `commerce-hub-main/c
 
    | Variable | Production | Preview (staging) |
    |---|---|---|
-   | `VITE_API_URL` | `https://api.biopharmlifescience.com` | `https://api-staging.biopharmlifescience.com` |
+   | `VITE_API_URL` | `https://api.biopharmlifescience.co.ke` | `https://api-staging.biopharmlifescience.co.ke` |
    | `VITE_SENTRY_DSN` | frontend Sentry DSN | same, or empty |
    | `VITE_SENTRY_ENVIRONMENT` | `production` | `staging` |
    | `VITE_SHOW_HOME_DASHBOARD` | `false` | `false` |
 
-3. Domains: point `biopharmlifescience.com` and `www.biopharmlifescience.com` at the Vercel project.
+3. Domains: add `biopharmlifescience.co.ke` (primary) and `www.biopharmlifescience.co.ke` to the Vercel project. `vercel.json` redirects `www` to the bare domain.
+
+### DNS for biopharmlifescience.co.ke
+
+Set these at the `.co.ke` registrar's DNS (or wherever the domain's nameservers point). Take the exact targets from the dashboards: each platform shows the value to use when you add the domain, and those values can change.
+
+| Name | Type | Points to | Where to find the value |
+|---|---|---|---|
+| `@` (bare domain) | `A` | Vercel's IP | Vercel → Project → Settings → Domains, after adding `biopharmlifescience.co.ke` |
+| `www` | `CNAME` | Vercel's CNAME target | Same screen, after adding `www.biopharmlifescience.co.ke` |
+| `api` | `CNAME` | `biolinks-api`'s `onrender.com` hostname | Render → `biolinks-api` → Settings → Custom Domains |
+| `api-staging` | `CNAME` | `biolinks-api-staging`'s `onrender.com` hostname | Render → `biolinks-api-staging` → Settings → Custom Domains |
+
+- Both platforms issue HTTPS certificates automatically once DNS resolves. Wait until each dashboard shows the domain as verified, with a certificate, before going live.
+- If the registrar has `CAA` records, they must allow `letsencrypt.org` (Vercel and Render both use it). Without any `CAA` records there's nothing to do.
+- If the domain's DNS is proxied through Cloudflare, set these records to **DNS only** (grey cloud) so the platforms can issue certificates.
+- Keep any existing `MX`/`TXT` records for email untouched.
 
 ### Monitoring
 
-- **UptimeRobot:** an HTTP(S) monitor on `https://api.biopharmlifescience.com/api/health` every 5 minutes, alerting by email. The endpoint returns 503 when the database is unreachable.
+- **UptimeRobot:** an HTTP(S) monitor on `https://api.biopharmlifescience.co.ke/api/health` every 5 minutes, alerting by email. The endpoint returns 503 when the database is unreachable.
 - **Sentry:** create 2 projects, one for the API (Python) and one for the frontend (React). Personal data collection is off in the code on both sides.
 
 ## Release
@@ -53,14 +69,14 @@ Paths below are relative to the repo root. The app lives in `commerce-hub-main/c
 ### 1. Verify locally
 
 ```bash
-# API tests need a throwaway Postgres
-docker run -d --name biolinks-test-pg -e POSTGRES_PASSWORD=test -e POSTGRES_DB=biolinks_test -p 55432:5432 postgres:17-alpine
+# API tests need a throwaway Postgres (docker-compose.yml at the repo root)
+docker compose up -d db-test
 
-cd APP/server-fastapi
+cd backend
 python -m venv .venv && .venv/Scripts/pip install -r requirements-dev.txt   # macOS/Linux: .venv/bin/pip
 .venv/Scripts/python -m pytest
 
-cd ..
+cd ../frontend
 npm ci
 npx tsc -p tsconfig.app.json --noEmit
 npm test
@@ -75,16 +91,19 @@ git push origin predeploy/fastapi:staging
 
 Render builds `biolinks-api-staging`, runs `alembic upgrade head` (preDeployCommand), then starts the new version. If the migration fails, the previous deploy keeps serving. For the Vercel preview, push the same branch and use its preview URL.
 
-Create the first admin once, in the Render shell for `biolinks-api-staging`:
+Create the first admin once, in the Render shell for `biolinks-api-staging`. The command prompts for the password without echoing it; `--temporary` makes the admin choose their own password at first sign-in, and the dashboard API refuses every call until they do:
 
 ```bash
-python -m app.cli create-user --email you@example.com --password '<long password>' --role admin
+python -m app.cli create-user --email admin@biopharmlifescience.co.ke --role admin --temporary
 ```
+
+If the account already exists, reset it instead of creating a duplicate: `python -m app.cli set-password --email admin@biopharmlifescience.co.ke --temporary`.
 
 ### 3. Staging checks (all must pass before production)
 
-- [ ] `https://api-staging.biopharmlifescience.com/api/health` returns `{"status":"ok",...,"database":"connected"}`
-- [ ] Staff sign-in works at `/staff`, and the dashboard loads
+- [ ] `https://api-staging.biopharmlifescience.co.ke/api/health` returns `{"status":"ok",...,"database":"connected"}`
+- [ ] Staff sign-in works at `/staff`. With the temporary password it lands on "Set a new password"; after changing it, the dashboard loads and the old password no longer works
+- [ ] The browser console shows no `Content-Security-Policy` violations on `/`, `/products`, a product page, `/staff` and the dashboard (the policy lives in `frontend/vercel.json`)
 - [ ] Create a product, and an image upload shows its picture
 - [ ] Record a POS sale: stock goes down, and the total matches the catalog price
 - [ ] `/products` (the public brochure) loads
@@ -94,7 +113,7 @@ python -m app.cli create-user --email you@example.com --password '<long password
   - [ ] From network A, send 6 bad logins, each with a different fake `X-Forwarded-For` header. The 6th must still be blocked:
 
     ```bash
-    for i in 1 2 3 4 5 6; do curl -s -o /dev/null -w "%{http_code}\n" -X POST https://api-staging.biopharmlifescience.com/api/auth/login -H "Content-Type: application/json" -H "X-Forwarded-For: 10.0.0.$i" -d '{"email":"nobody@example.com","password":"wrong"}'; done
+    for i in 1 2 3 4 5 6; do curl -s -o /dev/null -w "%{http_code}\n" -X POST https://api-staging.biopharmlifescience.co.ke/api/auth/login -H "Content-Type: application/json" -H "X-Forwarded-For: 10.0.0.$i" -d '{"email":"nobody@example.com","password":"wrong"}'; done
     ```
 
     The last line must be `429`.
@@ -111,7 +130,7 @@ python -m app.cli create-user --email you@example.com --password '<long password
 
 3. Before any release that adds a migration, take a manual snapshot of `biolinks-db` in the Render dashboard.
 4. Render dashboard → `biolinks-api` → **Manual Deploy → Deploy latest commit**. The preDeployCommand runs `alembic upgrade head` first.
-5. Create the production admin in the `biolinks-api` shell, using the same `create-user` command as on staging.
+5. Create the production admin in the `biolinks-api` shell, using the same `create-user ... --temporary` command as on staging. Sign in at `https://biopharmlifescience.co.ke/staff` straight away and set the permanent password.
 6. Vercel: promote the production deployment of `main`.
 7. Repeat the staging checks against production, but skip the lockout test.
 
@@ -129,10 +148,16 @@ python -m app.cli create-user --email you@example.com --password '<long password
 
 ## Staff accounts
 
-There's no public sign-up. On the relevant Render service's shell:
+There's no public sign-up, and no email-based password reset (the app sends no email). On the relevant Render service's shell:
 
 ```bash
-python -m app.cli create-user --email name@example.com --password '<at least 8 characters>' --role staff   # or --role admin
+# New account; the password is prompted for (at least 12 characters)
+python -m app.cli create-user --email name@example.com --role staff --temporary   # or --role admin
+
+# Forgotten password: set a temporary one and hand it over out of band
+python -m app.cli set-password --email name@example.com --temporary
 ```
+
+For scripted use, `--password-env VAR` reads the password from an environment variable instead of the prompt. Avoid `--password`: it ends up in shell history. Signed-in staff can change their own password from the dashboard's **Password** link.
 
 A dashboard screen for this is tracked as an issue ("Admin screen for managing Staff accounts").
