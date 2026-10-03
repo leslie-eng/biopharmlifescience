@@ -21,11 +21,19 @@ Paths below are relative to the repo root: the frontend lives in `frontend/` and
    |---|---|
    | Root Directory | `backend` |
    | Build Command | `pip install -r requirements.txt` |
-   | Pre-Deploy Command | `alembic upgrade head` |
+   | Pre-Deploy Command | `alembic upgrade head` (paid instance types only; see below) |
    | Start Command | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
    | Health Check Path | `/api/health` |
    | Python | `backend/.python-version` (3.12). Do **not** set a `PYTHON_VERSION` env var: it overrides the file, and new services otherwise default to 3.14, which has no prebuilt wheels for `pydantic-core` 2.27 or `psycopg2-binary` 2.9.10 |
-   | Environment | the variables listed for `biolinks-api` in `render.yaml` |
+   | Environment | the variables listed for `biolinks-api` in `render.yaml`. `CORS_ORIGIN` must list `https://biopharmlifescience.co.ke,https://www.biopharmlifescience.co.ke`, or browsers are refused; `PUBLIC_URL` is the API's own URL (for example `https://biopharmlifescience.onrender.com`) |
+
+   **On the Free instance type** (no pre-deploy command), migrations must run at start instead, or every endpoint that reads a table answers 500 even though `/api/health` reports the database as connected. Use this Start Command; `alembic upgrade head` is a no-op when the schema is current:
+
+   ```bash
+   alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+   ```
+
+   Free instances also have no persistent disk, so uploaded product images are lost on every deploy or restart, and the service sleeps when idle (the first request after that takes about 30 s).
 2. When prompted for `sync: false` values, set:
    - `CORS_ORIGIN` (staging only): the staging frontend origin(s). For example, the Vercel preview domain.
    - `SENTRY_DSN`: the Sentry DSN for the API project. Leave it empty to disable Sentry.

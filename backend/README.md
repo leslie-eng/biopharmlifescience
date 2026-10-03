@@ -50,6 +50,8 @@ Access: **public** = anyone; **optional** = anyone, but staff get extra fields (
 
 | Method | Path | Access | Body | Success |
 |---|---|---|---|---|
+| GET | `/` | public | | 200 `{service, health, readiness}` |
+| GET | `/health` | public | | 200 `{status: "healthy"}`; liveness only, no database |
 | GET | `/api/health` | public | | 200 `{status, service, database}`; 503 if the database is down |
 | POST | `/api/auth/login` | public (5 failures / 15 min per IP) | `{email, password}` | 200 `{token, user, roles, must_change_password}` |
 | GET | `/api/auth/me` | signed-in | | 200 `{user, roles, must_change_password}` |

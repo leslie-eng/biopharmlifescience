@@ -100,16 +100,31 @@ async def unhandled_exception_handler(_request: Request, exc: Exception):
 app.mount("/uploads", StaticFiles(directory=str(settings.UPLOAD_DIR)), name="uploads")
 
 
+SERVICE_NAME = "biolinks-commerce-api"
+
+
+@app.get("/")
+def root():
+    return {"service": SERVICE_NAME, "health": "/health", "readiness": "/api/health"}
+
+
+@app.get("/health")
+def liveness():
+    """The process is up. Doesn't touch the database, so it stays cheap and never flaps."""
+    return {"status": "healthy"}
+
+
 @app.get("/api/health")
 def health():
+    """Ready to serve: the database answers. Render's health check uses this one."""
     try:
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
-        return {"status": "ok", "service": "biolinks-commerce-api", "database": "connected"}
+        return {"status": "ok", "service": SERVICE_NAME, "database": "connected"}
     except Exception:
         return JSONResponse(
             status_code=503,
-            content={"status": "degraded", "service": "biolinks-commerce-api", "database": "disconnected"},
+            content={"status": "degraded", "service": SERVICE_NAME, "database": "disconnected"},
         )
 
 
