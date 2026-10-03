@@ -34,3 +34,11 @@ def test_refuses_to_start_with_a_short_jwt_secret():
 
 def test_starts_with_a_long_jwt_secret():
     assert start_with("k" * 48).returncode == 0
+
+
+def test_cors_origins_forgive_trailing_slashes_quotes_and_spaces():
+    from app.core.config import _cors_origins
+
+    value = ' "https://www.biopharmlifescience.co.ke/", https://biopharmlifescience.co.ke ,, '
+
+    assert _cors_origins(value) == ["https://www.biopharmlifescience.co.ke", "https://biopharmlifescience.co.ke"]

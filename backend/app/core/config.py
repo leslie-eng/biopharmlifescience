@@ -13,6 +13,12 @@ def _split_csv(value: str) -> list[str]:
     return [s.strip() for s in value.split(",") if s.strip()]
 
 
+def _cors_origins(value: str) -> list[str]:
+    """Browsers send Origin as scheme://host[:port] exactly, so forgive the usual dashboard typos:
+    quotes, spaces and a trailing slash ("https://www.example.com/" never matches otherwise)."""
+    return [origin.strip("'\"").rstrip("/") for origin in _split_csv(value) if origin.strip("'\"")]
+
+
 def _sqlalchemy_url(url: str) -> str:
     # Some hosts hand out postgres://..., which SQLAlchemy 2 no longer accepts.
     return "postgresql://" + url[len("postgres://") :] if url.startswith("postgres://") else url
@@ -52,7 +58,7 @@ class Settings:
     ADMIN_RESET_TOKEN: str | None = os.getenv("ADMIN_RESET_TOKEN") or None
 
     # --- CORS ---
-    CORS_ORIGINS: list[str] = _split_csv(os.getenv("CORS_ORIGIN", "http://localhost:8080"))
+    CORS_ORIGINS: list[str] = _cors_origins(os.getenv("CORS_ORIGIN", "http://localhost:8080"))
 
     # --- Uploads ---
     UPLOAD_DIR: Path = Path(os.getenv("UPLOAD_DIR") or (BASE_DIR / "uploads")).resolve()
