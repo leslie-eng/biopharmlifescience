@@ -8,6 +8,15 @@ def new_id() -> str:
     return str(uuid.uuid4())
 
 
+def is_uuid(value: str) -> bool:
+    """Ids are UUID columns: anything else can't exist, so routes answer 404 instead of a database error."""
+    try:
+        uuid.UUID(value)
+    except ValueError:
+        return False
+    return True
+
+
 def generate_order_number() -> str:
     now = datetime.now()
     yy = f"{now.year % 100:02d}"

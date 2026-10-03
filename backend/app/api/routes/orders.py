@@ -7,6 +7,7 @@ from app.api.deps import require_staff
 from app.models import Order, OrderItem
 from app.schemas import OrderCreateBody, OrderItemOut, OrderOut, OrderStatusUpdate
 from app.services import orders as orders_service
+from app.utils import is_uuid
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
 
@@ -18,6 +19,8 @@ def list_orders(staff=Depends(require_staff), db: Session = Depends(get_db)):
 
 @router.get("/{order_id}/items", response_model=list[OrderItemOut])
 def order_items(order_id: str, staff=Depends(require_staff), db: Session = Depends(get_db)):
+    if not is_uuid(order_id) or not db.get(Order, order_id):
+        raise HTTPException(status_code=404, detail="Order not found")
     return db.execute(select(OrderItem).where(OrderItem.order_id == order_id)).scalars().all()
 
 
@@ -25,9 +28,7 @@ def order_items(order_id: str, staff=Depends(require_staff), db: Session = Depen
 def update_order_status(
     order_id: str, body: OrderStatusUpdate, staff=Depends(require_staff), db: Session = Depends(get_db)
 ):
-    if not body.status:
-        raise HTTPException(status_code=400, detail="Status required")
-    order = db.get(Order, order_id)
+    order = db.get(Order, order_id) if is_uuid(order_id) else None
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
     order.status = body.status

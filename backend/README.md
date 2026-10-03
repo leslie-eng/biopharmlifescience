@@ -96,6 +96,7 @@ Every error response is `{"error": "<message for people>", "code": "<MACHINE_COD
 | `SETUP_DISABLED`, `RESET_DISABLED` | 503 | the setup/reset token isn't set (or is under 32 characters) |
 | `SETUP_TOKEN_INVALID`, `RESET_TOKEN_INVALID` | 403 | wrong setup/reset token |
 | `ADMIN_EXISTS`, `USERNAME_TAKEN` | 409 | setup after an admin exists; username already used |
+| `SLUG_TAKEN`, `CLIENT_EMAIL_TAKEN` | 409 | product slug or client email already used |
 | `ADMIN_NOT_FOUND` | 404 | reset for an email that isn't an admin |
 | `WEAK_PASSWORD`, `PASSWORD_UNCHANGED`, `CREDENTIALS_REQUIRED` | 400 | password rules |
 | `EMPTY_ORDER`, `CUSTOMER_NAME_REQUIRED`, `PRODUCT_NOT_FOUND`, `PRODUCT_INACTIVE`, `INSUFFICIENT_STOCK` | 400 | POS sale rejected |

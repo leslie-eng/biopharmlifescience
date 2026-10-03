@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
@@ -15,5 +17,9 @@ def overview(staff=Depends(require_staff), db: Session = Depends(get_db)):
 
 
 @router.get("/reports", response_model=DashboardReports)
-def reports(since: str | None = Query(default=None), staff=Depends(require_staff), db: Session = Depends(get_db)):
+def reports(
+    since: datetime | None = Query(default=None, description="ISO date or date-time; default: 30 days ago"),
+    staff=Depends(require_staff),
+    db: Session = Depends(get_db),
+):
     return reports_service.sales_since(db, since)

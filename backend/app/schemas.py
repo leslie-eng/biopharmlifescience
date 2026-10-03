@@ -138,14 +138,18 @@ class ProductOut(PublicProductOut):
     cost: float
 
 
+NonNegativeMoney = Annotated[float, Field(ge=0)]
+NonNegativeCount = Annotated[int, Field(ge=0)]
+
+
 class ProductCreate(BaseModel):
     name: str
     slug: str | None = None
     description: str | None = None
     category: str | None = None
-    price: float = 0
-    cost: float = 0
-    stock: int = 0
+    price: NonNegativeMoney = 0
+    cost: NonNegativeMoney = 0
+    stock: NonNegativeCount = 0
     unit: str | None = "unit"
     image_url: str | None = None
     is_active: bool = True
@@ -156,9 +160,9 @@ class ProductUpdate(BaseModel):
     slug: str | None = None
     description: str | None = None
     category: str | None = None
-    price: float | None = None
-    cost: float | None = None
-    stock: int | None = None
+    price: NonNegativeMoney | None = None
+    cost: NonNegativeMoney | None = None
+    stock: NonNegativeCount | None = None
     unit: str | None = None
     image_url: str | None = None
     is_active: bool | None = None
@@ -183,10 +187,38 @@ class ClientOut(OutBase):
         return _iso_z(v)
 
 
+_PHONE_SHAPE = re.compile(r"^\+?[0-9 ()-]{7,20}$")
+
+
+def _blank_to_none(value: str | None) -> str | None:
+    return (value or "").strip() or None
+
+
+def _client_email(value: str | None) -> str | None:
+    value = _blank_to_none(value)
+    if value is None:
+        return None
+    if not _EMAIL_SHAPE.match(value):
+        raise ValueError("must be an email address")
+    return value.lower()
+
+
+def _client_phone(value: str | None) -> str | None:
+    value = _blank_to_none(value)
+    if value is not None and not _PHONE_SHAPE.match(value):
+        raise ValueError("must be a phone number: digits, spaces, +, - or brackets (7-20 characters)")
+    return value
+
+
+# The dashboard form sends "" for an empty field; store that as missing.
+ClientEmail = Annotated[str | None, AfterValidator(_client_email)]
+ClientPhone = Annotated[str | None, AfterValidator(_client_phone)]
+
+
 class ClientCreate(BaseModel):
     full_name: str
-    email: str | None = None
-    phone: str | None = None
+    email: ClientEmail = None
+    phone: ClientPhone = None
     address: str | None = None
     notes: str | None = None
     notify_on_restock: bool = True
@@ -194,8 +226,8 @@ class ClientCreate(BaseModel):
 
 class ClientUpdate(BaseModel):
     full_name: str | None = None
-    email: str | None = None
-    phone: str | None = None
+    email: ClientEmail = None
+    phone: ClientPhone = None
     address: str | None = None
     notes: str | None = None
     notify_on_restock: bool | None = None
@@ -240,8 +272,13 @@ class OrderItemOut(OutBase):
         return _iso_z(v)
 
 
+# Must match ck_orders_status and ck_orders_payment_method in app/models.py.
+OrderStatus = Literal["pending", "paid", "processing", "shipped", "delivered", "cancelled", "refunded"]
+PaymentMethod = Literal["mpesa", "cash", "bank", "other"]
+
+
 class OrderStatusUpdate(BaseModel):
-    status: str
+    status: OrderStatus
 
 
 class OrderLineIn(BaseModel):
@@ -258,8 +295,8 @@ class OrderIn(BaseModel):
     customer_name: str | None = None
     customer_email: str | None = None
     customer_phone: str | None = None
-    status: str | None = None
-    payment_method: str | None = "mpesa"
+    status: OrderStatus | None = None
+    payment_method: PaymentMethod | None = "mpesa"
     # Sent by the POS but ignored: totals are computed from catalog prices.
     subtotal: float | None = None
     total: float | None = None

@@ -52,13 +52,9 @@ def _serialize(row) -> dict:
     return out
 
 
-def sales_since(db: Session, since: str | None) -> DashboardReports:
-    """Orders and order lines created since `since` (ISO date/time), or the last 30 days."""
-    since_dt = (
-        datetime.fromisoformat(since.replace("Z", "+00:00"))
-        if since
-        else datetime.utcnow() - timedelta(days=DEFAULT_REPORT_DAYS)
-    )
+def sales_since(db: Session, since: datetime | None) -> DashboardReports:
+    """Orders and order lines created since `since`, or the last 30 days."""
+    since_dt = since or datetime.utcnow() - timedelta(days=DEFAULT_REPORT_DAYS)
     since_naive = since_dt.replace(tzinfo=None)
 
     orders = db.execute(
