@@ -12,6 +12,20 @@ Paths below are relative to the repo root: the frontend lives in `frontend/` and
    - `biolinks-db-staging` and `biolinks-db` (Postgres 17)
    - `biolinks-api-staging`, which deploys the `staging` branch on every commit
    - `biolinks-api`, which deploys the `main` branch manually
+
+   Both branches must exist on GitHub and contain the `backend/` folder before their first deploy.
+
+   If you create a web service by hand instead of from the Blueprint, copy these settings from `render.yaml`. Without the Root Directory, Render runs the build from the repo root and fails with `Could not open requirements file: ... 'requirements.txt'`:
+
+   | Setting | Value |
+   |---|---|
+   | Root Directory | `backend` |
+   | Build Command | `pip install -r requirements.txt` |
+   | Pre-Deploy Command | `alembic upgrade head` |
+   | Start Command | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+   | Health Check Path | `/api/health` |
+   | Python | `backend/.python-version` (3.12). Do **not** set a `PYTHON_VERSION` env var: it overrides the file, and new services otherwise default to 3.14, which has no prebuilt wheels for `pydantic-core` 2.27 or `psycopg2-binary` 2.9.10 |
+   | Environment | the variables listed for `biolinks-api` in `render.yaml` |
 2. When prompted for `sync: false` values, set:
    - `CORS_ORIGIN` (staging only): the staging frontend origin(s). For example, the Vercel preview domain.
    - `SENTRY_DSN`: the Sentry DSN for the API project. Leave it empty to disable Sentry.
@@ -41,7 +55,7 @@ Paths below are relative to the repo root: the frontend lives in `frontend/` and
    | `VITE_SENTRY_ENVIRONMENT` | `production` | `staging` |
    | `VITE_SHOW_HOME_DASHBOARD` | `false` | `false` |
 
-3. Domains: add `biopharmlifescience.co.ke` (primary) and `www.biopharmlifescience.co.ke` to the Vercel project. `vercel.json` redirects `www` to the bare domain.
+3. Domains: add `biopharmlifescience.co.ke` and `www.biopharmlifescience.co.ke` to the Vercel project. Set `biopharmlifescience.co.ke` to serve the production deployment (no redirect), and set `www.biopharmlifescience.co.ke` to **Redirect to `biopharmlifescience.co.ke`** (308). This dashboard setting is the only place the www/bare-domain redirect lives: don't also add one to `vercel.json`. Two rules pointing opposite ways create a redirect loop, which blanks the site (the browser blocks the bundles under CSP and the favicon fails with `ERR_TOO_MANY_REDIRECTS`).
 
 ### DNS for biopharmlifescience.co.ke
 

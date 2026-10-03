@@ -1,6 +1,8 @@
 # Render Blueprint: API + PostgreSQL, staging and production (docs/adr/0002, docs/deploy.md).
 # The frontend is deployed separately on Vercel. Plans and region: confirm cost in the Render
 # dashboard before applying; backups/point-in-time recovery require a paid database plan.
+# Python version: backend/.python-version (Render reads it from the service's rootDir). Don't
+# also set PYTHON_VERSION: it would override that file.
 
 databases:
   - name: biolinks-db-staging
@@ -36,8 +38,6 @@ services:
       mountPath: /var/data/uploads
       sizeGB: 1
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.13.7"
       - key: DATABASE_URL
         fromDatabase:
           name: biolinks-db-staging
@@ -75,8 +75,6 @@ services:
       mountPath: /var/data/uploads
       sizeGB: 1
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.13.7"
       - key: DATABASE_URL
         fromDatabase:
           name: biolinks-db

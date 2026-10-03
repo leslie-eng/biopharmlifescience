@@ -44,7 +44,7 @@ docker-compose.yml  local Postgres for development and tests
 
 ## Local development
 
-Prerequisites: Node 22, Python 3.13, Docker.
+Prerequisites: Node 22, Python 3.12 (pinned in `backend/.python-version`), Docker.
 
 ```bash
 # 1. Databases
@@ -91,8 +91,8 @@ All endpoints are under `/api` (full list: `backend/README.md`). Staff sign in w
 
 ```bash
 docker compose up -d db-test
-cd backend && .venv/Scripts/python -m pytest       # API, against a real Postgres
-cd frontend && npx tsc -p tsconfig.app.json --noEmit && npm test && npm run build
+(cd backend && .venv/Scripts/python -m pytest)     # API, against a real Postgres
+(cd frontend && npx tsc -p tsconfig.app.json --noEmit && npm test && npm run build)
 ```
 
 ## Production deployment

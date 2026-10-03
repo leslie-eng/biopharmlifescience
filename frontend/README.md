@@ -1,6 +1,6 @@
 # Biolinks web app (frontend)
 
-React 18 + TypeScript + Vite single-page app: the public website and the staff dashboard. Deployed to Vercel (`vercel.json`: SPA rewrites, security headers, CSP, `www` redirect). Setup steps are in the root `README.md`.
+React 18 + TypeScript + Vite single-page app: the public website and the staff dashboard. Deployed to Vercel (`vercel.json`: SPA rewrites, security headers, CSP; the `www` → bare-domain redirect is a Vercel Domains setting, see `docs/deploy.md`). Setup steps are in the root `README.md`.
 
 ## Layout
 
