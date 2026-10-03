@@ -58,6 +58,16 @@ export async function request<T>(path: string, options: RequestInit = {}): Promi
   };
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  } catch {
+    // fetch only rejects when no response arrived: offline, the API down, or blocked by CORS.
+    throw new ApiError(
+      "Can't reach the server. Check your connection and try again; if this keeps happening, the API may be down or refusing this site (CORS).",
+      0,
+      "NETWORK_ERROR",
+    );
+  }
   return parseResponse<T>(res);
 }
