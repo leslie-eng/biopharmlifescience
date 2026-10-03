@@ -1,7 +1,8 @@
 from datetime import date, datetime
-from typing import Any, Literal
+import re
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_serializer
+from pydantic import AfterValidator, BaseModel, ConfigDict, Field, field_serializer
 
 
 def _iso_z(value: datetime | None) -> str | None:
@@ -62,6 +63,49 @@ class MeResponse(BaseModel):
 class ChangePasswordBody(BaseModel):
     current_password: str
     new_password: str
+
+
+_EMAIL_SHAPE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+def _username(value: str) -> str:
+    """The sign-in username is the account's email (the staff sign-in page asks for one)."""
+    value = value.strip().lower()
+    if not 3 <= len(value) <= 50:
+        raise ValueError("username must be 3-50 characters")
+    if not _EMAIL_SHAPE.match(value):
+        raise ValueError("username must be an email address, e.g. you@example.com")
+    return value
+
+
+Username = Annotated[str, AfterValidator(_username)]
+
+
+class SetupAdminBody(BaseModel):
+    username: Username = Field(description="Your sign-in email, 3-50 characters")
+    password: str = Field(description="At least 12 characters; not repetitive, common or containing the username")
+    setup_token: str = Field(description="The SETUP_TOKEN value from the Render dashboard")
+
+
+class SetupAdminResponse(BaseModel):
+    username: str
+    roles: list[str]
+
+
+class ResetAdminPasswordBody(BaseModel):
+    username: Username
+    new_password: str
+    reset_token: str = Field(description="The ADMIN_RESET_TOKEN value from the Render dashboard")
+
+
+class ChangeUsernameBody(BaseModel):
+    current_password: str
+    new_username: Username
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: Literal["bearer"] = "bearer"
 
 
 # ---------- Products ----------

@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app.api.routes import auth, chat, clients, dashboard, expenses, orders, products, uploads
+from app.api.routes import admin, auth, chat, clients, dashboard, expenses, orders, products, setup, uploads
 from app.core.config import settings
 from app.core.database import engine
 from app.core.errors import AppError, default_code
@@ -136,3 +136,5 @@ app.include_router(expenses.router)
 app.include_router(uploads.router)
 app.include_router(dashboard.router)
 app.include_router(chat.router)
+app.include_router(setup.router)
+app.include_router(admin.router)

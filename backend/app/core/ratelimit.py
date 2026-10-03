@@ -74,5 +74,8 @@ class SlidingWindowLimiter:
 # Failed login attempts per client IP.
 login_limiter = SlidingWindowLimiter(max_events=5, window_seconds=15 * 60)
 
+# Wrong setup/reset tokens per client IP (app/api/routes/setup.py).
+setup_limiter = SlidingWindowLimiter(max_events=5, window_seconds=15 * 60)
+
 # Chatbot messages per client IP.
 chat_limiter = SlidingWindowLimiter(max_events=20, window_seconds=60)

@@ -29,7 +29,7 @@ from sqlalchemy import text  # noqa: E402
 from app import cli  # noqa: E402
 from app.core.database import engine  # noqa: E402
 from app.main import app  # noqa: E402
-from app.core.ratelimit import chat_limiter, login_limiter  # noqa: E402
+from app.core.ratelimit import chat_limiter, login_limiter, setup_limiter  # noqa: E402
 
 
 def alembic(*args: str) -> None:
@@ -54,6 +54,7 @@ def clean_state(schema):
         conn.execute(text(f"TRUNCATE {', '.join(tables)} RESTART IDENTITY CASCADE"))
     login_limiter.reset()
     chat_limiter.reset()
+    setup_limiter.reset()
 
 
 @pytest.fixture

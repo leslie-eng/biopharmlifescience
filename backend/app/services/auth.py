@@ -1,12 +1,18 @@
-"""Sign-in, sessions and passwords. Accounts themselves are created by app.cli (no public sign-up)."""
+"""Sign-in, sessions and passwords. Accounts are created by app.cli, or the very first admin by /api/setup/admin."""
 
-from sqlalchemy import select
+import logging
+
+from sqlalchemy import select, text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.errors import AppError
 from app.core.security import compare_password, hash_password, password_problem, sign_token
 from app.models import Profile, User, UserRole
 from app.schemas import AuthResponse, AuthUserOut, MeResponse, UserMetadata
+from app.utils import new_id
+
+logger = logging.getLogger("biolinks_api")
 
 STAFF_ROLES = ("admin", "staff")
 
@@ -76,7 +82,7 @@ def change_password(db: Session, user_id: str, current_password: str, new_passwo
     if not compare_password(current_password, user.password_hash):
         raise AppError(401, "Current password is incorrect", "CURRENT_PASSWORD_INCORRECT")
 
-    problem = password_problem(new_password)
+    problem = password_problem(new_password, user.email)
     if problem:
         raise AppError(400, problem, "WEAK_PASSWORD")
     if new_password == current_password:
@@ -86,3 +92,81 @@ def change_password(db: Session, user_id: str, current_password: str, new_passwo
     user.must_change_password = False
     db.commit()
     return session_for(db, user_id)
+
+
+def change_username(db: Session, user_id: str, current_password: str, new_username: str) -> AuthResponse:
+    """Change the sign-in email (the "username"). Needs the current password. Returns a fresh session."""
+    user = db.get(User, user_id)
+    if not user:
+        raise AppError(401, "Invalid or expired session", "SESSION_INVALID")
+    if not compare_password(current_password, user.password_hash):
+        raise AppError(401, "Current password is incorrect", "CURRENT_PASSWORD_INCORRECT")
+
+    new_username = new_username.strip().lower()
+    if db.execute(select(User.id).where(User.email == new_username, User.id != user_id)).first():
+        raise AppError(409, "That username is already in use", "USERNAME_TAKEN")
+    user.email = new_username
+    if user.profile:
+        user.profile.email = new_username
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise AppError(409, "That username is already in use", "USERNAME_TAKEN")
+    logger.info("Admin %s changed their username", user_id)
+    return session_for(db, user_id)
+
+
+# Serializes first-admin setup across concurrent requests (and processes): the lock is held
+# until the transaction ends, so "is there an admin yet?" and the insert can't interleave.
+_FIRST_ADMIN_LOCK_KEY = 0x0B10_AD01
+
+
+def create_first_admin(db: Session, username: str, password: str) -> str:
+    """Create the first admin account. Refuses (409) if any admin already exists; changes nothing then."""
+    username = username.strip().lower()
+    problem = password_problem(password, username)
+    if problem:
+        raise AppError(400, problem, "WEAK_PASSWORD")
+
+    try:
+        db.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": _FIRST_ADMIN_LOCK_KEY})
+        if db.execute(select(UserRole.id).where(UserRole.role == "admin").limit(1)).first():
+            raise AppError(409, "An admin already exists. Sign in instead.", "ADMIN_EXISTS")
+        if db.execute(select(User.id).where(User.email == username)).first():
+            raise AppError(409, "An account with that username already exists", "ADMIN_EXISTS")
+
+        user_id = new_id()
+        db.add(User(id=user_id, email=username, password_hash=hash_password(password)))
+        db.flush()
+        db.add(Profile(id=user_id, full_name="", email=username))
+        db.add(UserRole(id=new_id(), user_id=user_id, role="admin"))
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise AppError(409, "An account with that username already exists", "ADMIN_EXISTS")
+    except Exception:
+        db.rollback()
+        raise
+    logger.warning("First admin %s created through /api/setup/admin; remove SETUP_TOKEN now", username)
+    return user_id
+
+
+def reset_admin_password(db: Session, username: str, new_password: str) -> None:
+    """Recovery without a shell: set a new password for an existing admin account."""
+    username = username.strip().lower()
+    user = db.execute(
+        select(User)
+        .join(UserRole, UserRole.user_id == User.id)
+        .where(User.email == username, UserRole.role == "admin")
+    ).scalar_one_or_none()
+    if not user:
+        raise AppError(404, "No admin account with that username", "ADMIN_NOT_FOUND")
+    problem = password_problem(new_password, username)
+    if problem:
+        raise AppError(400, problem, "WEAK_PASSWORD")
+
+    user.password_hash = hash_password(new_password)
+    user.must_change_password = False
+    db.commit()
+    logger.warning("Admin %s password reset through /api/setup/reset-admin-password; remove ADMIN_RESET_TOKEN now", user.id)

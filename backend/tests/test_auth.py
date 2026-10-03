@@ -16,7 +16,7 @@ def test_staff_created_from_cli_can_log_in_and_see_their_role(client):
 def test_cli_refuses_a_duplicate_email(capsys):
     create_user("ops@biolinks.test")
 
-    exit_code = cli.main(["create-user", "--email", "OPS@biolinks.test", "--password", "another-password", "--role", "admin"])
+    exit_code = cli.main(["create-user", "--email", "OPS@biolinks.test", "--password", "another-long-phrase", "--role", "admin"])
 
     assert exit_code == 1
     assert "already exists" in capsys.readouterr().err

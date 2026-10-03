@@ -54,6 +54,7 @@ Access: **public** = anyone; **optional** = anyone, but staff get extra fields (
 | GET | `/health` | public | | 200 `{status: "healthy"}`; liveness only, no database |
 | GET | `/api/health` | public | | 200 `{status, service, database}`; 503 if the database is down |
 | POST | `/api/auth/login` | public (5 failures / 15 min per IP) | `{email, password}` | 200 `{token, user, roles, must_change_password}` |
+| POST | `/api/auth/token` | public (shares the login limit) | form `username` (email), `password` | 200 `{access_token, token_type}`: Swagger's **Authorize** button |
 | GET | `/api/auth/me` | signed-in | | 200 `{user, roles, must_change_password}` |
 | POST | `/api/auth/change-password` | signed-in | `{current_password, new_password}` | 200, same as login (fresh token) |
 | POST | `/api/auth/logout` | public | | 200 `{ok}`; the client drops its token |
@@ -77,6 +78,9 @@ Access: **public** = anyone; **optional** = anyone, but staff get extra fields (
 | GET | `/api/dashboard/reports?since=` | staff | | 200 `{orders, order_items}` |
 | POST | `/api/uploads/product-image` | staff | multipart `file` (JPEG/PNG/WebP, 5 MB) | 200 `{url, path}` |
 | POST | `/api/chat` | public (20 / min per IP) | `{message, history}` | 200 `{reply, sources, mode}` |
+| POST | `/api/setup/admin` | needs `SETUP_TOKEN` (5 wrong / 15 min per IP) | `{username, password, setup_token}` | 201 `{username, roles}`; 409 once any admin exists; 503 if `SETUP_TOKEN` unset |
+| POST | `/api/setup/reset-admin-password` | needs `ADMIN_RESET_TOKEN` | `{username, new_password, reset_token}` | 200 `{ok}`; 503 if `ADMIN_RESET_TOKEN` unset |
+| POST | `/api/admin/change-username` | admin | `{current_password, new_username}` | 200, same as login (fresh token) |
 
 Uploaded images are served from `/uploads/catalog/<file>`. The body models are in `app/schemas.py`.
 
@@ -88,7 +92,11 @@ Every error response is `{"error": "<message for people>", "code": "<MACHINE_COD
 |---|---|---|
 | `AUTH_REQUIRED`, `SESSION_INVALID` | 401 | no token, or an invalid or expired one |
 | `INVALID_CREDENTIALS`, `CURRENT_PASSWORD_INCORRECT` | 401 | wrong password (counts toward the sign-in limit) |
-| `STAFF_ONLY`, `PASSWORD_CHANGE_REQUIRED` | 403 | not staff; temporary password not yet changed |
+| `STAFF_ONLY`, `ADMIN_ONLY`, `PASSWORD_CHANGE_REQUIRED` | 403 | not staff; not admin; temporary password not yet changed |
+| `SETUP_DISABLED`, `RESET_DISABLED` | 503 | the setup/reset token isn't set (or is under 32 characters) |
+| `SETUP_TOKEN_INVALID`, `RESET_TOKEN_INVALID` | 403 | wrong setup/reset token |
+| `ADMIN_EXISTS`, `USERNAME_TAKEN` | 409 | setup after an admin exists; username already used |
+| `ADMIN_NOT_FOUND` | 404 | reset for an email that isn't an admin |
 | `WEAK_PASSWORD`, `PASSWORD_UNCHANGED`, `CREDENTIALS_REQUIRED` | 400 | password rules |
 | `EMPTY_ORDER`, `CUSTOMER_NAME_REQUIRED`, `PRODUCT_NOT_FOUND`, `PRODUCT_INACTIVE`, `INSUFFICIENT_STOCK` | 400 | POS sale rejected |
 | `RATE_LIMITED` | 429 | too many attempts; see `Retry-After` |

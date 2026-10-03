@@ -24,8 +24,8 @@ from app.utils import new_id
 ROLES = ("admin", "staff", "customer")
 
 
-def _check_password(password: str) -> None:
-    problem = password_problem(password)
+def _check_password(password: str, email: str | None = None) -> None:
+    problem = password_problem(password, email)
     if problem:
         raise ValueError(problem)
 
@@ -35,7 +35,7 @@ def create_user(email: str, password: str, role: str, full_name: str = "", tempo
     email = email.strip().lower()
     if not email or "@" not in email:
         raise ValueError("A valid email is required")
-    _check_password(password)
+    _check_password(password, email)
     if role not in ROLES:
         raise ValueError(f"Role must be one of: {', '.join(ROLES)}")
 
@@ -54,7 +54,7 @@ def create_user(email: str, password: str, role: str, full_name: str = "", tempo
 def set_password(email: str, password: str, temporary: bool = False) -> None:
     """Replace an existing user's password. Raises ValueError if there is no such user."""
     email = email.strip().lower()
-    _check_password(password)
+    _check_password(password, email)
     with SessionLocal() as db:
         user = db.execute(select(User).where(User.email == email)).scalar_one_or_none()
         if not user:

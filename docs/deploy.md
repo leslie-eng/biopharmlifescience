@@ -168,6 +168,17 @@ If the account already exists, reset it instead of creating a duplicate: `python
 
 **First launch (v1.0.0) only:** there's no previous version to roll back to. Rolling back means pointing the domains at a maintenance page, or suspending `biolinks-api` in Render. `alembic downgrade base` drops every table, so never run it against a database with real data in it.
 
+## First admin without a shell (Render Free)
+
+The Free instance type has no shell, so the first admin is created over HTTP from Swagger UI:
+
+1. Render → service → **Environment**: add `EXPOSE_API_DOCS=true` and `SETUP_TOKEN=<32+ random characters>` (`python -c "import secrets; print(secrets.token_urlsafe(48))"`). Save; Render redeploys.
+2. Open `https://<api>/docs` → **POST /api/setup/admin** → **Try it out** → body `{"username": "<your email>", "password": "<password>", "setup_token": "<SETUP_TOKEN>"}` → **Execute**. Expect 201. A 409 means an admin already exists and nothing was changed.
+3. **Delete `SETUP_TOKEN`** from the environment. Setup refuses (409) anyway once an admin exists, but an unused secret shouldn't stay set.
+4. Back in `/docs`: **Authorize** → username = your email, password → **Authorize** → **Close**. Endpoints with a padlock now run as you; try **GET /api/auth/me**.
+
+Forgot the admin password: set `ADMIN_RESET_TOKEN` (32+ characters) the same way, run **POST /api/setup/reset-admin-password** with `{"username", "new_password", "reset_token"}`, then delete `ADMIN_RESET_TOKEN` straight away. Anyone holding that token can take over any admin account while it is set.
+
 ## Staff accounts
 
 There's no public sign-up, and no email-based password reset (the app sends no email). On the relevant Render service's shell:

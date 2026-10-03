@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, Request
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from app.api.deps import require_auth
 from app.core.database import get_db
 from app.core.errors import AppError
 from app.core.ratelimit import client_ip, login_limiter
-from app.schemas import AuthResponse, ChangePasswordBody, LoginBody, MeResponse
+from app.core.security import sign_token
+from app.schemas import AuthResponse, ChangePasswordBody, LoginBody, MeResponse, TokenResponse
 from app.services import auth as auth_service
 
 # Accounts are created with `python -m app.cli create-user`; there is no public sign-up.
@@ -38,6 +40,22 @@ def login(body: LoginBody, request: Request, db: Session = Depends(get_db)):
         _record_guess(ip, exc)
         raise
     return auth_service.session_for(db, user_id)
+
+
+@router.post("/token", response_model=TokenResponse)
+def token(request: Request, form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    """OAuth2 password flow for Swagger UI's "Authorize" button. `username` is the sign-in email.
+
+    The website signs in with the JSON /api/auth/login instead; both share one rate limit.
+    """
+    ip = client_ip(request)
+    _refuse_if_rate_limited(ip)
+    try:
+        user_id = auth_service.authenticate(db, form.username, form.password)
+    except AppError as exc:
+        _record_guess(ip, exc)
+        raise AppError(401, "Incorrect username or password", "INVALID_CREDENTIALS", {"WWW-Authenticate": "Bearer"})
+    return TokenResponse(access_token=sign_token(user_id))
 
 
 @router.get("/me", response_model=MeResponse)
