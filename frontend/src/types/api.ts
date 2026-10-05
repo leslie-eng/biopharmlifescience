@@ -27,10 +27,39 @@ export interface Product {
   cost: number;
   stock: number;
   unit: string | null;
+  /** A short-lived link built from image_key (or the deprecated stored URL). Read-only. */
   image_url: string | null;
+  image_key?: string | null;
   is_active: boolean;
+  /** Shown on the public website. */
+  is_published: boolean;
   created_at?: string;
   updated_at?: string;
+}
+
+/** A product as the public website sees it (GET /api/public/products). */
+export interface StorefrontProduct {
+  id: string;
+  slug: string;
+  name: string;
+  description: string | null;
+  category: string | null;
+  price: number;
+  unit: string | null;
+  in_stock: boolean;
+  image_url: string | null;
+}
+
+export interface StorefrontPage {
+  items: StorefrontProduct[];
+  total: number;
+  page: number;
+  page_size: number;
+}
+
+export interface StorefrontCategory {
+  name: string;
+  count: number;
 }
 
 export interface Client {

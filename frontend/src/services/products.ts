@@ -16,8 +16,13 @@ export const productsApi = {
   delete: (id: string) => request<{ ok: boolean }>(`/api/products/${id}`, { method: "DELETE" }),
 };
 
-export async function uploadProductImage(file: File): Promise<{ url: string }> {
+/** Set or replace a product's photo (JPEG, PNG or WebP, max 5 MB); the old one is deleted. */
+export function uploadProductImage(productId: string, file: File): Promise<Product> {
   const form = new FormData();
   form.append("file", file);
-  return request<{ url: string }>("/api/uploads/product-image", { method: "POST", body: form });
+  return request<Product>(`/api/products/${productId}/image`, { method: "POST", body: form });
+}
+
+export function removeProductImage(productId: string): Promise<Product> {
+  return request<Product>(`/api/products/${productId}/image`, { method: "DELETE" });
 }

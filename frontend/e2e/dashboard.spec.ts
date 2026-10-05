@@ -63,13 +63,14 @@ test.describe("signed in as admin", () => {
       mimeType: "image/png",
       buffer: PNG,
     });
-    await expectToast(page, "Image uploaded.");
-    await expect(page.getByRole("dialog").locator("img")).toBeVisible();
+    await expect(page.getByRole("dialog").locator("img")).toBeVisible(); // local preview
     await page.getByRole("button", { name: "Create" }).click();
     await expectToast(page, "Created");
     await expect(row(page, name)).toContainText("KSh 850");
 
     await row(page, name).getByRole("button").first().click();
+    // The saved photo comes back from the bucket as a presigned link.
+    await expect(page.getByRole("dialog").locator("img")).toHaveAttribute("src", /X-Amz-Signature=/);
     await field(page, "Price (KSh)").fill("900");
     await page.getByRole("button", { name: "Save" }).click();
     await expectToast(page, "Updated");
