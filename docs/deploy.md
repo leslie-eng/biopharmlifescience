@@ -179,6 +179,30 @@ The Free instance type has no shell, so the first admin is created over HTTP fro
 
 Forgot the admin password: set `ADMIN_RESET_TOKEN` (32+ characters) the same way, run **POST /api/setup/reset-admin-password** with `{"username", "new_password", "reset_token"}`, then delete `ADMIN_RESET_TOKEN` straight away. Anyone holding that token can take over any admin account while it is set.
 
+## Product images (S3-compatible bucket)
+
+Product photos are uploaded in the POS and stored in a private bucket; the website shows them through
+presigned links that expire after an hour. The API refuses to start until all five variables are set,
+so add them **before** deploying the code that needs them.
+
+1. Bucket console (Neon): create the bucket if it doesn't exist (private; no public access, no bucket
+   CORS: browsers only follow presigned links in `<img>`, uploads go through the API) and an access key
+   that can read, write and delete objects in it.
+2. Render → service → **Environment**: add `AWS_ENDPOINT_URL_S3`, `AWS_ACCESS_KEY_ID`,
+   `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` and `S3_BUCKET_NAME`. Save; Render redeploys and runs migration 0003.
+3. Move the old static storefront photos into the bucket, from your machine (Render Free has no shell),
+   with the production `DATABASE_URL` (Render → database → **External Database URL**) and the same five variables set:
+
+   ```sh
+   git archive 962777d frontend/public/images/catalog | tar -x -C /tmp/old-catalog   # the photos as they were
+   cd backend
+   python -m scripts.import_catalog_images --images-dir /tmp/old-catalog/frontend/public/images/catalog --dry-run
+   python -m scripts.import_catalog_images --images-dir /tmp/old-catalog/frontend/public/images/catalog [--create-missing]
+   ```
+
+   It matches photos to POS products by slug, then name, and lists products it couldn't match. Add
+   `--create-missing` to create the 97 former catalog products (price 0, stock 0) in the POS.
+
 ## Staff accounts
 
 There's no public sign-up, and no email-based password reset (the app sends no email). On the relevant Render service's shell:

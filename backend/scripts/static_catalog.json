@@ -1,0 +1,681 @@
+[
+  {
+    "slug": "syringe-2cc-akshar",
+    "name": "2cc Syringe — Akshar",
+    "category": "Syringes and Needles",
+    "description": "Single-use 2cc syringe from Akshar for precise low-volume injections and medication draws.\n\n2cc capacity · Akshar brand",
+    "image": "syringe-2cc.jpg"
+  },
+  {
+    "slug": "syringe-2cc-arcare",
+    "name": "2cc Syringe — Arcare",
+    "category": "Syringes and Needles",
+    "description": "Arcare 2cc syringe suitable for routine clinical injections with clear barrel markings.",
+    "image": "syringe-2cc.jpg"
+  },
+  {
+    "slug": "syringe-2cc-biobase",
+    "name": "2cc Syringe — Biobase",
+    "category": "Syringes and Needles",
+    "description": "Biobase 2cc syringe for general ward and outpatient injection use.",
+    "image": "syringe-2cc.jpg"
+  },
+  {
+    "slug": "syringe-5cc-with-needle",
+    "name": "5cc Syringe with Needle",
+    "category": "Syringes and Needles",
+    "description": "A single-use 5ml syringe fitted with a fixed hypodermic needle, built for accurate low-to-mid volume injections. Clear barrel markings support precise dosing, while the smooth plunger action reduces medication wastage during administration. Individually sterile-packed for safe, ready-to-use clinical handling.",
+    "image": "syringe-5cc.jpg"
+  },
+  {
+    "slug": "syringe-10cc-with-needle",
+    "name": "10cc Syringe with Needle",
+    "category": "Syringes and Needles",
+    "description": "A 10ml single-use syringe with an attached needle, designed for medium-volume injections and medication delivery. The graduated barrel allows precise dose measurement, and the sterile packaging ensures it's ready for immediate clinical use without added prep time.",
+    "image": "syringe-10cc.jpg"
+  },
+  {
+    "slug": "syringe-20cc-without-needle",
+    "name": "20cc Syringe without Needle",
+    "category": "Syringes and Needles",
+    "description": "A 20ml syringe supplied without a needle, ideal for larger volume tasks such as flushing, aspiration, or connecting to existing lines and cannulas. Its wide barrel and clear graduations make it easy to draw and administer accurately in high-volume procedures.",
+    "image": "syringe-20cc.jpg"
+  },
+  {
+    "slug": "infusion-cannula",
+    "name": "Infusion Cannula",
+    "category": "Syringes and Needles",
+    "description": "A sterile IV cannula designed for reliable peripheral vascular access. Its sharp, precision-ground needle allows smooth, low-trauma insertion, while the flexible catheter minimizes vein irritation during extended infusion therapy. A dependable choice for routine fluid and medication administration.",
+    "image": "iv-cannula.jpg"
+  },
+  {
+    "slug": "burette-infusion-set",
+    "name": "Burette Infusion Set",
+    "category": "Syringes and Needles",
+    "description": "A calibrated burette infusion set built for controlled, measured fluid or medication delivery — particularly useful in pediatric and precision-dosing cases. The graduated chamber allows accurate volume monitoring, giving clinicians tighter control over infusion rates and total dosage.",
+    "image": "infusion-set-burette.jpg"
+  },
+  {
+    "slug": "infusion-set",
+    "name": "Infusion Set",
+    "category": "Syringes and Needles",
+    "description": "A standard sterile infusion set for delivering IV fluids and medications at a controlled rate. Features a drip chamber for flow monitoring, a roller clamp for rate adjustment, and a puncture-ready spike for quick, secure connection to fluid bags.",
+    "image": "infusion-set-standard.jpg"
+  },
+  {
+    "slug": "hypodermic-needles",
+    "name": "Hypodermic Needles",
+    "category": "Syringes and Needles",
+    "description": "Sterile, single-use hypodermic needles designed for smooth penetration and minimal patient discomfort. Available for use with standard syringes across injection, aspiration, and medication draw-up procedures — a reliable everyday essential for any clinical setting.",
+    "image": "needle.jpg"
+  },
+  {
+    "slug": "catheter-central-venous",
+    "name": "Central Venous Catheter",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A sterile catheter inserted into a large central vein to provide vascular access for haemodialysis, medication administration, or fluid management. Designed for secure placement and reliable flow, supporting patients who need urgent or short-term access.",
+    "image": "catheter-central-venous.jpg"
+  },
+  {
+    "slug": "fistula-needles-av",
+    "name": "Arteriovenous Fistula Needles",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "Specialised needles designed for cannulating an AV fistula during haemodialysis sessions. Sharp, precision-ground tips support smooth, low-trauma insertion, helping preserve fistula integrity over repeated use.",
+    "image": "fistula-needles-av.jpg"
+  },
+  {
+    "slug": "catheter-hd-long-term",
+    "name": "Long-Term Haemodialysis Catheter",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A tunnelled, cuffed catheter designed for extended vascular access in patients requiring ongoing dialysis over weeks to months. The cuff anchors the catheter under the skin, reducing infection risk and supporting stable long-term use.",
+    "image": "catheter-hd-long-term.jpg"
+  },
+  {
+    "slug": "catheter-hd-acute",
+    "name": "Acute Haemodialysis Catheter",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A non-tunnelled catheter designed for immediate, short-term vascular access in patients requiring urgent dialysis. Quick to insert and reliable for temporary use while long-term access is established.",
+    "image": "catheter-hd-acute.jpg"
+  },
+  {
+    "slug": "hd-solution-acid-concentrate",
+    "name": "Haemodialysis Solution — Acid Concentrate",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A concentrated acid solution used in the preparation of dialysate for haemodialysis treatment. Formulated for consistent, accurate dilution ratios to support safe and effective dialysis sessions.",
+    "image": "dialysis-concentrate.jpg"
+  },
+  {
+    "slug": "hd-powder-sodium-bicarbonate",
+    "name": "Haemodialysis Powder — Sodium Bicarbonate",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A sodium bicarbonate powder used to prepare bicarbonate concentrate for haemodialysis, helping correct metabolic acidosis in patients. Formulated for reliable dissolution and consistent dialysate composition.",
+    "image": "powder-hd-bicarbonate.jpg"
+  },
+  {
+    "slug": "hd-filters-dialyzer",
+    "name": "Haemodialysis Filters (Dialyzer)",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A hollow-fibre dialyzer used to filter waste products and excess fluid from the blood during haemodialysis. Designed for efficient clearance and biocompatibility across a range of patient needs.\n\nSizes 14H, 17H, 18H, 19, 20H, 21H",
+    "image": "dialysis-dialyzer.jpg"
+  },
+  {
+    "slug": "regeneration-salt-water-treatment",
+    "name": "Regeneration Salt (Water Treatment)",
+    "category": "Renal and Dialysis Specialized Supplies",
+    "description": "A purified sodium chloride salt used to regenerate water softening resin in dialysis water treatment systems. Supports consistent water quality, which is critical to safe dialysate preparation.",
+    "image": "regeneration-salt-new.jpg"
+  },
+  {
+    "slug": "face-shield",
+    "name": "Face Shield",
+    "category": "Personal Protective Equipment",
+    "description": "A protective shield worn over the face to guard against splashes, sprays, and droplets during clinical procedures. Lightweight, adjustable headband ensures a secure, comfortable fit for extended wear.",
+    "image": "face-shield.jpg"
+  },
+  {
+    "slug": "facemask",
+    "name": "Facemask",
+    "category": "Personal Protective Equipment",
+    "description": "A disposable medical facemask providing a barrier against droplets and airborne particles. Soft, breathable material with an adjustable nose clip for a secure, comfortable fit throughout the shift.",
+    "image": "mask-surgical.jpg"
+  },
+  {
+    "slug": "gloves-gynaecological",
+    "name": "Gynaecological Gloves",
+    "category": "Personal Protective Equipment",
+    "description": "Extra-long sterile gloves designed for gynaecological and obstetric examinations, offering extended forearm coverage. Textured fingertips ensure a secure grip during procedures.",
+    "image": "gloves-gynaecological.jpg"
+  },
+  {
+    "slug": "gloves-orthopaedic",
+    "name": "Orthopaedic Gloves",
+    "category": "Personal Protective Equipment",
+    "description": "Heavy-duty sterile gloves designed for orthopaedic procedures, offering enhanced puncture resistance against sharp instruments and bone fragments. Reinforced material supports confident handling during high-risk procedures.",
+    "image": "gloves-orthopaedic.jpg"
+  },
+  {
+    "slug": "gloves-sterile-surgical",
+    "name": "Sterile Surgical Gloves",
+    "category": "Personal Protective Equipment",
+    "description": "Sterile, powder-free gloves designed for surgical procedures requiring a high level of dexterity and tactile sensitivity. Anatomically shaped for a snug, comfortable fit throughout long procedures.",
+    "image": "gloves-surgical.jpg"
+  },
+  {
+    "slug": "gloves-nitrile",
+    "name": "Nitrile Gloves",
+    "category": "Personal Protective Equipment",
+    "description": "Latex-free examination gloves offering strong puncture and chemical resistance for general clinical use. A reliable choice for staff with latex sensitivities, without compromising on grip or durability.",
+    "image": "gloves-nitrile.jpg"
+  },
+  {
+    "slug": "gloves-clean",
+    "name": "Clean Gloves",
+    "category": "Personal Protective Equipment",
+    "description": "Clean-process gloves for environments requiring low particulate contamination.",
+    "image": "gloves-nitrile.jpg"
+  },
+  {
+    "slug": "gloves-latex",
+    "name": "Latex Gloves",
+    "category": "Personal Protective Equipment",
+    "description": "Flexible, form-fitting examination gloves offering excellent tactile sensitivity and a comfortable stretch fit. A cost-effective, everyday choice for routine clinical procedures.",
+    "image": "gloves-latex.jpg"
+  },
+  {
+    "slug": "apron-nylon",
+    "name": "Nylon Apron",
+    "category": "Personal Protective Equipment",
+    "description": "A durable, fluid-resistant apron worn to protect clothing during procedures, cleaning, or patient care tasks. Lightweight and easy to wipe down between uses.",
+    "image": "apron-nylon.jpg"
+  },
+  {
+    "slug": "shoe-cover",
+    "name": "Shoe Cover",
+    "category": "Personal Protective Equipment",
+    "description": "Disposable protective covers worn over footwear to maintain hygiene standards in sterile or controlled clinical areas. Elasticated opening ensures a secure, snug fit.",
+    "image": "shoe-cover.jpg"
+  },
+  {
+    "slug": "head-cap",
+    "name": "Head Cap",
+    "category": "Personal Protective Equipment",
+    "description": "A lightweight, disposable head cap used to contain hair and maintain hygiene during procedures. Breathable material with an elasticated edge for a comfortable, secure fit.",
+    "image": "head-cap.jpg"
+  },
+  {
+    "slug": "gown-disposable",
+    "name": "Disposable Gown",
+    "category": "Personal Protective Equipment",
+    "description": "A single-use protective gown worn to shield clothing and skin from fluids and contamination during procedures or patient care. Lightweight, breathable material with secure back-tie fastening.",
+    "image": "gown-disposable.jpg"
+  },
+  {
+    "slug": "mask-webo-oxygen-nrm",
+    "name": "Webo Oxygen Mask (NRM)",
+    "category": "Personal Protective Equipment",
+    "description": "Webo non-rebreather oxygen mask for controlled oxygen delivery to hypoxic patients.\n\nNon-rebreather (NRM)",
+    "image": "mask-oxygen.jpg"
+  },
+  {
+    "slug": "linen-hd-green-towels",
+    "name": "HD Green Towels (O-Towels)",
+    "category": "Personal Protective Equipment",
+    "description": "HD green clinical towels in assorted sizes including O-towel formats for dialysis and ward use.\n\nMultiple sizes available",
+    "image": "linen.jpg"
+  },
+  {
+    "slug": "forceps-dunhill-artery",
+    "name": "Dunhill Artery Forceps",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A haemostatic forceps used to clamp blood vessels and control bleeding during surgical procedures. Serrated jaws provide a firm, secure grip, and a ratchet lock holds tension without constant hand pressure.\n\nAvailable in different sizes",
+    "image": "forceps-dunhill-artery.jpg"
+  },
+  {
+    "slug": "blade-holder",
+    "name": "Blade Holder",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A surgical handle designed to securely hold disposable scalpel blades for precise cutting during procedures. Built for a stable, comfortable grip and easy blade attachment/removal.\n\nAvailable in different sizes",
+    "image": "blade-holder.jpg"
+  },
+  {
+    "slug": "sims-uterine-sound",
+    "name": "Sims Uterine Sound",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A slender, curved instrument used to examine and measure the depth and direction of the uterine cavity. Smooth, rounded tip minimizes trauma during gynaecological examination.\n\nAvailable in different sizes",
+    "image": "sims-uterine-sound.jpg"
+  },
+  {
+    "slug": "scissor-curved",
+    "name": "Curved Scissor",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A general-purpose surgical scissor with a curved blade for precise cutting of tissue or suture material in confined areas. Sharp, well-aligned blades ensure clean cuts with minimal tissue trauma.\n\nAvailable in different sizes",
+    "image": "scissor-curved.jpg"
+  },
+  {
+    "slug": "forceps-dressing",
+    "name": "Dressing Forceps",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A non-locking forceps used to handle dressings, swabs, and tissue during wound care and minor procedures. Serrated tips grip securely without slipping.\n\nAvailable in different sizes",
+    "image": "forceps-dressing.jpg"
+  },
+  {
+    "slug": "scissor-suture",
+    "name": "Suture Scissor",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A precision scissor designed for cutting sutures cleanly and accurately during and after procedures. Fine, sharp tips allow controlled, close-to-knot cutting.\n\nAvailable in different sizes",
+    "image": "scissor-suture.jpg"
+  },
+  {
+    "slug": "scissor-metzenbaum",
+    "name": "Metzenbaum Tissue Scissor",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A fine-tipped scissor designed for delicate dissection and cutting of soft tissue with minimal trauma. Long, slender blades allow precise control in deeper surgical fields.\n\nAvailable in different sizes",
+    "image": "scissor-metzenbaum.jpg"
+  },
+  {
+    "slug": "forceps-allis",
+    "name": "Allis Forceps",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A grasping forceps with interlocking teeth used to hold and manipulate tissue securely during surgery, without excessive crushing. Reliable ratchet lock maintains a firm grip throughout the procedure.\n\nAvailable in different sizes",
+    "image": "forceps-allis.jpg"
+  },
+  {
+    "slug": "forceps-mosquito-curved",
+    "name": "Curved Mosquito Forceps",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A small, delicate haemostatic forceps with curved tips, used for clamping fine blood vessels and tissue in precision procedures. Fine jaws allow careful, controlled handling.\n\nAvailable in different sizes",
+    "image": "forceps-mosquito-curved.jpg"
+  },
+  {
+    "slug": "forceps-mosquito-straight",
+    "name": "Straight Mosquito Forceps",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A small, delicate haemostatic forceps with straight tips, ideal for clamping fine vessels and tissue where a direct approach is needed. Precise jaw alignment ensures a secure, controlled grip.\n\nAvailable in different sizes",
+    "image": "forceps-mosquito-straight.jpg"
+  },
+  {
+    "slug": "speculum-vaginal",
+    "name": "Vaginal Speculum",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "An instrument used to gently dilate the vaginal walls for clear visualization during gynaecological examination and procedures. Smooth edges and a secure locking mechanism support both comfort and stability during use.\n\nAvailable in different sizes",
+    "image": "speculum-vaginal.jpg"
+  },
+  {
+    "slug": "kidney-dish",
+    "name": "Kidney Dish",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A curved, kidney-shaped stainless steel tray used to hold instruments, swabs, or collect fluids during procedures. Durable, corrosion-resistant construction withstands repeated sterilization cycles.\n\nAvailable in different sizes",
+    "image": "kidney-dish.jpg"
+  },
+  {
+    "slug": "gallipot",
+    "name": "Gallipot",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A small stainless steel bowl used to hold antiseptic solutions, swabs, or fluids during minor procedures and dressing changes. Sturdy, easy-to-clean construction supports repeated sterilization.\n\nAvailable in different sizes",
+    "image": "gallipot.jpg"
+  },
+  {
+    "slug": "needle-holder",
+    "name": "Needle Holder",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A locking surgical instrument used to grip and control suture needles during wound closure. Textured jaws prevent needle slippage, while the ratchet lock secures a stable hold throughout suturing.\n\nAvailable in different sizes",
+    "image": "needle-holder.jpg"
+  },
+  {
+    "slug": "scissor-umbilical-cord",
+    "name": "Umbilical Cord Scissor",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A specialised scissor designed for the safe, clean cutting of the umbilical cord after delivery. Blunt-tipped blades minimise risk to mother and newborn during the procedure.\n\nAvailable in different sizes",
+    "image": "scissor-umbilical-cord.jpg"
+  },
+  {
+    "slug": "surgical-blades",
+    "name": "Surgical Blades",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Sterile, single-use scalpel blades designed for precise, clean incisions during surgical procedures. Individually wrapped to maintain sterility, with a sharp cutting edge for reliable performance from first use.",
+    "image": "surgical-blade.jpg"
+  },
+  {
+    "slug": "safety-box",
+    "name": "Safety Box",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A puncture-resistant sharps disposal container used to safely collect and dispose of used needles, blades, and other sharp instruments. Supports safe waste handling and reduces the risk of needle-stick injuries in clinic.",
+    "image": "sharps.jpg"
+  },
+  {
+    "slug": "sanitary-medispread-hanaan-2ply-wc",
+    "name": "Medispread Hanaan 2-Ply Rolls",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Soft, absorbent 2-ply couch/bed rolls used to line examination beds and procedure surfaces for hygiene between patients. Easy-tear perforations allow quick, mess-free changeovers.",
+    "image": "sanitary.jpg"
+  },
+  {
+    "slug": "gauze-roll-xray-detectable",
+    "name": "X-Ray Gauze Rolls",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "X-ray detectable gauze rolls used for wound packing and dressing where retained material must be identifiable on imaging. Highly absorbent and safe for internal or deep wound use.\n\nAvailable in different sizes",
+    "image": "gauze-xray.jpg"
+  },
+  {
+    "slug": "gauze-roll-plain",
+    "name": "Plain Gauze Rolls",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Absorbent, non-woven gauze rolls used for general wound dressing, cleaning, and padding. Soft and gentle on skin while providing reliable absorbency for everyday clinical use.\n\nAvailable in different sizes",
+    "image": "gauze-plain.jpg"
+  },
+  {
+    "slug": "cotton-wool",
+    "name": "Cotton Wool",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Soft, absorbent cotton wool used for cleaning wounds, applying antiseptics, and general patient care. Highly absorbent and gentle on skin, suited for a wide range of clinical tasks.\n\nAvailable in different sizes",
+    "image": "cotton-wool.jpg"
+  },
+  {
+    "slug": "towel-hd-green",
+    "name": "HD Green Towel",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A durable, heavy-duty green surgical towel used to create a sterile field and drape work areas during procedures. Highly absorbent and built to withstand repeated use and sterilization.",
+    "image": "towel-hd-green.jpg"
+  },
+  {
+    "slug": "bin-liner-wc",
+    "name": "Bin Liner",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Durable waste bags used for the safe collection and disposal of clinical and general waste. Puncture-resistant material supports safe handling and hygienic disposal practices.\n\nAvailable in different sizes",
+    "image": "biohazard-liner.jpg"
+  },
+  {
+    "slug": "dressing",
+    "name": "Dressing",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Sterile wound dressings used to cover, protect, and support healing of wounds and post-procedure sites. Designed for secure adhesion and reliable absorbency, keeping wounds clean and protected.",
+    "image": "dressing.jpg"
+  },
+  {
+    "slug": "blood-lancets",
+    "name": "Blood Lancets",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Sterile, single-use lancets designed for quick, low-pain skin puncture during capillary blood sampling, such as glucose testing. Precision-engineered tip ensures a clean puncture with minimal discomfort.",
+    "image": "lab-lancet.jpg"
+  },
+  {
+    "slug": "mask-oxygen-nonrebreather",
+    "name": "Non-Rebreather Oxygen Masks",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "A high-concentration oxygen delivery mask fitted with a reservoir bag and one-way valves to minimize rebreathing of exhaled air. Designed for patients requiring high-flow oxygen therapy in emergency or critical care settings.\n\nAvailable in different sizes",
+    "image": "mask-oxygen.jpg"
+  },
+  {
+    "slug": "mva-kit-set",
+    "name": "MVA Kit Set",
+    "category": "Wound Care and Surgical Consumables",
+    "description": "Manual vacuum aspiration kit set for uterine evacuation procedures per clinical protocol.",
+    "image": "dressing.jpg"
+  },
+  {
+    "slug": "citric-acid-21",
+    "name": "Citric Acid 21%",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "A concentrated descaling and disinfecting solution used mainly for cleaning and decalcifying dialysis machines and other medical equipment. Effective at breaking down mineral deposits while supporting routine equipment hygiene protocols.\n\n5-litre containers",
+    "image": "citric-acid-21.jpg"
+  },
+  {
+    "slug": "iodine-10",
+    "name": "Iodine 10%",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "A broad-spectrum antiseptic solution used for skin disinfection prior to injections, procedures, and wound care. Effective against a wide range of bacteria, fungi, and viruses, making it a clinic essential for infection control.\n\n500ml, 1L, and 5L sizes",
+    "image": "iodine.jpg"
+  },
+  {
+    "slug": "spirit-surgical-70",
+    "name": "Surgical Spirit 70%",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "A fast-acting antiseptic solution used for skin cleansing before injections and minor procedures, as well as general surface disinfection. Evaporates quickly, leaving a clean, sanitized surface without residue.\n\n500ml, 1L, and 5L sizes",
+    "image": "spirit.jpg"
+  },
+  {
+    "slug": "sodium-hypochlorite",
+    "name": "Sodium Hypochlorite",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "A powerful chlorine-based disinfectant used for surface decontamination, instrument soaking, and general infection control across clinical areas. Effective against a broad range of pathogens, supporting strict hygiene and biosafety standards.\n\n5-litre containers",
+    "image": "disinfectant.jpg"
+  },
+  {
+    "slug": "bin-liner-biohazard-24x36",
+    "name": "Biohazard Bin Liner — 24×36",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "Yellow biohazard waste liner 24×36 inches for infectious and clinical waste segregation.",
+    "image": "biohazard-liner.jpg"
+  },
+  {
+    "slug": "bin-liner-biohazard-18x24",
+    "name": "Biohazard Bin Liner — 18×24",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "Biohazard liner 18×24 inches for smaller clinical waste bins at point of care.",
+    "image": "biohazard-liner.jpg"
+  },
+  {
+    "slug": "bin-liner-biohazard-30x36",
+    "name": "Biohazard Bin Liner — 30×36",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "Large biohazard liner 30×36 inches for high-volume waste collection areas.",
+    "image": "biohazard-liner.jpg"
+  },
+  {
+    "slug": "safety-box-sharps",
+    "name": "Safety Box — Sharps Disposal",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "Puncture-resistant sharps container for safe needle and blade disposal per infection-control policy.",
+    "image": "sharps.jpg"
+  },
+  {
+    "slug": "sanitary-medispread-hanaan-2ply",
+    "name": "Medispread Hanaan 2-Ply Rolls",
+    "category": "Antiseptics, Disinfectants, and Hygiene",
+    "description": "Hanaan 2-ply sanitary rolls for patient hygiene, surface wiping, and general clinic sanitation.",
+    "image": "sanitary.jpg"
+  },
+  {
+    "slug": "strip-mission-hb",
+    "name": "Mission HB Test Strips",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Mission haemoglobin test strips for point-of-care anaemia screening.",
+    "image": "test-glucose.jpg"
+  },
+  {
+    "slug": "strip-on-call-glucose",
+    "name": "On Call Glucose Test Strips",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "On Call blood glucose strips for rapid capillary glucose monitoring.",
+    "image": "test-glucose.jpg"
+  },
+  {
+    "slug": "strip-sinocare",
+    "name": "Sinocare Test Strips",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Sinocare-compatible test strips for glucose monitoring devices used in clinics.",
+    "image": "test-rapid.jpg"
+  },
+  {
+    "slug": "urinalysis-bioway",
+    "name": "Urinalysis Strips — Bioway",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Bioway urinalysis reagent strips for multi-parameter urine screening.",
+    "image": "test-urinalysis.jpg"
+  },
+  {
+    "slug": "urinalysis-evancare",
+    "name": "Urinalysis Strips — Evancare",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Evancare urinalysis strips for routine urine chemistry and screening panels.",
+    "image": "test-urinalysis.jpg"
+  },
+  {
+    "slug": "test-pregnancy-hcg",
+    "name": "Pregnancy Test (HCG)",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Rapid HCG pregnancy test for qualitative detection in clinical and outreach settings.",
+    "image": "test-pregnancy.jpg"
+  },
+  {
+    "slug": "test-hiv-determine",
+    "name": "HIV Rapid Test — Determine",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Determine HIV rapid diagnostic test for screening programmes and clinical triage.",
+    "image": "test-rapid.jpg"
+  },
+  {
+    "slug": "test-h-pylori-boson",
+    "name": "H. Pylori Test — Boson",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Boson H. pylori rapid test for gastric infection screening.",
+    "image": "test-rapid.jpg"
+  },
+  {
+    "slug": "test-h-pylori-accurate",
+    "name": "H. Pylori Test — Accurate",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Accurate-brand H. pylori rapid test kit for outpatient gastroenterology support.",
+    "image": "test-rapid.jpg"
+  },
+  {
+    "slug": "test-syphilis",
+    "name": "Syphilis Rapid Test",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Rapid syphilis serology test for STI screening and antenatal programmes.",
+    "image": "test-rapid.jpg"
+  },
+  {
+    "slug": "test-hcv",
+    "name": "HCV Rapid Test",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Hepatitis C rapid test for screening and referral pathways.",
+    "image": "test-rapid.jpg"
+  },
+  {
+    "slug": "lab-microscope-slides",
+    "name": "Microscope Slides",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Glass microscope slides for laboratory microscopy and specimen examination.",
+    "image": "lab-slides.jpg"
+  },
+  {
+    "slug": "lab-vacutainers",
+    "name": "Vacutainers",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Blood collection vacutainer tubes for phlebotomy and laboratory sample transport.",
+    "image": "lab-vacutainer.jpg"
+  },
+  {
+    "slug": "lab-blood-lancets",
+    "name": "Blood Lancets",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Single-use blood lancets for capillary sampling in glucose and rapid-test workflows.",
+    "image": "lab-lancet.jpg"
+  },
+  {
+    "slug": "lab-stool-urine-containers",
+    "name": "Stool & Urine Specimen Containers",
+    "category": "Diagnostics and Lab Supplies",
+    "description": "Sterile specimen containers for stool and urine sample collection and transport to lab.",
+    "image": "lab-specimen.jpg"
+  },
+  {
+    "slug": "bp-cuffs-omron",
+    "name": "Omron Blood Pressure Cuffs",
+    "category": "Medical Equipment and Devices",
+    "description": "A replacement/spare cuff compatible with Omron BP monitors, designed for a snug, accurate fit. Available in neonate, paediatric, and adult sizes, covering the full range of patients from newborns to grown adults. Built with a reliable inflation bladder for consistent readings and a durable fabric that holds up to daily clinical use.\n\nNeonate, paediatric, and adult sizes",
+    "image": "bp-cuffs-omron.jpg"
+  },
+  {
+    "slug": "bp-machine-analogue",
+    "name": "Analogue Blood Pressure Machine",
+    "category": "Medical Equipment and Devices",
+    "description": "A manual aneroid sphygmomanometer for hands-on blood pressure measurement, paired with a stethoscope. Favoured for its durability, no dependency on batteries or calibration drift, and long-standing reliability in busy outpatient and ward settings.",
+    "image": "bp-analogue.jpg"
+  },
+  {
+    "slug": "bp-machine-omron",
+    "name": "Omron Blood Pressure Machine",
+    "category": "Medical Equipment and Devices",
+    "description": "A fully automatic digital BP monitor from Omron, delivering fast, accurate systolic/diastolic and pulse readings at the touch of a button. Ideal for routine vitals checks where speed and consistency matter, with minimal training needed for staff.",
+    "image": "bp-omron.jpg"
+  },
+  {
+    "slug": "bp-machine-citizen-wrist",
+    "name": "Wrist Citizen Blood Pressure Machine",
+    "category": "Medical Equipment and Devices",
+    "description": "A compact wrist-worn digital BP monitor from Citizen, suited for quick spot-checks and patients for whom an upper-arm cuff is impractical. Lightweight and portable, making it convenient for home-care visits or space-limited clinic setups.",
+    "image": "bp-citizen-wrist.jpg"
+  },
+  {
+    "slug": "bp-machine-moratech-11",
+    "name": "Moratech Blood Pressure Monitor (Model 11)",
+    "category": "Medical Equipment and Devices",
+    "description": "An automatic digital blood pressure monitor built for consistent, easy-to-read vitals checks. Features Type-C charging, dual memory storage of up to 90 readings, a date and time indicator, and a large, easy-to-read display. A practical, budget-friendly option for clinics needing dependable daily BP monitoring without added complexity.\n\nType-C charging · Dual memory, up to 90 readings",
+    "image": "bp-moratech.jpg"
+  },
+  {
+    "slug": "bp-machine-fabia-upper-arm",
+    "name": "Fabia Upper Arm Blood Pressure Monitor",
+    "category": "Medical Equipment and Devices",
+    "description": "An upper-arm automatic BP monitor offering accurate one-touch readings and a comfortable adjustable cuff. Features USB charging, dual memory storage of up to 120 readings, a large display, and intelligent voice broadcast of results. A solid choice for general outpatient vitals monitoring where consistent, repeatable results are needed.\n\nUSB charging · Dual memory, up to 120 readings · Voice broadcast",
+    "image": "bp-fabia.jpg"
+  },
+  {
+    "slug": "bp-machine-citizen",
+    "name": "Citizen Blood Pressure Machine",
+    "category": "Medical Equipment and Devices",
+    "description": "An automatic upper-arm digital BP monitor from Citizen, delivering quick and accurate systolic/diastolic readings. Sturdy build and simple interface make it well suited for high-frequency use in clinic settings.",
+    "image": "bp-citizen.jpg"
+  },
+  {
+    "slug": "glucostrips-oncall",
+    "name": "OnCall Glucostrips",
+    "category": "Medical Equipment and Devices",
+    "description": "Compatible test strips for OnCall glucometers, designed for accurate blood glucose readings with a small sample size. Individually sealed for hygiene and shelf stability, supporting routine diabetic monitoring and screening in clinic.",
+    "image": "glucostrips-oncall.jpg"
+  },
+  {
+    "slug": "glucometer-oncall-plus",
+    "name": "OnCall Plus Machine",
+    "category": "Medical Equipment and Devices",
+    "description": "A reliable glucometer for quick, accurate blood glucose testing at the point of care. Simple one-step operation with fast results, making it well suited for both clinic screening and patient self-monitoring support.",
+    "image": "glucometer-oncall-plus.jpg"
+  },
+  {
+    "slug": "glucometer-sinocare",
+    "name": "Sinocare Machine",
+    "category": "Medical Equipment and Devices",
+    "description": "A digital blood glucose monitor offering fast, accurate readings with minimal blood sample volume. Straightforward to operate, making it a dependable option for routine diabetic monitoring in clinics and small hospitals.",
+    "image": "glucometer-sinocare.jpg"
+  },
+  {
+    "slug": "glucostrips-sinocare",
+    "name": "Sinocare Glucostrips",
+    "category": "Medical Equipment and Devices",
+    "description": "Compatible test strips for Sinocare glucometers, formulated for precise glucose readings with minimal sample waste. Individually foil-sealed to protect against moisture, ensuring reliable results test after test.",
+    "image": "glucostrips-sinocare.jpg"
+  },
+  {
+    "slug": "thermometers",
+    "name": "Clinical Thermometers",
+    "category": "Medical Equipment and Devices",
+    "description": "Digital and clinical thermometers for fever screening and inpatient temperature monitoring.",
+    "image": "thermometer.jpg"
+  },
+  {
+    "slug": "oxygen-regulators",
+    "name": "Oxygen Regulators",
+    "category": "Medical Equipment and Devices",
+    "description": "Medical oxygen cylinder regulators for controlled flow delivery to masks and tubing.",
+    "image": "oxygen-regulator.jpg"
+  },
+  {
+    "slug": "autoclave-machines",
+    "name": "Autoclave Machines",
+    "category": "Medical Equipment and Devices",
+    "description": "Steam autoclave units for instrument sterilisation per facility infection-control standards.",
+    "image": "autoclave.jpg"
+  }
+]
