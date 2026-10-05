@@ -133,9 +133,11 @@ class PublicProductOut(OutBase):
 
 
 class ProductOut(PublicProductOut):
-    """What Staff see."""
+    """What Staff see. image_url is a short-lived link built from image_key."""
 
     cost: float
+    image_key: str | None
+    is_published: bool
 
 
 NonNegativeMoney = Annotated[float, Field(ge=0)]
@@ -151,8 +153,11 @@ class ProductCreate(BaseModel):
     cost: NonNegativeMoney = 0
     stock: NonNegativeCount = 0
     unit: str | None = "unit"
-    image_url: str | None = None
+    image_url: str | None = Field(
+        None, description="Deprecated: upload to /api/products/{id}/image", json_schema_extra={"deprecated": True}
+    )
     is_active: bool = True
+    is_published: bool = True
 
 
 class ProductUpdate(BaseModel):
@@ -164,8 +169,40 @@ class ProductUpdate(BaseModel):
     cost: NonNegativeMoney | None = None
     stock: NonNegativeCount | None = None
     unit: str | None = None
-    image_url: str | None = None
+    image_url: str | None = Field(
+        None, description="Deprecated: upload to /api/products/{id}/image", json_schema_extra={"deprecated": True}
+    )
     is_active: bool | None = None
+    is_published: bool | None = None
+
+
+# ---------- Storefront (public website) ----------
+
+
+class StorefrontProduct(BaseModel):
+    """What the public website may show: no cost, stock count, image key or internal flags."""
+
+    id: str
+    slug: str
+    name: str
+    description: str | None
+    category: str | None
+    price: float
+    unit: str | None
+    in_stock: bool
+    image_url: str | None
+
+
+class StorefrontPage(BaseModel):
+    items: list[StorefrontProduct]
+    total: int
+    page: int
+    page_size: int
+
+
+class StorefrontCategory(BaseModel):
+    name: str
+    count: int
 
 
 # ---------- Clients ----------

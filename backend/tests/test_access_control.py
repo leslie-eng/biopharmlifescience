@@ -19,7 +19,8 @@ STAFF_ONLY = [
     ("DELETE", f"/api/expenses/{SOME_ID}"),
     ("GET", "/api/dashboard/overview"),
     ("GET", "/api/dashboard/reports"),
-    ("POST", "/api/uploads/product-image"),
+    ("POST", f"/api/products/{SOME_ID}/image"),
+    ("DELETE", f"/api/products/{SOME_ID}/image"),
 ]
 
 

@@ -2,7 +2,8 @@
 
 import pytest
 
-from test_uploads import PNG, upload
+from app.core.config import settings
+from test_product_images import PNG
 
 EXPECTED = {
     "X-Content-Type-Options": "nosniff",
@@ -19,10 +20,10 @@ def test_api_responses_carry_hardening_headers(client, path):
         assert res.headers.get(header) == value, header
 
 
-def test_served_uploads_carry_hardening_headers(client, staff_headers):
-    url = upload(client, staff_headers, "a.png", PNG, "image/png").json()["url"]
+def test_served_legacy_uploads_carry_hardening_headers(client):
+    (settings.UPLOAD_DIR / "catalog" / "legacy.png").write_bytes(PNG)
 
-    res = client.get(url.removeprefix("http://api.test"))
+    res = client.get("/uploads/catalog/legacy.png")
 
     assert res.headers["X-Content-Type-Options"] == "nosniff"
     assert res.headers["Content-Type"] == "image/png"

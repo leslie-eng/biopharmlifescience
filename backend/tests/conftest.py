@@ -3,6 +3,8 @@
 Set TEST_DATABASE_URL to point at a throwaway database; it is wiped before every test.
 Default matches: docker run -d --name biolinks-test-pg -e POSTGRES_PASSWORD=test \
     -e POSTGRES_DB=biolinks_test -p 55432:5432 postgres:17-alpine
+Product images go to a real S3-compatible server: `docker compose up -d s3` (TEST_S3_ENDPOINT_URL
+overrides it). Bucket biolinks-test is emptied before every test.
 """
 
 import os
@@ -21,6 +23,11 @@ os.environ["JWT_SECRET"] = "test-secret-" + "x" * 40
 os.environ["UPLOAD_DIR"] = tempfile.mkdtemp(prefix="biolinks-uploads-")
 os.environ["PUBLIC_URL"] = "http://api.test"
 os.environ["TRUST_PROXY"] = "true"
+os.environ["AWS_ENDPOINT_URL_S3"] = os.environ.get("TEST_S3_ENDPOINT_URL", "http://localhost:59000")
+os.environ["AWS_ACCESS_KEY_ID"] = "test-key"
+os.environ["AWS_SECRET_ACCESS_KEY"] = "test-secret"
+os.environ["AWS_REGION"] = "us-east-1"
+os.environ["S3_BUCKET_NAME"] = "biolinks-test"
 os.environ.pop("OPENAI_API_KEY", None)
 
 from fastapi.testclient import TestClient  # noqa: E402
@@ -30,6 +37,13 @@ from app import cli  # noqa: E402
 from app.core.database import engine  # noqa: E402
 from app.main import app  # noqa: E402
 from app.core.ratelimit import chat_limiter, login_limiter, setup_limiter  # noqa: E402
+from app.services import storage  # noqa: E402
+
+
+def bucket_keys() -> list[str]:
+    """Every object key in the test bucket."""
+    s3, bucket = storage._client(), os.environ["S3_BUCKET_NAME"]
+    return sorted(o["Key"] for o in s3.list_objects_v2(Bucket=bucket).get("Contents", []))
 
 
 def alembic(*args: str) -> None:
@@ -52,6 +66,8 @@ def clean_state(schema):
             text("SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename <> 'alembic_version'")
         ).scalars().all()
         conn.execute(text(f"TRUNCATE {', '.join(tables)} RESTART IDENTITY CASCADE"))
+    for key in bucket_keys():
+        storage._client().delete_object(Bucket=os.environ["S3_BUCKET_NAME"], Key=key)
     login_limiter.reset()
     chat_limiter.reset()
     setup_limiter.reset()

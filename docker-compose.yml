@@ -3,6 +3,7 @@
 #
 #   docker compose up -d db        # development database, used by backend/.env
 #   docker compose up -d db-test   # wiped by every pytest run (backend/tests/conftest.py)
+#   docker compose up -d s3        # product images, for development and tests
 
 services:
   db:
@@ -29,5 +30,18 @@ services:
     ports:
       - "55432:5432"
 
+  # S3-compatible object storage standing in for the production bucket (product images).
+  # Accepts any access key/secret; buckets biolinks-dev (development) and biolinks-test (pytest).
+  s3:
+    image: adobe/s3mock:latest
+    environment:
+      COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS: biolinks-dev,biolinks-test
+      COM_ADOBE_TESTING_S3MOCK_STORE_RETAIN_FILES_ON_EXIT: "true"
+    ports:
+      - "59000:9090"
+    volumes:
+      - biolinks-dev-s3:/tmp/s3mock
+
 volumes:
   biolinks-dev-data:
+  biolinks-dev-s3:

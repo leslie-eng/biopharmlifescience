@@ -42,3 +42,15 @@ def test_cors_origins_forgive_trailing_slashes_quotes_and_spaces():
     value = ' "https://www.biopharmlifescience.co.ke/", https://biopharmlifescience.co.ke ,, '
 
     assert _cors_origins(value) == ["https://www.biopharmlifescience.co.ke", "https://biopharmlifescience.co.ke"]
+
+
+def test_refuses_to_start_without_image_storage_settings():
+    env = {**os.environ, "JWT_SECRET": "k" * 48}
+    env.pop("S3_BUCKET_NAME")
+    env["AWS_REGION"] = ""
+    result = subprocess.run(
+        [sys.executable, "-c", "import app.main"], cwd=SERVER_DIR, env=env, capture_output=True, text=True
+    )
+
+    assert result.returncode != 0
+    assert "set AWS_REGION, S3_BUCKET_NAME" in result.stderr

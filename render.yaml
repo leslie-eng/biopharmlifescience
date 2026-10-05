@@ -54,6 +54,16 @@ services:
         value: https://api-staging.biopharmlifescience.co.ke
       - key: SENTRY_DSN
         sync: false
+      - key: AWS_ENDPOINT_URL_S3
+        sync: false # product-image bucket (docs/deploy.md); required
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: S3_BUCKET_NAME
+        sync: false
       - key: SENTRY_ENVIRONMENT
         value: staging
 
@@ -90,6 +100,16 @@ services:
       - key: PUBLIC_URL
         value: https://api.biopharmlifescience.co.ke
       - key: SENTRY_DSN
+        sync: false
+      - key: AWS_ENDPOINT_URL_S3
+        sync: false # product-image bucket (docs/deploy.md); required
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: S3_BUCKET_NAME
         sync: false
       - key: SENTRY_ENVIRONMENT
         value: production

@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app.api.routes import admin, auth, chat, clients, dashboard, expenses, orders, products, setup, uploads
+from app.api.routes import admin, auth, chat, clients, dashboard, expenses, orders, products, public, setup
 from app.core.config import settings
 from app.core.database import engine
 from app.core.errors import AppError, default_code
@@ -96,7 +96,8 @@ async def unhandled_exception_handler(_request: Request, exc: Exception):
     return _error(500, "Internal server error", "INTERNAL_ERROR")
 
 
-# --- Static uploads (mirrors `app.use("/uploads", express.static(uploadRoot))`) -----
+# --- Legacy local uploads: still served so old products.image_url links keep working. New ---
+# --- images go to the bucket (app/services/storage.py); remove once image_url is dropped. ---
 app.mount("/uploads", StaticFiles(directory=str(settings.UPLOAD_DIR)), name="uploads")
 
 
@@ -133,7 +134,7 @@ app.include_router(products.router)
 app.include_router(clients.router)
 app.include_router(orders.router)
 app.include_router(expenses.router)
-app.include_router(uploads.router)
+app.include_router(public.router)
 app.include_router(dashboard.router)
 app.include_router(chat.router)
 app.include_router(setup.router)

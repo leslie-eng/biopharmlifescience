@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -7,6 +7,7 @@ from app.core.database import get_db
 from app.core.errors import AppError
 from app.models import Product
 from app.schemas import ProductCreate, ProductOut, ProductUpdate, PublicProductOut
+from app.services import product_images, storage
 from app.services.auth import is_staff, load_user_roles
 from app.utils import is_uuid, new_id, slugify
 
@@ -30,7 +31,13 @@ def _refuse_taken_slug(db: Session, slug: str, product_id: str | None = None) ->
 
 
 def _for_caller(product: Product, is_staff: bool) -> ProductOut | PublicProductOut:
-    return ProductOut.model_validate(product) if is_staff else PublicProductOut.model_validate(product)
+    out = ProductOut.model_validate(product) if is_staff else PublicProductOut.model_validate(product)
+    out.image_url = product_images.image_url(product)
+    return out
+
+
+def _visible_to_public(product: Product) -> bool:
+    return product.is_active and product.is_published
 
 
 # response_model=None: the shape depends on the caller (Staff see cost, visitors don't).
@@ -49,6 +56,8 @@ def list_products(
     stmt = select(Product).order_by(Product.created_at.desc())
     if active_only:
         stmt = stmt.where(Product.is_active.is_(True))
+    if not is_staff:
+        stmt = stmt.where(Product.is_published.is_(True))
     return [_for_caller(p, is_staff) for p in db.execute(stmt).scalars().all()]
 
 
@@ -60,7 +69,7 @@ def get_product(
 ) -> ProductOut | PublicProductOut:
     is_staff = _is_staff(db, user_id)
     product = _get(db, product_id)
-    if not product or (not product.is_active and not is_staff):
+    if not product or (not is_staff and not _visible_to_public(product)):
         raise HTTPException(status_code=404, detail="Product not found")
     return _for_caller(product, is_staff)
 
@@ -88,11 +97,12 @@ def create_product(
         unit=body.unit or "unit",
         image_url=body.image_url,
         is_active=body.is_active if body.is_active is not None else True,
+        is_published=body.is_published,
     )
     db.add(product)
     db.commit()
     db.refresh(product)
-    return product
+    return _for_caller(product, is_staff=True)
 
 
 @router.patch("/{product_id}", response_model=ProductOut)
@@ -115,7 +125,7 @@ def update_product(
         setattr(product, key, value)
     db.commit()
     db.refresh(product)
-    return product
+    return _for_caller(product, is_staff=True)
 
 
 @router.delete("/{product_id}")
@@ -127,6 +137,48 @@ def delete_product(
     product = _get(db, product_id)
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
+    image_key = product.image_key
     db.delete(product)
     db.commit()
+    if image_key:
+        storage.delete(image_key)
     return {"ok": True}
+
+
+@router.post(
+    "/{product_id}/image",
+    response_model=ProductOut,
+    responses={
+        400: {"description": "Not a JPEG, PNG or WebP image"},
+        413: {"description": "Larger than 5 MB"},
+        502: {"description": "The image bucket refused the upload"},
+    },
+)
+def upload_product_image(
+    product_id: str,
+    file: UploadFile = File(..., description="JPEG, PNG or WebP, at most 5 MB"),
+    staff: tuple[str, list[str]] = Depends(require_staff),
+    db: Session = Depends(get_db),
+):
+    """Set or replace the product's photo. The previous photo is deleted from the bucket."""
+    product = _get(db, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    contents, ext = product_images.read_image(file)
+    product_images.replace_image(db, product, contents, ext)
+    db.refresh(product)
+    return _for_caller(product, is_staff=True)
+
+
+@router.delete("/{product_id}/image", response_model=ProductOut)
+def remove_product_image(
+    product_id: str,
+    staff: tuple[str, list[str]] = Depends(require_staff),
+    db: Session = Depends(get_db),
+):
+    product = _get(db, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    product_images.remove_image(db, product)
+    db.refresh(product)
+    return _for_caller(product, is_staff=True)

@@ -78,8 +78,14 @@ class Product(Base):
     cost: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False, default=0)
     stock: Mapped[int] = mapped_column(nullable=False, default=0)
     unit: Mapped[str | None] = mapped_column(String(40), nullable=True, default="unit")
-    image_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Deprecated: a full URL from before images moved to the bucket. Read only as a fallback
+    # for products that have no image_key yet; drop once every product has been migrated.
+    image_url: Mapped[str | None] = mapped_column(Text, nullable=True, comment="Deprecated: use image_key")
+    # Object key in the product-image bucket (products/{id}/{uuid}.{ext}), never a URL.
+    image_key: Mapped[str | None] = mapped_column(String(512), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Shown on the website. Inactive products are hidden there too, and can't be sold at the till.
+    is_published: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default=text("true"))
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())
 

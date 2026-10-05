@@ -65,6 +65,15 @@ class Settings:
     PUBLIC_URL: str = os.getenv("PUBLIC_URL", "").rstrip("/")
     MAX_UPLOAD_BYTES: int = 5 * 1024 * 1024
 
+    # --- Product images: private S3-compatible bucket (Neon object storage in production) ---
+    # All five are required (checked below). Images are served through presigned GET URLs.
+    S3_ENDPOINT_URL: str = os.getenv("AWS_ENDPOINT_URL_S3", "")
+    S3_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
+    S3_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY", "")
+    S3_REGION: str = os.getenv("AWS_REGION", "")
+    S3_BUCKET_NAME: str = os.getenv("S3_BUCKET_NAME", "")
+    IMAGE_URL_EXPIRES_SECONDS: int = 60 * 60
+
 
     # --- Chat / RAG ---
     OPENAI_API_KEY: str | None = os.getenv("OPENAI_API_KEY")
@@ -87,6 +96,7 @@ class Settings:
 
 
 MIN_JWT_SECRET_LENGTH = 32
+REQUIRED_S3_VARS = ("AWS_ENDPOINT_URL_S3", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION", "S3_BUCKET_NAME")
 
 settings = Settings()
 if len(settings.JWT_SECRET) < MIN_JWT_SECRET_LENGTH:
@@ -94,5 +104,8 @@ if len(settings.JWT_SECRET) < MIN_JWT_SECRET_LENGTH:
 if "*" in settings.CORS_ORIGINS:
     # Credentialed requests must name their origins; a wildcard would let any site call the API as the user.
     raise SystemExit("CORS_ORIGIN must list the allowed origins explicitly, not '*'")
+_missing_s3 = [name for name in REQUIRED_S3_VARS if not os.getenv(name)]
+if _missing_s3:
+    raise SystemExit(f"Product image storage is not configured; set {', '.join(_missing_s3)}")
 settings.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 (settings.UPLOAD_DIR / "catalog").mkdir(parents=True, exist_ok=True)
