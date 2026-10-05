@@ -2,19 +2,15 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { CATALOG_CATEGORIES, getProductGroupsByCategory } from "./src/data/catalog";
 import { PUBLIC_PATHS, SITE_URL } from "./src/lib/site";
 
-/** Emits dist/sitemap.xml: the public pages plus one page per catalog product group. */
+/** Emits dist/sitemap.xml: the public pages. Product pages come from the POS at runtime, so they aren't listed. */
 function sitemap(): Plugin {
   return {
     name: "biolinks-sitemap",
     apply: "build",
     generateBundle() {
-      const groupPaths = CATALOG_CATEGORIES.flatMap((c) => getProductGroupsByCategory(c.id)).map(
-        (g) => `/products/${g.slug}`,
-      );
-      const urls = [...new Set([...PUBLIC_PATHS, ...groupPaths])]
+      const urls = PUBLIC_PATHS
         .map((p) => `  <url><loc>${SITE_URL}${p}</loc></url>`)
         .join("\n");
       this.emitFile({

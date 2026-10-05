@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { getCatalogImage } from "@/data/catalogImages";
 import {
   Carousel,
   CarouselContent,
@@ -10,17 +9,18 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
+// Homepage artwork (public/images/site/), not catalog data: products come from the POS.
 const HERO_SLIDES = [
   {
-    src: getCatalogImage("gloves-nitrile"),
+    src: "/images/site/gloves-nitrile.jpg",
     alt: "Nitrile examination gloves for infection control",
   },
   {
-    src: getCatalogImage("mask-surgical"),
+    src: "/images/site/mask-surgical.jpg",
     alt: "Surgical face masks for droplet protection in clinics",
   },
   {
-    src: getCatalogImage("biohazard-liner"),
+    src: "/images/site/biohazard-liner.jpg",
     alt: "Biohazard waste liners for safe clinical disposal",
   },
 ] as const;

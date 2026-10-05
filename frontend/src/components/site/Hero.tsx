@@ -1,11 +1,10 @@
-import { getCatalogImage } from "@/data/catalogImages";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 
 export const Hero = () => (
   <section className="relative overflow-hidden">
     <div className="absolute inset-0">
-      <img src={getCatalogImage("hero-clinic")} alt="" className="h-full w-full object-cover" fetchPriority="high" />
+      <img src="/images/site/hero-clinic.jpg" alt="" className="h-full w-full object-cover" fetchPriority="high" />
       <div className="absolute inset-0 bg-gradient-hero" />
     </div>
     <div className="relative container py-24 md:py-36 text-white">
